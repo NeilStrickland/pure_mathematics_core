@@ -1,0 +1,178 @@
+\newwrite\solsfile
+\immediate\openout\solsfile=solutions.tex
+\newwrite\bgfile
+\immediate\openout\bgfile=background.tex
+
+\newcommand{\includesolutions}{
+ \immediate\closeout\solsfile
+ \input{solutions.tex}
+}
+
+\newcommand{\includebackground}{
+ \immediate\closeout\bgfile
+ \input{background.tex}
+}
+
+\makeatletter
+
+% \lastexlabel stores the label of the last exercise
+\newcommand{\lastexlabel}{}
+
+% \exlabel sets \lastexlabel and generates a LaTeX label
+% and a hyperref anchor.
+\newcommand{\exlabel}[1]{
+ \global\def\lastexlabel{#1}\hypertarget{#1}{\label{#1}}
+}
+
+% \exref generates a link to the exercise with the specified
+% label
+\newcommand{\exref}[1]{\hyperlink{#1}{Exercise~\ref*{#1}}}
+
+% An environment for an inline background comment
+\newenvironment{background}{{\noindent \bf Background:}}{}
+
+\newenvironment{BackgroundInline}{{\noindent \bf Background:}}{}
+
+% An environment that records a background comment for inclusion
+% in an appendix, and generates a link to that comment.
+\newenvironment{BackgroundAtEnd}[1]{%
+  \label{fg_#1}%
+  \ifscreen{\noindent\hypertarget{fg_#1}{\hyperlink{bg_#1}{Background}}\par}%
+  \else{\noindent(Background on page~\pageref{bg_#1})\par}\fi
+  \immediate\write\bgfile{}
+  \immediate\write\bgfile{%
+   \string\BeginDeferredBackground{#1}{\thetheorem}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{%
+   \immediate\write\bgfile{\the\verbatim@line}}%
+ \verbatim@start}%
+{\immediate\write\bgfile{\string\EndDeferredBackground}\@esphack\par\vspace{2ex}}
+
+\newenvironment{BackgroundWithSolution}{%
+  \label{fg_\lastexlabel}%
+  \ifscreen{\noindent\hypertarget{fg_\lastexlabel}{\hyperlink{bg_\lastexlabel}{Background}}\par}\fi
+  \immediate\write\solsfile{}
+  \immediate\write\solsfile{%
+   \string\BeginSolutionBackground{\lastexlabel}{\thetheorem}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{%
+   \immediate\write\solsfile{\the\verbatim@line}}%
+ \verbatim@start}%
+{\immediate\write\solsfile{\string\EndSolutionBackground}\@esphack\par\vspace{2ex}}
+
+\newenvironment{BackgroundHidden}
+ {\@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{}%
+ \verbatim@start}%
+{\@esphack\par\vspace{2ex}}
+
+% An environment for a background comment that has been hidden in
+% an appendix.
+\newcommand{\BeginDeferredBackground}[2]{%
+ \ifscreen\newpage\else\par\fi
+ \def\bganchor{#1}
+ \label{bg_#1}\hypertarget{bg_#1}{{\noindent\bf Background #2:}}
+}
+
+\newcommand{\EndDeferredBackground}{
+ \par\noindent%
+ \ifscreen\hyperlink{fg_\bganchor}{Back}\par%
+ \else{(Back to page~\pageref{fg_\bganchor})}%
+ \fi\bigskip
+}
+
+\newcommand{\BeginSolutionBackground}[2]{%
+ \def\bganchor{#1}
+ \label{bg_#1}\hypertarget{bg_#1}{{\noindent\bf Background #2:}}
+}
+
+\newcommand{\EndSolutionBackground}{
+ \par\noindent%
+ \ifscreen\hyperlink{fg_\bganchor}{Back}\par%
+ \else{(Back to page~\pageref{fg_\bganchor})}%
+ \fi\bigskip
+}
+
+% An environment for a solution that is included inline.
+\newenvironment{SolutionInline}{{\noindent \bf Solution:}}{}
+
+% An environment that records a solution for inclusion in an
+% appendix, and generates a link to that solution.
+\newenvironment{SolutionAtEnd}
+ {\ifscreen\noindent\hyperlink{sol_\lastexlabel}{Solution}%
+  \else{\noindent(Solution on page~\pageref{sol_\lastexlabel})\par}%
+  \fi
+  \immediate\write\solsfile{}
+  \immediate\write\solsfile{%
+   \string\BeginDeferredSolution{\lastexlabel}{\thetheorem}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{%
+   \immediate\write\solsfile{\the\verbatim@line}}%
+ \verbatim@start}%
+{\immediate\write\solsfile{\string\EndDeferredSolution}\@esphack\par\vspace{2ex}}
+
+% An environment for a solution that has been hidden in an appendix
+\newcommand{\BeginDeferredSolution}[2]{%
+ \ifscreen\newpage\else\par\fi
+ \def\exanchor{#1}
+ \label{sol_#1}\hypertarget{sol_#1}{{\noindent\bf Exercise #2:}}
+}
+
+\newcommand{\EndDeferredSolution}{
+ \par\noindent%
+ \ifscreen\hyperlink{\exanchor}{Back}\par%
+ \else{(Back to page~\pageref{\exanchor})}%
+ \fi\bigskip
+}
+
+% An environment that hides a solution, with a promise that
+% it will be revealed later.
+\newenvironment{SolutionLater}
+ {\noindent{\bf \ORANGE{(A solution will be given later.)}}
+  \@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{}%
+ \verbatim@start}%
+{\@esphack\par\vspace{2ex}}
+
+% An environment that makes a solution completely invisible.
+\newenvironment{SolutionHidden}
+ {\@bsphack
+  \let\do\@makeother\dospecials\catcode`\^^M\active
+  \def\verbatim@processline{}%
+ \verbatim@start}%
+{\@esphack\par\vspace{2ex}}
+
+\newenvironment{solution}{\SolutionInline}{\endSolutionInline}
+
+\newcommand{\exsolinline}[1]{\input{problems/#1}}
+
+\newcommand{\exsolatend}[1]{
+ \renewenvironment{solution}{\SolutionAtEnd}{\endSolutionAtEnd}
+ \renewenvironment{background}{\BackgroundWithSolution}{\endBackgroundWithSolution}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+
+\newcommand{\exsollater}[1]{
+ \renewenvironment{solution}{\SolutionAtEnd}{\endSolutionAtEnd}
+ \renewenvironment{background}{\BackgroundWithSolution}{\endBackgroundWithSolution}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+
+\newcommand{\exsolhidden}[1]{
+ \renewenvironment{solution}{\SolutionHidden}{\endSolutionHidden}
+ \renewenvironment{background}{\BackgroundHidden}{\endBackgroundHidden}
+ \input{problems/#1}
+ \renewenvironment{solution}{\SolutionInline}{\endSolutionInline}
+ \renewenvironment{background}{\BackgroundInline}{\endBackgroundInline}
+}
+
+\makeatother

@@ -1,0 +1,131 @@
+\documentclass{amsart}
+\usepackage{a4wide}
+
+\newcommand{\csch}{\operatorname{csch}}
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\arcsinh}{\operatorname{arcsinh}}
+\newcommand{\arccosh}{\operatorname{arccosh}}
+\newcommand{\arctanh}{\operatorname{arctanh}}
+
+\newcommand{\tht}{\theta}
+\newcommand{\rr}{\sqrt{3}}
+\newcommand{\rt}{\sqrt{2}}
+
+\renewcommand{\:}{\colon}
+
+\begin{document}
+
+\begin{center}
+ {\Huge Formulae for PMA101}
+\end{center}
+
+No formula sheets etc will be permitted in the exam.  You should
+remember (or be able to derive) all the formulae listed below.  You
+should also remember all the rules and methods in the notes, which are
+not explicitly listed here.
+
+\begin{align*}
+ \exp(x+y) &= \exp(x) \exp(y) & \log(xy)  &= \log(x) + \log(y) \\ 
+ \exp(x-y) &= \exp(x)/\exp(y) & \log(x/y) &= \log(x) - \log(y) \\ 
+ \exp(0)   &= 1               & \log(1)   &= 0 \\                 
+ \exp(-x)  &= 1/\exp(x)       & \log(1/y) &= -\log(y) \\          
+ \exp(nx)  &= \exp(x)^n       & \log(y^n) &= n\log(y) \\
+ \exp(x)   &= e^x             &
+\end{align*}
+\[ \log_a(y) = \log(y)/\log(a) =
+    \text{ the number $x$ such that $a^x=y$ }.
+\]
+
+\begin{align*}
+ \sinh(x) &= (e^x - e^{-x})/2 &
+ \csch(x) &= 1/\sinh(x) = 2/(e^x-e^{-x}) \\
+ \cosh(x) &= (e^x + e^{-x})/2 &
+ \sech(x) &= 1/\cosh(x) = 2/(e^x+e^{-x}) \\
+ \tanh(x) &= \sinh(x)/\cosh(x) = (e^x-e^{-x})/(e^x+e^{-x}) &
+ \coth(x) &= 1/\tanh(x) = (e^x+e^{-x})/(e^x-e^{-x}).
+\end{align*}
+\begin{align*}
+ \tan(\tht) &= \sin(\tht)/\cos(\tht) &
+ \cot(\tht) &= \cos(\tht)/\sin(\tht) \\
+ \sec(\tht) &= 1/\cos(\tht) &
+ \csc(\tht) &= 1/\sin(\tht).
+\end{align*}
+\begin{align*}
+ \sin(x+y) &= \sin(x)\cos(y) + \cos(x)\sin(y) &
+ \sin(x-y) &= \sin(x)\cos(y) - \cos(x)\sin(y) \\
+ \cos(x+y) &= \cos(x)\cos(y) - \sin(x)\sin(y) &
+ \cos(x-y) &= \cos(x)\cos(y) + \sin(x)\sin(y) \\
+ \sin(2x)  &= 2\sin(x)\cos(x) &
+ \cos(2x)  &= \cos(x)^2 - \sin(x)^2  \\
+  &&       &= 2\cos(x)^2-1 = 1-2\sin(x)^2 \\
+ \sin(x)^2 &= \tfrac{1}{2} - \tfrac{1}{2}\cos(2x) &
+ \cos(x)^2 &= \tfrac{1}{2} + \tfrac{1}{2}\cos(2x)
+\end{align*}
+\[ \renewcommand{\arraystretch}{1.5}
+   \begin{array}{|r|ccc|}
+    \hline
+    \tht  & \sin(\tht)  & \cos(\tht) & \tan(\tht) \\
+    \hline
+    \pi/2 & 1           & 0           & \infty    \\
+    \pi/3 & \rr/2       & 1/2         & \rr       \\
+    \pi/4 & \rt/2       & \rt/2       & 1         \\
+    \pi/6 & 1/2         & \rr/2       & \rr/3     \\
+    \hline
+  \end{array}
+\]
+
+\[ \begin{array}{rlcrl}
+ \exp'(x)     &= \exp(x) &\hspace{6em}&
+ \log'(x)     &= 1/x \\
+ \sinh'(x)    &= \cosh(x) &&
+ \arcsinh'(x) &= (1+x^2)^{-1/2} \\
+ \cosh'(x)    &= \sinh(x) &&
+ \arccosh'(x) &= (x^2-1)^{-1/2} \\
+ \tanh'(x)    &= \sech(x)^2 = 1 - \tanh(x)^2 &&
+ \arctanh'(x) &= (1-x^2)^{-1} \\
+ \sin'(x)     &= \cos(x) &&
+ \arcsin'(x)  &= (1-x^2)^{-1/2} \\
+ \cos'(x)     &= -\sin(x) &&
+ \arccos'(x)  &= -(1-x^2)^{-1/2} \\
+ \tan'(x)     &= \sec(x)^2 = 1 + \tan(x)^2 &&
+ \arctan'(x)  &= (1+x^2)^{-1}
+\end{array} \]
+
+\begin{align*}
+ \int \exp(x)\,dx  &= \exp(x) &
+ \int \log(x)\,dx  &= x\log(x) - x \\
+ \int \sin(x)\, dx &= -\cos(x) &
+ \int \cos(x)\, dx &= \sin(x) \\
+ \int \sin(x)^2\, dx &= \frac{2x-\sin(2x)}{4} &
+ \int \cos(x)^2\, dx &= \frac{2x+\sin(2x)}{4} \\
+ \int \frac{dx}{1+x^2} &= \arctan(x) &
+ \int \frac{dx}{1-x^2} &= \arctanh(x) \\
+ \int \frac{dx}{\sqrt{1+x^2}} &= \arcsinh(x) &
+ \int \frac{dx}{\sqrt{1-x^2}} &= \arcsin(x) \\
+ \int \frac{dx}{\sqrt{x^2-1}} &= \arccosh(x) &
+ \int \tan(x)\, dx &= -\log(\cos(x)) \\
+ \int a^x\, dx     &= a^x/\log(a) 
+\end{align*}
+
+\begin{align*}
+ \int x^k\,dx &= x^{k+1}/(k+1) \\
+ \int (x-a)^{-1}\, dx &= \log(x-a) \\
+ \int (x-a)^{-k}\, dx &= (x-a)^{1-k}/(1-k) 
+   \hspace{4em} \text{(for $k>1$)} 
+\end{align*}
+\vspace{3ex}
+You \emph{do not} need to remember the following formulae:
+\begin{align*}
+ \int \frac{dx}{ax^2+bx+c} &= 
+  \begin{cases} \frac{2}{\sqrt{4ac-b^2}}
+                \arctan\left(\frac{2ax+b}{\sqrt{4ac-b^2}}\right) &
+                 \text{ if } 4ac > b^2 \\
+                \frac{-2}{\sqrt{b^2-4ac}}
+                \arctanh\left(\frac{2ax+b}{\sqrt{b^2-4ac}}\right) &
+                 \text{ if } 4ac < b^2
+  \end{cases} \\
+ \int \frac{dx}{\sqrt{ax^2+bx+c}} &=
+  \log(2\sqrt{a^2x^2+abx+ac}+2ax+b)/\sqrt{a} \\
+\end{align*}
+
+\end{document}
