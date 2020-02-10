@@ -1,0 +1,4637 @@
+\documentclass[%
+pdf,
+neil,
+colorBG,
+slideColor,
+]{prosper}
+\usepackage{amsmath}
+\usepackage{pstricks,pst-node,pst-text,pst-3d,pst-plot}
+\usepackage[usenames,dvips]{color}
+
+\input{lectmac}
+\newcommand{\vv}{\vphantom{\scriptstyle 1}}
+\newcommand{\vvv}{\WHITE{\mbox{\tiny (R${}_1$)}}}
+\newcommand{\vc}{\vphantom{\pscirclebox{1}}}
+\newcommand{\hc}{\hspace*{0.6em}}
+\newcommand{\hhc}{\hspace*{1.0em}}
+\newcommand{\SG}[1]{\OLG{\scriptstyle #1}}
+\newcommand{\pb}[1]{\pscirclebox[linecolor=OliveGreen]{#1}}
+\newcommand{\pc}[1]{\pscirclebox[linecolor=blue]{#1}}
+\newcommand{\pr}[1]{\pscirclebox[linecolor=red]{#1}}
+\newcommand{\pw}[1]{\pscirclebox[linecolor=white]{#1}}
+
+\newcommand{\mb}[1]{\makebox[1em][c]{#1}}
+
+\newcommand{\zb}[1]{\pb{\mb{#1}}}
+\newcommand{\zc}[1]{\pc{\mb{#1}}}
+\newcommand{\zr}[1]{\pr{\mb{#1}}}
+\newcommand{\zw}[1]{\pw{\mb{#1}}}
+
+\newcommand{\yb}[1]{\pb{\mb{\OLG{#1}}}}
+\newcommand{\yc}[1]{\pc{\mb{\BLUE{#1}}}}
+\newcommand{\yr}[1]{\pr{\mb{\RED{#1}}}}
+\newcommand{\yw}[1]{\pw{\mb{\WHITE{#1}}}}
+
+\newcommand{\xb}[1]{\pw{\mb{\OLG{#1}}}}
+\newcommand{\xc}[1]{\pw{\mb{\BLUE{#1}}}}
+\newcommand{\xr}[1]{\pw{\mb{\RED{#1}}}}
+\newcommand{\xw}[1]{\pw{\mb{\WHITE{#1}}}}
+
+\newcommand{\bx}[1]{\parbox{0.5cm}{\centering #1}}
+\renewcommand{\ss}[1]{{\scriptstyle #1}}
+
+\title{Vectors and Matrices}
+\author{}
+
+\begin{document}
+
+\slideCaption{\color{white}}
+
+\begin{slide}{}
+ {\Huge
+  \vspace{6ex}
+  \begin{center}
+   Vectors and Matrices
+  \end{center}
+ }
+\end{slide}
+
+%\maketitle
+
+\overlays{7}{%
+\begin{slide}{Vectors}
+\begin{itemize}
+ \fromSlide{2}{
+  \item An \DEFN{$n$-dimensional vector} is a list of $n$
+   numbers.
+ }
+ \fromSlide{3}{
+  \item $(3,2,1)$ and $(1,\pi,\pi^2)$ are $3$-dimensional vectors.
+ }
+ \fromSlide{4}{
+  \item For any $a,b\in\R$, we have a $4$-dimensional vector
+   $(a,b,-a,-b)$. 
+ }
+ \fromSlide{5}{
+  \item A \DEFN{physical vector} is  a quantity with magnitude and
+   direction (eg a force, velocity, or magnetic field).  Physical
+   vectors can be translated to $3$-dimensional vectors by choice of
+   origin, axes and units.
+ }
+ \fromSlide{6}{
+  \item Vectors are sometimes written horizontally (as \DEFN{rows}) or
+   vertically (as \DEFN{columns}).  The conversion is called
+   \DEFN{transposition}.  
+   \vspace{-1ex} {\tiny \[ (3,4,5)^T = \bbm 3 \\ 4 \\ 5 \ebm
+       \qquad \text{ and } \qquad
+      \bbm u \\ v \ebm^T = (u,v).
+   \]} \vspace{-3ex}
+ }
+ \fromSlide{7}{
+  \item Vectors of the same length can be added, or multiplied by
+   numbers: 
+   \begin{align*}
+    (u,v,w) + (x,y,z) &= (u+x,v+y,w+z) \\
+    a(x,y,z)          &= (ax,ay,az)
+   \end{align*}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{7}{%
+\begin{slide}{Dot products}
+\begin{itemize}
+ \fromSlide{2}{
+  \item The \DEFN{dot product} (or \DEFN{inner product}) of 
+   $\VEC{a}=(a_1,\dotsc,a_n)$ and 
+   $\VEC{b}=(b_1,\dotsc,b_n)$ is \vspace{-3ex} %
+   \[ \VEC{a}.\VEC{b} = \sum_{i=1}^n a_ib_i = a_1b_1 + \dotsb + a_nb_n. \]
+ }
+ \fromSlide{3}{
+  \item \ghost\vspace{-3ex}
+   \[ \bbm \RED{2} \\ \OLIVEGREEN{3} \\ \BLUE{4} \ebm . 
+      \bbm \RED{x} \\ \OLIVEGREEN{y} \\ \BLUE{z} \ebm = 
+      \RED{2x} + \OLIVEGREEN{3y} + \BLUE{4z}.
+   \]
+ }
+ \fromSlide{4}{
+  \item Vectors $\VEC{a}$ and $\VEC{b}$ are \DEFN{orthogonal} if
+   $\VEC{a}.\VEC{b}=0$.  \\
+   \fromSlide{5}{(We also say that $\VEC{a}$ \DEFN{annihilates}
+     $\VEC{b}$.)} 
+ }
+ \fromSlide{6}{
+  \item The vectors $\VEC{a}=(1,4,6,4,1)$ and $\VEC{b}=(1,-1,1,-1,1)$
+   are orthogonal:
+   \vspace{-1ex}\[ \VEC{a}.\VEC{b} = 1 - 4 + 6 - 4 + 1 = 0. \]
+ }
+ \fromSlide{7}{
+  \item The vectors $\VEC{u}=(p-q,q-r,r-p)$ and $\VEC{v}=(1,1,1)$
+   are orthogonal:
+   \vspace{-1ex}%
+   \[ \VEC{u}.\VEC{v} = (\RED{p}-\OLIVEGREEN{q})+
+                        (\OLIVEGREEN{q}-\BLUE{r})+
+                        (\BLUE{r}-\RED{p}) = 0.
+   \]
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{Matrices}
+\begin{itemize}
+ \fromSlide{2}{
+  \item A \DEFN{matrix} is a rectangular table of numbers.
+ }
+ \onlySlide*{3}{
+  \item Examples: \vspace{-3ex}
+   {\tiny
+    \[ A = \bbm 6 & 5 & 4 \\ 3 & 2 & 1 \ebm
+      \hspace{3em}
+      B = \bbm u & v \\ u^2 & v^2 \\ u^3 & v^3 \ebm
+      \hspace{3em}
+      C = \bbm a+b & c+d \\ c+d & a+b \ebm.
+   \]}
+ }
+ \onlySlide*{4}{
+  \item Examples: \vspace{-3ex}
+   {\tiny
+    \[ A = \bbm \RED{6} & \RED{5} & \RED{4} \\
+        \OLIVEGREEN{3} & \OLIVEGREEN{2} & \OLIVEGREEN{1} \ebm
+      \hspace{3em}
+      B = \bbm u & v \\ u^2 & v^2 \\ u^3 & v^3 \ebm
+      \hspace{3em}
+      C = \bbm a+b & c+d \\ c+d & a+b \ebm.
+   \]}
+ }
+ \onlySlide*{5}{
+  \item Examples: \vspace{-3ex}
+   {\tiny
+    \[ A = \bbm \RED{6} & \OLIVEGREEN{5} & \BLUE{4} \\
+                \RED{3} & \OLIVEGREEN{2} & \BLUE{1} \ebm
+      \hspace{3em}
+      B = \bbm u & v \\ u^2 & v^2 \\ u^3 & v^3 \ebm
+      \hspace{3em}
+      C = \bbm a+b & c+d \\ c+d & a+b \ebm.
+   \]}
+ }
+ \fromSlide*{6}{
+  \item Examples: \vspace{-3ex}
+   {\tiny
+    \[ A = \bbm 6 & 5 & 4 \\ 3 & 2 & 1 \ebm
+      \hspace{3em}
+      B = \bbm u & v \\ u^2 & v^2 \\ u^3 & v^3 \ebm
+      \hspace{3em}
+      C = \bbm a+b & c+d \\ c+d & a+b \ebm.
+   \]}
+ }
+ \onlySlide*{4}{
+  \item The \DEFN{rows} of $A$ are the vectors
+   $(\RED{6},\RED{5},\RED{4})$ and 
+   $(\OLIVEGREEN{3},\OLIVEGREEN{2},\OLIVEGREEN{1})$.
+ }
+ \fromSlide*{5}{
+  \item The \DEFN{rows} of $A$ are the vectors
+   $(6,5,4)$ and 
+   $(3,2,1)$.
+ }
+ \onlySlide*{5}{
+  \item The \DEFN{columns} of $A$ are the vectors
+   $\bbm\RED{6}\\ \RED{3}\ebm$,
+   $\bbm\OLIVEGREEN{5}\\ \OLIVEGREEN{2}\ebm$ and
+   $\bbm\BLUE{4}\\ \BLUE{1}\ebm$.
+ }
+ \fromSlide*{6}{
+  \item The \DEFN{columns} of $A$ are the vectors
+   $\bbm 6\\ 3\ebm$,
+   $\bbm 5\\ 2\ebm$ and
+   $\bbm 4\\ 1\ebm$.
+ }
+ \fromSlide{6}{
+  \item A matrix with $n$ rows and $m$ columns is said to be an
+   \DEFN{$n\tm m$ matrix}.
+ }
+ \fromSlide{7}{
+  \item $A$ is a $2\tm 3$ matrix,
+        $B$ is a $3\tm 2$ matrix and
+        $C$ is a $2\tm 2$ matrix.}
+ \fromSlide{8}{
+  \item \ghost \vspace{-3ex}
+   {\tiny 
+   \[ 10 \bbm 1 & 2 \\ 3 & 4 \ebm = \bbm 10 & 20 \\ 30 & 40 \ebm 
+      \hspace{4em}
+      \bbm 1 & 2 & 3 \\ 3 & 2 & 1 \ebm + 
+      \bbm 1 & 0 & -1 \\ -1 & 0 & 1 \ebm =
+      \bbm 2 & 2 & 2 \\ 2 & 2 & 2 \ebm. 
+   \] }
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{13}{%
+\begin{slide}{Multiplying vectors by matrices}
+\begin{itemize}
+ \fromSlide{2}{
+  \item $A\VEC{v}$ is the list of dot products of the rows of $A$ with
+   $\VEC{v}$. 
+   \onlySlide*{3}{\tiny
+    \[ \bbm 2 & 3 \\ 4 & 5 \\ 6 & 7 \ebm 
+       \bbm x \\ y \ebm = 
+       \bbm \\ \\ \hphantom{6x+7y} \ebm
+    \]
+   }
+   \onlySlide*{4}{\tiny
+    \[ \bbm \RED{2} & \RED{3} \\ 4 & 5 \\ 6 & 7 \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \ebm = 
+       \bbm \RED{2}\OLIVEGREEN{x} + \RED{3}\OLIVEGREEN{y} \\
+            \\ \hphantom{6x+7y} \ebm
+    \]
+   }
+   \onlySlide*{5}{\tiny
+    \[ \bbm 2 & 3 \\ \RED{4} & \RED{5} \\ 6 & 7 \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \ebm = 
+       \bbm 2x + 3y \\
+            \RED{4}\OLIVEGREEN{x} + \RED{5}\OLIVEGREEN{y} \\
+            \hphantom{6x+7y}
+       \ebm
+    \]
+   }
+   \onlySlide*{6}{\tiny
+    \[ \bbm 2 & 3 \\ 4 & 5 \\ \RED{6} & \RED{7} \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \ebm = 
+       \bbm 2x + 3y \\
+            4x + 5y \\
+            \RED{6}\OLIVEGREEN{x} + \RED{7}\OLIVEGREEN{y}
+       \ebm
+    \]
+   }
+   \fromSlide*{7}{\tiny
+    \[ \bbm 2 & 3 \\ 4 & 5 \\ 6 & 7 \ebm 
+       \bbm x \\ y \ebm = 
+       \bbm 2x + 3y \\
+            4x + 5y \\
+            6x + 7y
+       \ebm
+    \]
+   }
+ }
+ \fromSlide{7}{
+  \item An $n\tm m$ matrix can only be multiplied by an
+   $m$-dimensional vector.  The result is an $n$-dimensional vector.
+ }
+ \fromSlide{8}{
+  \item \ghost\vspace{-3ex}
+   \onlySlide*{8}{\tiny
+    \[ \bbm 0&0&1&1 \\ 0&0&0&1 \\ 1&0&0&0 \\ 1&1&0&0 \ebm
+       \bbm w \\ x \\ y \\ z \ebm
+       \hphantom{
+        =
+        \bbm 0.w + 0.x + 1.y + 1.z \\ \\ \\
+             \hphantom{1.w + 1.x + 0.y + 0.z}
+        \ebm 
+        =
+        \bbm y+z \\ z \\ w \\ w+x \ebm
+       }
+    \]}
+   \onlySlide*{9}{\tiny
+    \[ \bbm \RED{0}&\RED{0}&\RED{1}&\RED{1} \\ 0&0&0&1 \\ 1&0&0&0 \\ 1&1&0&0 \ebm
+       \bbm \OLIVEGREEN{w} \\ \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm
+       =
+       \bbm \RED{0}.\OLIVEGREEN{w} + 
+            \RED{0}.\OLIVEGREEN{x} + 
+            \RED{1}.\OLIVEGREEN{y} + 
+            \RED{1}.\OLIVEGREEN{z}
+         \\ \\ \\
+         \hphantom{1.w + 1.x + 0.y + 0.z}
+       \ebm 
+       =
+       \bbm y+z \\ \\ \\ \hphantom{w+x} \ebm
+    \]}
+   \onlySlide*{10}{\tiny
+    \[ \bbm 0&0&1&1 \\ \RED{0}&\RED{0}&\RED{0}&\RED{1} \\ 1&0&0&0 \\ 1&1&0&0 \ebm
+       \bbm \OLIVEGREEN{w} \\ \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm
+       =
+       \bbm 0.w + 0.x + 1.y + 1.z \\
+            \RED{0}.\OLIVEGREEN{w} + 
+            \RED{0}.\OLIVEGREEN{x} + 
+            \RED{0}.\OLIVEGREEN{y} + 
+            \RED{1}.\OLIVEGREEN{z}
+         \\ \\
+         \hphantom{1.w + 1.x + 0.y + 0.z}
+       \ebm 
+       =
+       \bbm y+z \\ z \\ \\ \hphantom{w+x} \ebm
+    \]}
+   \onlySlide*{11}{\tiny
+    \[ \bbm 0&0&1&1 \\ 0&0&0&1 \\ \RED{1}&\RED{0}&\RED{0}&\RED{0} \\ 1&1&0&0 \ebm
+       \bbm \OLIVEGREEN{w} \\ \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm
+       =
+       \bbm 0.w + 0.x + 1.y + 1.z \\
+            0.w + 0.x + 0.y + 1.z \\
+            \RED{1}.\OLIVEGREEN{w} + 
+            \RED{0}.\OLIVEGREEN{x} + 
+            \RED{0}.\OLIVEGREEN{y} + 
+            \RED{0}.\OLIVEGREEN{z}
+         \\
+         \hphantom{1.w + 1.x + 0.y + 0.z}
+       \ebm 
+       =
+       \bbm y+z \\ z \\ w \\ \hphantom{w+x} \ebm
+    \]}
+   \onlySlide*{12}{\tiny
+    \[ \bbm 0&0&1&1 \\ 0&0&0&1 \\ 1&0&0&0 \\ \RED{1}&\RED{1}&\RED{0}&\RED{0} \ebm
+       \bbm \OLIVEGREEN{w} \\ \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm
+       =
+       \bbm 0.w + 0.x + 1.y + 1.z \\
+            0.w + 0.x + 0.y + 1.z \\
+            1.w + 0.x + 0.y + 0.z \\
+            \RED{1}.\OLIVEGREEN{w} + 
+            \RED{1}.\OLIVEGREEN{x} + 
+            \RED{0}.\OLIVEGREEN{y} + 
+            \RED{0}.\OLIVEGREEN{z}
+       \ebm 
+       =
+       \bbm y+z \\ z \\ w \\ w+x \ebm
+    \]}
+   \fromSlide*{13}{\tiny
+    \[ \bbm 0&0&1&1 \\ 0&0&0&1 \\ 1&0&0&0 \\ 1&1&0&0 \ebm
+       \bbm \OLIVEGREEN{w} \\ \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm
+       =
+       \bbm 0.w + 0.x + 1.y + 1.z \\
+            0.w + 0.x + 0.y + 1.z \\
+            1.w + 0.x + 0.y + 0.z \\
+            1.w + 1.x + 0.y + 0.z
+       \ebm 
+       =
+       \bbm y+z \\ z \\ w \\ w+x \ebm
+    \]}
+ }
+ \fromSlide{13}{
+  \item Identity matrix $I_n$: ones on the diagonal, zeros elsewhere.
+   $I_n\VEC{v}=\VEC{v}$.
+   \vspace{-3ex} {\tiny \[
+     I_3 = \bbm \RED{1}&0&0 \\ 0&\RED{1}&0 \\ 0&0&\RED{1} \ebm \hspace{4em}
+     I_3 \bbm x \\ y \\ z \ebm = 
+      \bbm
+       \RED{1}.x + 0.y + 0.z \\
+       0.x + \RED{1}.y + 0.z \\
+       0.x + 0.y + \RED{1}.z
+      \ebm = 
+      \bbm x \\ y \\ z \ebm
+   \] }
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{Linear equations}
+\begin{itemize}
+ \fromSlide{2}{
+  \item \ghost \vspace{-3ex}
+   \onlySlide*{2}{\tiny 
+    \[ \bbm 1&2&4 \\ 1&3&9 \\ 1&4&16 \ebm 
+       \bbm x \\ y \\ z \ebm = 
+       \bbm 1 \\ 0 \\ 1 \ebm
+       \hspace{2em}
+       \hphantom{
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        x + 2y +  4z &= 1 \\
+        x + 3y +  9z &= 0 \\
+        x + 4y + 16z &= 1
+       \end{aligned}\right.}
+    \] 
+   }
+   \onlySlide*{3}{\tiny 
+    \[ \bbm \RED{1}&\RED{2}&\RED{4} \\ 1&3&9 \\ 1&4&16 \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm = 
+       \bbm \PURPLE{1} \\ 0 \\ 1 \ebm
+       \hspace{2em}
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        \OLIVEGREEN{x} + \RED{2}\OLIVEGREEN{y} +  \RED{4}\OLIVEGREEN{z} &= \PURPLE{1} \\
+        \\
+        \hphantom{x + 4y + 16z} & \hphantom{= 1}
+       \end{aligned}\right.
+    \] 
+   }
+   \onlySlide*{4}{\tiny 
+    \[ \bbm 1&2&4 \\ \RED{1}&\RED{3}&\RED{9} \\ 1&4&16 \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm = 
+       \bbm 1 \\ \PURPLE{0} \\ 1 \ebm
+       \hspace{2em}
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        x + 2y + 4z &= 1 \\
+        \OLIVEGREEN{x} + \RED{3}\OLIVEGREEN{y} +  \RED{9}\OLIVEGREEN{z} &= \PURPLE{0} \\
+        \hphantom{x + 4y + 16z} & \hphantom{= 1}
+       \end{aligned}\right.
+    \] 
+   }
+   \onlySlide*{5}{\tiny 
+    \[ \bbm 1&2&4 \\ 1&3&9 \\ \RED{1}&\RED{4}&\RED{16} \ebm 
+       \bbm \OLIVEGREEN{x} \\ \OLIVEGREEN{y} \\ \OLIVEGREEN{z} \ebm = 
+       \bbm 1 \\ 0 \\ \PURPLE{1} \ebm
+       \hspace{2em}
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        x + 2y + 4z &= 1 \\
+        x + 3y + 9z &= 0 \\
+        \OLIVEGREEN{x} + \RED{4}\OLIVEGREEN{y} +  \RED{16}\OLIVEGREEN{z} &= \PURPLE{1}
+       \end{aligned}\right.
+    \] 
+   }
+   \onlySlide*{6}{\tiny 
+    \[ \bbm \RED{1}&\RED{2}&\RED{4} \\ 
+            \RED{1}&\RED{3}&\RED{9} \\ 
+            \RED{1}&\RED{4}&\RED{16} \ebm 
+       \bbm x \\ y \\ z \ebm = 
+       \bbm \PURPLE{1} \\ \PURPLE{0} \\ \PURPLE{1} \ebm
+       \hspace{2em}
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        x + 2y +  4z &= 1 \\
+        x + 3y +  9z &= 0 \\
+        x + 4y + 16z &= 1
+       \end{aligned}\right.
+    \] 
+   }
+   \fromSlide*{7}{\tiny 
+    \[ \bbm 1&2&4 \\ 1&3&9 \\ 1&4&16 \ebm 
+       \bbm x \\ y \\ z \ebm = 
+       \bbm 1 \\ 0 \\ 1 \ebm
+       \hspace{2em}
+       \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+       \hspace{2em}
+       \left\{\begin{aligned}
+        x + 2y +  4z &= 1 \\
+        x + 3y +  9z &= 0 \\
+        x + 4y + 16z &= 1
+       \end{aligned}\right.
+    \] 
+   }
+ }
+ \onlySlide*{6}{
+  \item 
+   \parbox[t]{3cm}{The \DEFN{augmented matrix}\\ for these equations is}
+   \raisebox{-3ex}{{\tiny $ \left[ \begin{array}{ccc|c}
+       \RED{1}&\RED{2}&\RED{4}  & \PURPLE{1} \\
+       \RED{1}&\RED{3}&\RED{9}  & \PURPLE{0} \\
+       \RED{1}&\RED{4}&\RED{16} & \PURPLE{1}
+      \end{array} \right]
+   $}}
+ }
+ \fromSlide*{7}{
+  \item 
+   \parbox[t]{3cm}{The \DEFN{augmented matrix}\\ for these equations is}
+   \raisebox{-3ex}{{\tiny $ \left[ \begin{array}{ccc|c}
+       1&2&4 & 1 \\ 1&3&9 & 0 \\ 1&4&16 & 1
+      \end{array} \right]
+   $}}
+ }
+ \fromSlide{7}{
+  \vspace{1ex}\hrule
+  \item \ghost\vspace{-5ex}
+   \onlySlide*{7}{\tiny 
+    \[ 
+     \left. \begin{aligned}
+      p+2q+3r+4s &= 1 \\
+      4p+3q+2r+s &= -1
+     \end{aligned} \right\} 
+     \hspace{2em}
+     \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+     \hspace{2em}
+     \bbm 1&2&3&4 \\ 4&3&2&1 \ebm 
+     \bbm p \\ q \\ r \\ s \ebm =
+     \bbm 1 \\ -1 \ebm
+    \]
+   }
+   \onlySlide*{8}{\tiny 
+    \[ 
+     \left. \begin{aligned}
+      p+2q+3r+4s &= 1 \\
+      4p+3q+2r+s &= -1
+     \end{aligned} \right\} 
+     \hspace{2em}
+     \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+     \hspace{2em}
+     \bbm \RED{1}&\RED{2}&\RED{3}&\RED{4} \\
+          \RED{4}&\RED{3}&\RED{2}&\RED{1} \ebm 
+     \bbm p \\ q \\ r \\ s \ebm =
+     \bbm \PURPLE{1} \\ \PURPLE{-1} \ebm
+    \]
+   }
+%    \fromSlide*{9}{\tiny 
+%     \[ 
+%      \left. \begin{aligned}
+%       p+2q+3r+4s &= 1 \\
+%       4p+3q+2r+s &= -1
+%      \end{aligned} \right\} 
+%      \hspace{2em}
+%      \parbox{2cm}{ \begin{center}is \\ equivalent \\ to \end{center}}
+%      \hspace{2em}
+%      \bbm 1&2&3&4 \\ 4&3&2&1 \ebm 
+%      \bbm p \\ q \\ r \\ s \ebm =
+%      \bbm 1 \\ -1 \ebm
+%     \]
+%    }
+ }
+ \onlySlide*{8}{
+  \item 
+   \parbox[t]{3cm}{The \DEFN{augmented matrix}\\ for these equations is}
+   \raisebox{-3ex}{{\tiny $ \left[ \begin{array}{cccc|c}
+       \RED{1}&\RED{2}&\RED{3}&\RED{4} & \PURPLE{1} \\
+       \RED{4}&\RED{3}&\RED{2}&\RED{1} & \PURPLE{-1}
+      \end{array} \right]
+   $}}
+ }
+%  \fromSlide*{9}{
+%   \item 
+%    \parbox[t]{3cm}{The \DEFN{augmented matrix}\\ for these equations is}
+%    \raisebox{-3ex}{{\tiny $ \left[ \begin{array}{cccc|c}
+%        1&2&3&4 & 1 \\
+%        4&3&2&1 & -1
+%       \end{array} \right]
+%    $}}
+%  }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{20}{%
+\begin{slide}{Solving linear equations --- I}
+ \vspace{-2ex}
+ \onlySlide*{2}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   x-y        & = 2   \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   w+2x-y+3z  & = 10  \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z & = 16. \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{3}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   \RED{x-y}       & = \RED{2}    \tag{R${}_1$}\\
+   \vvv & \vvv  \\ 
+   \OLG{w+2x-y+3z} & = \OLG{10}   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z      & = 16.        \tag{R${}_3$} \\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{4}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   \OLG{w+2x-y+3z } & = \OLG{10}  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   \RED{x-y }       & = \RED{2}   \tag{R${}_2$}\\
+   \vvv & \vvv  \\
+   w+4x-3y+5z       &= 16.        \tag{R${}_3$} \\ 
+   \vvv & \vvv 
+  \end{align*}
+ }
+ \onlySlide*{5}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{6}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \OLG{\scriptstyle w+2x-y+3z} &
+   \OLG{\scriptstyle = 10}
+   \tag{\tiny R${}_1$}
+  \end{align*}
+ }
+ \onlySlide*{7}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \OLG{\scriptstyle -w-2x+y-3z} &
+   \OLG{\scriptstyle =-10}
+   \tag{\tiny -R${}_1$}
+  \end{align*}
+ }
+ \onlySlide*{8}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{9}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle x-y} &
+    \OLG{\scriptstyle = 2}   \tag{\tiny R${}_2$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{10}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle -2x+2y} &
+    \OLG{\scriptstyle = -4}   \tag{\tiny $-2$R${}_2$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv 
+  \end{align*}
+ }
+ \onlySlide*{11}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{12}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6   \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\
+   \OLG{\scriptstyle x-y} &
+    \OLG{\scriptstyle = 2}   \tag{\tiny R${}_2$}
+  \end{align*}
+ }
+ \onlySlide*{13}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\
+   \OLG{\scriptstyle -2x+2y} &
+    \OLG{\scriptstyle = -4}   \tag{\tiny $-2$R${}_2$}
+  \end{align*}
+ }
+ \onlySlide*{14}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2z        &= 2   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{15}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   \RED{2z}  &= \RED{2}   \tag{R${}_3$}\\ 
+   \vvv & \vvv
+  \end{align*}
+ }
+ \onlySlide*{16}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   \RED{z}   &= \RED{1}   \tag{R${}_3$}\\
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{17}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   z         &= 1   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{18}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle -3z} &
+    \OLG{\scriptstyle = -3}   \tag{\tiny $-3$R${}_3$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\
+   \vvv & \vvv  \\
+   z         &= 1   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{19}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y &= 3  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y &= 2  \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   z   &= 1  \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{20}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w &= 3-y  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x &= 2+y  \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   z &= 1  \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+  $y$ can be anything, and $w$, $x$ and $z$ are given in 
+  terms of $y$ by the above formulae.  Thus $y$ is an 
+  \DEFN{independent variable} and $w$, $x$ and $z$ are
+  \DEFN{dependent variables}.
+ }
+\end{slide}
+}
+
+\overlays{19}{%
+\begin{slide}{Solving linear equations --- II}
+ \vspace{-2ex}
+ \onlySlide*{2}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   x-y        & = 2   \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   w+2x-y+3z  & = 10  \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z & = 16. \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{3}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   \RED{x-y}       & = \RED{2}    \tag{R${}_1$}\\
+   \vvv & \vvv  \\ 
+   \OLG{w+2x-y+3z} & = \OLG{10}   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z      & = 16.        \tag{R${}_3$} \\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{4}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   \OLG{w+2x-y+3z } & = \OLG{10}  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   \RED{x-y }       & = \RED{2}   \tag{R${}_2$}\\
+   \vvv & \vvv  \\
+   w+4x-3y+5z       &= 16.        \tag{R${}_3$} \\ 
+   \vvv & \vvv 
+  \end{align*}
+ }
+ \onlySlide*{5}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{6}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \OLG{\scriptstyle w+2x-y+3z} &
+   \OLG{\scriptstyle = 10}
+   \tag{\tiny R${}_1$}
+  \end{align*}
+ }
+ \onlySlide*{7}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z  &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y        &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   w+4x-3y+5z &= 16. \tag{R${}_3$}\\ 
+   \OLG{\scriptstyle -w-2x+y-3z} &
+   \OLG{\scriptstyle =-10}
+   \tag{\tiny -R${}_1$}
+  \end{align*}
+ }
+ \onlySlide*{8}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{9}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle x-y} &
+    \OLG{\scriptstyle = 2}   \tag{\tiny R${}_2$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{10}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+2x-y+3z &= 10  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle -2x+2y} &
+    \OLG{\scriptstyle = -4}   \tag{\tiny $-2$R${}_2$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv 
+  \end{align*}
+ }
+ \onlySlide*{11}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{12}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6   \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\
+   \OLG{\scriptstyle x-y} &
+    \OLG{\scriptstyle = 2}   \tag{\tiny R${}_2$}
+  \end{align*}
+ }
+ \onlySlide*{13}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2x-2y+2z  &= 6   \tag{R${}_3$}\\
+   \OLG{\scriptstyle -2x+2y} &
+    \OLG{\scriptstyle = -4}   \tag{\tiny $-2$R${}_2$}
+  \end{align*}
+ }
+ \onlySlide*{14}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   2z        &= 2   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{15}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   \RED{2z}  &= \RED{2}   \tag{R${}_3$}\\ 
+   \vvv & \vvv
+  \end{align*}
+ }
+ \onlySlide*{16}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   \RED{z}   &= \RED{1}   \tag{R${}_3$}\\
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{17}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\
+   \vvv & \vvv  \\
+   x-y       &= 2   \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   z         &= 1   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{18}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y+3z    &= 6  \tag{R${}_1$}\\ 
+   \OLG{\scriptstyle -3z} &
+    \OLG{\scriptstyle = -3}   \tag{\tiny $-3$R${}_3$}\\ 
+   x-y       &= 2   \tag{R${}_2$}\\
+   \vvv & \vvv  \\
+   z         &= 1   \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \onlySlide*{19}{
+  \begin{align*}
+   \hphantom{mmmmmmmmmm} & \hphantom{mmmmmmmmm} \\
+   w+y &= 3  \tag{R${}_1$}\\ 
+   \vvv & \vvv  \\
+   x-y &= 2  \tag{R${}_2$}\\ 
+   \vvv & \vvv  \\
+   z   &= 1  \tag{R${}_3$}\\ 
+   \vvv & \vvv  
+  \end{align*}
+ }
+ \vspace{-3ex}
+ \onlySlide*{2}{
+  \[ \left[\begin{array}{cccc|c}
+   0 & 1 & -1 & 0   &  2   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   1 & 2 & -1 & 3 &  10  \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 &  16 \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{3}{
+  \[ \left[\begin{array}{cccc|c}
+   \RED{0} & \RED{1} & \RED{-1} & \RED{0} &  \RED{2}   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   \OLG{1} & \OLG{2} & \OLG{-1} & \OLG{3} &  \OLG{10}   \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 &  16         \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{4}{
+  \[ \left[\begin{array}{cccc|c}
+   \OLG{1} & \OLG{2} & \OLG{-1} & \OLG{3} &  \OLG{10}   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   \RED{0} & \RED{1} & \RED{-1} & \RED{0} &  \RED{2}   \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 &  16         \\ 
+   \vv & & & & 
+  \end{array}\right] \]
+ }
+ \onlySlide*{5}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3 & 10  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0 & 2   \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 & 16 \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{6}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3 & 10  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0 & 2   \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 & 16 \\ 
+   \SG{1} & \SG{2} & \SG{-1} & \SG{3} & \SG{10} 
+  \end{array}\right] \]
+ }
+ \onlySlide*{7}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3  & 10  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0 & 2   \\ 
+   \vv & & & &  \\
+   1 & 4 & -3 & 5 & 16 \\ 
+   \SG{-1} & \SG{-2} & \SG{1} & \SG{-3} & \SG{-10} 
+  \end{array}\right] \]
+ }
+ \onlySlide*{8}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3 & 10  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0 & 2   \\ 
+   \vv & & & &  \\
+   0 & 2 & -2 & 2   & 6   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{9}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3 & 10  \\
+   \SG{0} & \SG{1} & \SG{-1} & \SG{0} & \SG{2} \\ 
+   0 & 1 & -1 & 0        & 2   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 2 & -2 & 2   & 6   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{10}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 2 & -1 & 3 & 10  \\ 
+   \SG{0} & \SG{-2} & \SG{2} & \SG{0} & \SG{-4} \\ 
+   0 & 1 & -1 & 0        & 2   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 2 & -2 & 2   & 6   \\ 
+   \vv & & & & 
+  \end{array}\right] \]
+ }
+ \onlySlide*{11}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3 & 6  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   0 & 2 & -2 & 2   & 6   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{12}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6   \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   0 & 2 & -2 & 2   & 6   \\
+   \SG{0} & \SG{1} & \SG{-1} & \SG{0} & \SG{2}
+  \end{array}\right] \]
+ }
+ \onlySlide*{13}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3  & 6  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   0 & 2 & -2 & 2  & 6   \\
+   \SG{0} & \SG{-2} & \SG{2} & \SG{0} & \SG{-4}
+  \end{array}\right] \]
+ }
+ \onlySlide*{14}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   0 & 0 & 0 & 2         & 2   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{15}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   \RED{0} & \RED{0} & \RED{0} & \RED{2} & \RED{2}   \\ 
+   \vv & & & &  \\
+  \end{array}\right] \]
+ }
+ \onlySlide*{16}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   \RED{0} & \RED{0} & \RED{0} & \RED{1} & \RED{1}   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{17}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6  \\
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0        & 2   \\ 
+   \vv & & & &  \\
+   0 & 0 & 0 & 1 & 1   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{18}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 3     & 6  \\ 
+   \SG{0} & \SG{0} & \SG{0} & \SG{-3} & \SG{-3} \\
+   0 & 1 & -1 & 0        & 2   \\
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 0 & 0 & 1 & 1   \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+ \onlySlide*{19}{
+  \[ \left[\begin{array}{cccc|c}
+   1 & 0 & 1 & 0 & 3  \\ 
+   \hphantom{mm} & \hphantom{mm} & \vv
+   \hphantom{mm} & \hphantom{mm} & \hphantom{mm} \\
+   0 & 1 & -1 & 0  & 2  \\ 
+   \vv & & & &  \\
+   0 & 0 & 0 & 1 & 1  \\ 
+   \vv & & & &  
+  \end{array}\right] \]
+ }
+\end{slide}
+}
+
+\overlays{6}{%
+\begin{slide}{Row operations}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Let $A$ be a matrix. 
+   A \DEFN{row operation} on $A$ means any of the
+   following:
+   \begin{itemize}
+    \fromSlide{3}{
+    \item Reorder the rows of $A$
+     {\tiny 
+       \[ 
+         \bbm 
+          \RED{1}&\RED{2}&\RED{3}&\RED{4} \\ 
+          5&6&7&8 \\ 
+          \OLG{9}&\OLG{10}&\OLG{11}&\OLG{12}
+         \ebm \mapsto
+         \bbm
+          \OLG{9}&\OLG{10}&\OLG{11}&\OLG{12} \\
+          5&6&7&8 \\ 
+          \RED{1}&\RED{2}&\RED{3}&\RED{4}
+         \ebm
+         \hspace{4em}
+         R_1\leftrightarrow R_3
+       \] }} \vspace{-2ex}
+    \fromSlide{4}{
+    \item Add a multiple of one row to another row
+     {\tiny \[
+       \bbm 
+        \RED{1}&\RED{2}&\RED{3}&\RED{4} \\ 
+        5&6&7&8
+       \ebm \mapsto
+       \bbm 
+        \RED{1}&\RED{2}&\RED{3}&\RED{4} \\ 
+        \RED{10}5&\RED{20}6&\RED{30}7&\RED{40}8
+       \ebm
+       \hspace{4em}
+       R_2\mapsto R_2+100R_1
+      \] }} 
+    \fromSlide{5}{\item Multiply a row by a nonzero constant
+     {\tiny \[
+       \bbm \RED{1}&\RED{2}&\RED{3}&\RED{4} \\ 5&6&7&8\ebm \mapsto
+       \bbm \RED{10}&\RED{20}&\RED{30}&\RED{40} \\ 5&6&7&8\ebm
+       \hspace{4em}
+       R_1\mapsto 10R_1
+     \]}} \vspace{-3ex}
+   \end{itemize}
+ }
+ \fromSlide{6}{
+  \item If we apply row operations to an augmented matrix, then the
+   solutions of the corresponding equations do not change.
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{7}{%
+\begin{slide}{Reduced echelon form}
+\begin{itemize}
+ \fromSlide{2}{
+  \item A matrix $A$ is in \DEFN{row reduced echelon form} if
+   \begin{itemize}
+    \fromSlide{3}{
+     \item Any rows of zeros are at the bottom of the matrix.}
+    \fromSlide{4}{
+     \item In every nonzero row, the first nonzero entry is $1$. \\
+      These $1$'s are the \DEFN{pivots}.
+    }
+    \fromSlide{5}{
+     \item All entries directly above or below a pivot are zero.
+    }
+    \fromSlide{6}{
+     \item The pivot in the $(k+1)$'st row is always further to
+      the right than the pivot in the $k$'th row.
+    }
+   \end{itemize}
+ }
+\end{itemize}
+\onlySlide*{3}{\tiny \[ \begin{array}{cc}
+  \bbm 1&2&0&3&4 \vc \\ 
+       \hhc 0\hhc &\hc 0\hc &\hc 1\hc &\hc 5\hc &\hc 6 \hc\vc \\
+       \OLG{0}&\OLG{0}&\OLG{0}&\OLG{0}&\OLG{0} \vc
+  \ebm &
+  \bbm \RED{0}&\RED{0}&\RED{0}&\RED{0}&\RED{0} \vc \\
+       1&2&0&3&4 \vc \\ 
+       \hhc 0\hhc &\hc 0\hc &\hc 1\hc &\hc 5\hc &\hc 6 \hc\vc
+  \ebm \\
+  \OLG{\text{OK}} & \RED{\text{Not OK}}
+  \end{array}
+ \]}
+\onlySlide*{4}{\tiny \[ \begin{array}{cc}
+  \bbm \OLG{\pscirclebox[linecolor=OliveGreen]{1}}&2&0&3&4 \\ 
+       \CYAN{0}&\CYAN{0}&\OLG{\pscirclebox[linecolor=OliveGreen]{1}}&5&6 \\
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm  & 
+  \bbm \OLG{\pscirclebox[linecolor=OliveGreen]{1}}&2&0&3&4 \\ 
+       \CYAN{0}&\CYAN{0}&\RED{\pscirclebox[linecolor=red]{2}}&6&7 \\
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm \\
+  \OLG{\text{OK}} & \RED{\text{Not OK}}
+  \end{array}
+ \] }
+\onlySlide*{5}{\tiny \[ \begin{array}{cc}
+  \bbm \pscirclebox[linecolor=Blue]{1}&2&\psframebox[linecolor=OliveGreen]{\OLG{0}}&3&4 \\ 
+       \CYAN{0}&\CYAN{0}&\pscirclebox[linecolor=Blue]{1}&5&6 \\
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc &
+       \hspace{0.1em}\psframebox[linecolor=OliveGreen]{\OLG{0}}\hspace{0.1em}&
+       \hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm  & 
+  \bbm \pscirclebox[linecolor=Blue]{1}&2&\psframebox[linecolor=red]{\RED{2}}&3&4 \\ 
+       \CYAN{0}&\CYAN{0}&\pscirclebox[linecolor=Blue]{1}&5&6 \\
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc & 
+       \hspace{0.1em}\psframebox[linecolor=red]{\RED{4}}\hspace{0.1em}&
+       \hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm  \\
+  \OLG{\text{OK}} & \RED{\text{Not OK}}
+  \end{array}
+ \] }
+\onlySlide*{6}{\tiny \[ \begin{array}{cc}
+  \bbm \OLG{\pscirclebox[linecolor=OliveGreen]{1}}&2&0&3&4 \\ 
+       \CYAN{0}&\CYAN{0}&\OLG{\pscirclebox[linecolor=OliveGreen]{1}}&5&6 \\
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm  & 
+  \bbm \CYAN{0}&\CYAN{0}&\RED{\pscirclebox[linecolor=red]{1}}&5&6 \\
+       \RED{\pscirclebox[linecolor=red]{1}}&2&0&3&4 \\ 
+       \hhc \CYAN{0}\hhc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0}\hc &\hc \CYAN{0} \hc\vc
+  \ebm \\
+  \OLG{\text{OK}} & \RED{\text{Not OK}}
+  \end{array}
+ \] }
+\fromSlide*{7}{\RED{Not RREF}: 
+ {\tiny \[ 
+  \bbm \RED{0}&\RED{0}&\RED{0} \\ 1&0&0 \\ 0&0&1\ebm \qquad
+  \bbm 1&0&1 \\ 0&\RED{2}&2 \\ 0&0&0\ebm \qquad
+  \bbm 1&\RED{2}&3 \\ 0&1&2 \ebm \qquad
+  \bbm 0&\RED{1}&2 \\ \RED{1}&0&3 \ebm
+ \]}
+ \OLG{RREF}:
+ {\tiny \[
+  \bbm 1&0&1 \\ 0&1&0 \\ 0&0&0 \ebm \qquad
+  \bbm 0&1&0&0 \\ 0&0&0&1 \ebm \qquad
+  \bbm 1&2 \\ 0&0 \\ 0&0 \\ 0&0 \ebm
+  \]}}
+\end{slide}
+}
+
+\overlays{14}{%
+\begin{slide}{Solving reduced equations}
+ \fromSlide{2}{
+   If the augmented matrix for a system of equations is in RREF,\\
+   then it is easy to solve the equations. \\[-2.5ex]
+ }
+ \onlySlide*{3}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pw{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\ghost}\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{4}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pw{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pw{v} & \pw{w} & \pw{x} & \pw{y} & \pw{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\ghost}\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{5}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pw{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pw{v} & \pw{w} & \pw{x} & \pw{y} & \pw{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{w} + 2x + 3z &= 6  \\
+    \pw{y} + 2z &= 3  \\
+         \pw{0} &= 0 
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{6}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pw{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pw{v} & \pw{w} & \pw{x} & \pw{y} & \pw{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{w} + 2x + 3z &= 6  \\
+    \pw{y} + 2z &= 3  \\
+    \pw{0} &= 0  
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{$\begin{aligned}
+    \pw{w} &= 6 - 2x - 3z  \\
+    \pw{y} &= 3 - 2z 
+   \end{aligned}$} 
+  }\end{minipage} %
+ } %
+ \onlySlide*{7}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pb{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pb{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pw{v} & \pb{w} & \pw{x} & \pb{y} & \pw{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pb{w} + 2x + 3z &= 6 \\
+    \pb{y} + 2z &= 3 \\
+    \pw{0} &= 0  
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{$\begin{aligned}
+    \pb{w} &= 6 - 2x - 3z \\
+    \pb{y} &= 3 - 2z
+   \end{aligned}$} \\[2ex]
+   $w$ and $y$ dependent
+  }\end{minipage} %
+ } %
+ \onlySlide*{8}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pb{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pb{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pc{v} & \pw{w} & \pc{x} & \pw{y} & \pc{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{w} + 2x + 3z &= 6 \\
+    \pw{y} + 2z &= 3 \\
+    \pw{0} &= 0  
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{$\begin{aligned}
+    \pw{w} &= 6 - 2x - 3z \\
+    \pw{y} &= 3 - 2z
+   \end{aligned}$} \\[2ex]
+   $w$ and $y$ dependent \\
+   $v$, $x$, $z$ independent
+  }\end{minipage} %
+ } %
+ \fromSlide*{9}{
+  \begin{minipage}[t][3.0cm][t]{6cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{ccccc|c}
+    \pw{0} & \pw{1} & \pw{2} & \pw{0} & \pw{3} & \pw{6} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{1} & \pw{2} & \pw{3} \\
+    \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} & \pw{0} \\ \hline
+    \pw{v} & \pw{w} & \pw{x} & \pw{y} & \pw{z} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{w} + 2x + 3z &= 6 \\
+    \pw{y} + 2z &= 3 \\
+    \pw{0} &= 0  
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][3.0cm][t]{2.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{$\begin{aligned}
+    \pw{w} &= 6 - 2x - 3z \\
+    \pw{y} &= 3 - 2z
+   \end{aligned}$} \\[2ex]
+   $w$ and $y$ dependent \\
+   $v$, $x$, $z$ independent
+  }\end{minipage} %
+ } 
+ \par \vspace{-5ex}
+ \onlySlide*{9}{
+  \begin{minipage}[t][2.5cm][t]{5cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cccc|c}
+    1 & -1 & 0 & -1 & \pw{3} \\
+    0 & 0  & 1 & -1 & \pw{2} \\
+    0 & 0  & 0 & 0  & \pw{1} \\ \hline
+    A & B  & C & D  & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\ghost}\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{10}{
+  \begin{minipage}[t][2.5cm][t]{5cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cccc|c}
+    1 & -1 & 0 & -1 & \pw{3} \\
+    0 & 0  & 1 & -1 & \pw{2} \\
+    0 & 0  & 0 & 0  & \pw{1} \\ \hline
+    A & B  & C & D  & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{A} - B - D &= 3  \\
+    \pw{C} - D &= 2  \\
+    \RED{\pw{0}} &\RED{= 1} 
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\ghost}\end{minipage} %
+ } %
+ \fromSlide*{11}{
+  \begin{minipage}[t][2.5cm][t]{5cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cccc|c}
+    1 & -1 & 0 & -1 & \pw{3} \\
+    0 & 0  & 1 & -1 & \pw{2} \\
+    0 & 0  & 0 & 0  & \pr{1} \\ \hline
+    A & B  & C & D  & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{A} - B - D &= 3  \\
+    \pw{C} - D &= 2  \\
+    \RED{\pw{0}} &\RED{= 1} 
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][c]{2.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{
+    $\begin{array}{c}
+     \text{Pivot in last column} \\
+     \RED{\text{NO}} \\
+     \RED{\text{SOLUTIONS}}
+    \end{array}$
+   }}
+  \end{minipage} %
+ } %
+ \par \vspace{-1ex}
+ \onlySlide*{12}{
+  \begin{minipage}[t][2.5cm][t]{4cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cc|c}
+    \pw{1} & \pw{0} & \pw{11} \\
+    \pw{0} & \pw{1} & \pw{22} \\ \hline
+    \pw{p} & \pw{q} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\ghost}\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{3.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{13}{
+  \begin{minipage}[t][2.5cm][t]{4cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cc|c}
+    \pw{1} & \pw{0} & \pw{11} \\
+    \pw{0} & \pw{1} & \pw{22} \\ \hline
+    \pw{p} & \pw{q} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pw{p} &= 11  \\
+    \pw{q} &= 22  
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{3.8cm}{\ghost}\end{minipage} %
+ } %
+ \onlySlide*{14}{
+  \begin{minipage}[t][2.5cm][t]{4cm}{\tiny\mbox{}\\
+   $\left[\begin{array}{cc|c}
+    \pb{1} & \pw{0} & \pw{11} \\
+    \pw{0} & \pb{1} & \pw{22} \\ \hline
+    \pb{p} & \pb{q} & 
+   \end{array}\right]$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][t]{2.8cm}{\tiny\mbox{}\\
+   $\begin{aligned}
+    \pb{p} &= 11  \\
+    \pb{q} &= 22
+   \end{aligned}$
+  }\end{minipage} %
+  \begin{minipage}[t][2.5cm][c]{3.8cm}{\tiny\mbox{}\\
+   \psframebox[framearc=.3,linecolor=magenta]{
+    $\begin{array}{c}
+     \text{No independent variables} \\
+     \OLG{\text{UNIQUE SOLUTION}}
+    \end{array}$
+   }}
+  \end{minipage} %
+ } %
+\end{slide}
+}
+
+\overlays{28}{%
+\begin{slide}{Row reduction}
+ \fromSlide{2}{
+  Any matrix can be converted to RREF by row operations.
+ }
+ \onlySlide*{3}{\tiny
+  \[ \bbm
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 2} & \zw{-2} & \zw{ 0} & \zw{ 2} & \zw{  8} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{4}{\tiny
+  \[ \bbm
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 2} & \zw{-2} & \zw{ 0} & \zw{ 2} & \zw{  8} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{5}{\tiny
+  \[ \bbm
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \yb{ 2} & \xb{-2} & \xb{ 0} & \xb{ 2} & \xb{  8} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{6}{\tiny
+  \[ \bbm
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \yb{ 2} & \xb{-2} & \xb{ 0} & \xb{ 2} & \xb{  8} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{7}{\tiny
+  \[ \bbm
+   \yb{ 2} & \xb{-2} & \xb{ 0} & \xb{ 2} & \xb{  8} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{8}{\tiny
+  \[ \bbm
+   \yb{ 2} & \xb{-2} & \xb{ 0} & \xb{ 2} & \xb{  8} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{9}{\tiny
+  \[ \bbm
+   \yb{ 1} & \xb{-1} & \xb{ 0} & \xb{ 1} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{10}{\tiny
+  \[ \bbm
+   \yb{ 1} & \xb{-1} & \xb{ 0} & \xb{ 1} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{11}{\tiny
+  \[ \bbm
+   \yb{ 1} & \xb{-1} & \xb{ 0} & \xb{ 1} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{ 0} & \zw{ 12} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{12}{\tiny
+  \[ \bbm
+   \yb{ 1} & \xb{-1} & \xb{ 0} & \xb{ 1} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{13}{\tiny
+  \[ \bbm
+   \yb{ 1} & \xb{-1} & \xb{ 0} & \xb{ 1} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{14}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{-1} & \zw{ 0} & \zw{ 1} & \zw{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{15}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{-1} & \zw{ 0} & \zw{ 1} & \zw{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{16}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{-1} & \zw{ 0} & \zw{ 1} & \zw{  4} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{17}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zr{-1} & \zw{ 0} & \zw{ 1} & \zw{  4} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{18}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zr{-1} & \zw{ 0} & \zw{ 1} & \zw{  4} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{19}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{20}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zr{ 2} & \zw{-1} & \zw{ 0} & \zw{  6} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{21}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{ 4} & \zw{ -2} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{22}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{ 4} & \zw{ -2} \\
+   \zw{ 0} & \zr{ 1} & \zw{ 0} & \zw{-2} & \zw{  4}
+  \ebm \]
+ }
+ \onlySlide*{23}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \xb{ 0} & \yb{ 1} & \xb{ 0} & \xb{-2} & \xb{  4} \\
+   \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{ 4} & \zw{ -2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \onlySlide*{24}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{ 4} & \zw{ -2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \onlySlide*{25}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \xb{ 0} & \xb{ 0} & \yb{-1} & \xb{ 4} & \xb{ -2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \onlySlide*{26}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \xb{ 0} & \xb{ 0} & \yb{-1} & \xb{ 4} & \xb{ -2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \onlySlide*{27}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \xb{ 0} & \xb{ 0} & \yb{ 1} & \xb{-4} & \xb{  2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \onlySlide*{28}{\tiny
+  \[ \bbm
+   \zw{ 1} & \zw{ 0} & \zw{ 0} & \zw{-1} & \zw{  8} \\
+   \zw{ 0} & \zw{ 1} & \zw{ 0} & \zw{-2} & \zw{  4} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 1} & \zw{-4} & \zw{  2} \\
+   \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{ 0} & \zw{  0}
+  \ebm \]
+ }
+ \begin{itemize}
+ \fromSlide{4}{
+  \item Find a nonzero entry, as far left as possible.
+ }
+ \fromSlide{6}{
+  \item Exchange rows to bring this to the top.
+ }
+ \fromSlide{8}{
+  \item Divide through by the leading entry.
+ }
+ \fromSlide{11}{
+  \item Subtract $2R_1$ from $R_3$.
+ }
+ \fromSlide{13}{
+  \item Find the next pivot\fromSlide{15}{, and move it to the second row.}
+ }
+ \fromSlide{18}{
+  \item Add $R_2$ to $R_1$% 
+   \fromSlide{20}{; Subtract $2R_2$ from $R_3$}
+   \fromSlide{22}{; Subtract $R_2$ from $R_4$.}
+ }
+ \fromSlide{24}{
+  \item Find the next pivot %
+   \fromSlide{26}{, and divide by the leading term.}
+ }
+ \fromSlide{28}{
+  \item The matrix is now in reduced echelon form.
+ }
+ 
+ \end{itemize}
+\end{slide}
+}
+
+
+\overlays{17}{%
+\begin{slide}{Solving by row reduction}
+ {\tiny
+ \parbox{3.4cm}{$
+  \onlySlide*{2}{
+   \left(\begin{aligned}
+    2x-y &= 6 \\
+    2w-2x+2z &= 8 \\
+    2w-x &= 12 \\
+    x-2z &= 4
+   \end{aligned}\right)
+   \hphantom{\xra{}}
+  }
+  \fromSlide*{3}{
+   \left(\begin{aligned}
+    2x-y &= 6 \\
+    2w-2x+2z &= 8 \\
+    2w-x &= 12 \\
+    x-2z &= 4
+   \end{aligned}\right)
+   \xra{}
+  }
+ $}
+ \parbox{3.9cm}{$
+  \onlySlide*{3}{
+   \left[\begin{array}{cccc|c}
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -2 &  0 &  2 &   8 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{4}{
+   \left[\begin{array}{cccc|c}
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     \OLG{2} & \OLG{-2} &  \OLG{0} &  \OLG{2} &   \OLG{8} \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!} } 
+  \onlySlide*{5}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     \OLG{2} & \OLG{-2} &  \OLG{0} &  \OLG{2} &   \OLG{8} \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{6}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -2 &  0 &  2 &   8 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \parbox{3.9cm}{$
+  \onlySlide*{5}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{2} & \OLG{-2} &  \OLG{0} &  \OLG{2} &   \OLG{8} \\
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{6}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{2} & \OLG{-2} &  \OLG{0} &  \OLG{2} &   \OLG{8} \\
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{7}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{2} & \OLG{-2} &  \OLG{0} &  \OLG{2} &   \OLG{8} \\
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{8}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     2 & -2 &  0 &  2 &   8 \\
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \\[2ex]
+ \parbox{3.9cm}{$
+  \onlySlide*{7}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{1} & \OLG{-1} &  \OLG{0} &  \OLG{1} &   \OLG{4} \\
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{8}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{1} & \OLG{-1} &  \OLG{0} &  \OLG{1} &   \OLG{4} \\
+     0 &  2 & -1 &  0 &   6 \\
+     \RED{2} & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{9}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{1} & \OLG{-1} &  \OLG{0} &  \OLG{1} &   \OLG{4} \\
+     0 &  2 & -1 &  0 &   6 \\
+     \RED{2} & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{10}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     0 &  2 & -1 &  0 &   6 \\
+     2 & -1 &  0 &  0 &  12 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \parbox{3.9cm}{$
+  \onlySlide*{9}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     \OLG{1} & \OLG{-1} &  \OLG{0} &  \OLG{1} &   \OLG{4} \\
+     0 &  2 & -1 &  0 &   6 \\
+     0 &  1 &  0 & -2 &   4 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{10}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{11}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{12}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     0 &  2 & -1 &  0 &   6 \\
+     0 &  1 &  0 & -2 &   4 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \parbox{3.9cm}{$
+  \onlySlide*{11}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     \RED{0} &  \RED{2} & \RED{-1} &  \RED{0} &   \RED{6} \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{12}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & \RED{-1} &  0 &  1 &   4 \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     0 &  \RED{2} & -1 &  0 &   6 \\
+     0 &  \RED{1} &  0 & -2 &   4
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{13}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & \RED{-1} &  0 &  1 &   4 \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     0 &  \RED{2} & -1 &  0 &   6 \\
+     0 &  \RED{1} &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{14}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 & -1 &  0 &  1 &   4 \\
+     0 &  1 &  0 & -2 &   4 \\
+     0 &  2 & -1 &  0 &   6 \\
+     0 &  1 &  0 & -2 &   4
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \\[2ex]
+ \parbox{3.9cm}{$
+  \onlySlide*{13}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 &  0 &  0 & -1 &   8 \\
+     \OLG{0} &  \OLG{1} &  \OLG{0} & \OLG{-2} &   \OLG{4} \\
+     0 &  0 & -1 &  4 &  -2 \\
+     0 &  0 &  0 &  0 &   0
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{14}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 &  0 &  0 & -1 &   8 \\
+     0 &  1 &  0 & -2 &   4 \\
+     \OLG{0} &  \OLG{0} & \OLG{-1} &  \OLG{4} &  \OLG{-2} \\
+     0 &  0 &  0 &  0 &   0
+   \end{array}\right] \hphantom{\!\xra{}\!}} 
+  \onlySlide*{15}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 &  0 &  0 & -1 &   8 \\
+     0 &  1 &  0 & -2 &   4 \\
+     \OLG{0} &  \OLG{0} & \OLG{-1} &  \OLG{4} &  \OLG{-2} \\
+     0 &  0 &  0 &  0 &   0
+   \end{array}\right] \!\xra{}\!} 
+  \fromSlide*{16}{%\xra{}
+   \left[\begin{array}{cccc|c}
+     1 &  0 &  0 & -1 &   8 \\
+     0 &  1 &  0 & -2 &   4 \\
+     0 &  0 & -1 &  4 &  -2 \\
+     0 &  0 &  0 &  0 &   0
+   \end{array}\right] \!\xra{}\!} 
+ $}
+ \parbox{3.9cm}{$
+ \onlySlide*{15}{%\xra{}
+  \left[\begin{array}{cccc|c}
+    1 &  0 &  0 & -1 &   8 \\
+    0 &  1 &  0 & -2 &   4 \\
+    \OLG{0} &  \OLG{0} &  \OLG{1} & \OLG{-4} &   \OLG{2} \\
+    0 &  0 &  0 &  0 &   0
+  \end{array}\right] \hphantom{\!\xra{}\!}} 
+ \fromSlide*{16}{%\xra{}
+  \left[\begin{array}{cccc|c}
+    1 &  0 &  0 & -1 &   8 \\
+    0 &  1 &  0 & -2 &   4 \\
+    0 &  0 &  1 & -4 &   2 \\
+    0 &  0 &  0 &  0 &   0
+  \end{array}\right] \!\xra{}\!} 
+ $}
+ \parbox{3.4cm}{$
+  \onlySlide*{16}{
+   \left(\begin{aligned}
+    w-z &= 8 \\
+    x-2z &= 4 \\
+    y-4z &= 2 \\
+    0 &= 0\hphantom{+4z}
+   \end{aligned}\right)
+  }
+  \onlySlide*{17}{
+   \left(\begin{aligned}
+    w &= 8+z \\
+    x &= 4+2z \\
+    y &= 2+4z \\
+    \hphantom{y-4z} & \hphantom{2}
+   \end{aligned}\right)
+  }
+ $}
+ }
+ \\[2ex]
+ \onlySlide*{2}{Here is a system of equations}
+ \onlySlide*{3}{We write down the augmented matrix}
+ \fromSlide*{4}{$R_1\leftrightarrow R_2$}
+ \fromSlide*{6}{; $R_1\mapsto R_1/2$}
+ \fromSlide*{8}{; $R_3\mapsto R_3-2R_1$}
+ \fromSlide*{10}{; $R_2\leftrightarrow R_3$}
+ \fromSlide*{12}{; \\ $R_1\mapsto R_1+R_2\;,\;R_3\mapsto
+   R_3-2R_2\;,\;R_4\mapsto R_4-R_2$}
+ \fromSlide*{14}{; $R_3\mapsto -R_3$}
+\end{slide}
+}
+
+\begin{slide}{Another example}
+ \tiny
+ \[ \left.\begin{aligned}
+  2x-2y-2z &= -4 \\
+  2x+2y-2z &= -4 \\
+  2x+2y+2z &= 0
+ \end{aligned}\right\} \xra{0}
+ \left[\begin{array}{ccc|c}
+   2&-2&-2&-4 \\
+   2& 2&-2&-4 \\ 
+   2& 2& 2& 0
+  \end{array}\right] \xra{1}
+  \left[\begin{array}{ccc|c}   
+   1&-1&-1&-2 \\       
+   2& 2&-2&-4 \\       
+   2& 2& 2& 0
+  \end{array}\right] \xra{2}
+ \]
+ \[
+  \left[\begin{array}{ccc|c}   
+   1&-1&-1&-2 \\       
+   0& 4& 0& 0 \\       
+   0& 4& 4& 4
+  \end{array}\right] \xra{3}
+  \left[\begin{array}{ccc|c}   
+   1&-1&-1&-2 \\       
+   0& 1& 0& 0 \\       
+   0& 4& 4& 4
+  \end{array}\right] \xra{4}
+  \left[\begin{array}{ccc|c}   
+   1& 0&-1&-2 \\       
+   0& 1& 0& 0 \\       
+   0& 0& 4& 4
+  \end{array}\right] \xra{5}
+ \]
+ \[
+  \left[\begin{array}{ccc|c}   
+   1& 0&-1&-2 \\       
+   0& 1& 0& 0 \\       
+   0& 0& 1& 1
+  \end{array}\right] \xra{6}
+  \left[\begin{array}{ccc|c}   
+   1& 0& 0&-1 \\       
+   0& 1& 0& 0 \\       
+   0& 0& 1& 1
+  \end{array}\right] \xra{7}
+  \left\{\begin{aligned}
+   x &= -1 \\
+   y &= 0 \\
+   z &= 1
+  \end{aligned}\right.
+ \]
+ \begin{itemize}
+  \item[(1)] $R_1\mapsto R_1/2$
+  \item[(2)] $R_2\mapsto R_2-2R_1$ and $R_3\mapsto R_3-2R_1$ 
+  \item[(3)] $R_2\mapsto R_2/4$
+  \item[(4)] $R_1\mapsto R_1+R_2$ and $R_3\mapsto R_3-4R_2$
+  \item[(5)] $R_3\mapsto R_3/4$ 
+  \item[(6)] $R_1\mapsto R_1+R_3$.
+ \end{itemize}
+\end{slide}
+
+\overlays{17}{%
+\begin{slide}{Matrix multiplication}
+ \[ \fromSlide{2}{\text{ If } \qquad
+    \begin{aligned}
+     u &= p+1000q \\
+     v &= 10p+100q 
+    \end{aligned}}
+    \fromSlide{3}{
+    \qquad \text{ and } \qquad
+    \begin{aligned}
+     p &= 2m+3n \\
+     q &= 4m+5n 
+    \end{aligned}}
+    \fromSlide{4}{\qquad \text{ then }}
+ \] \[
+    \fromSlide*{4}{\untilSlide*{12}{\begin{array}{rll}
+     u &\!= (2m+3n)+1000(4m+5n) 
+       &\fromSlide{5}{\!= 4002m + 5003n} \\
+     v &\!= 10(2m+3n)+100(4m+5n)
+       &\fromSlide{5}{\!= 420m + 530n} 
+    \end{array}}}
+    \onlySlide*{13}{\begin{array}{rll}
+     u &\!= \RED{1}(\OLG{2}m+3n)+\RED{1000}(\OLG{4}m+5n) 
+       &\fromSlide{5}{\!= \BLUE{4002}m + 5003n} \\
+     v &\!= 10(2m+3n)+100(4m+5n)
+       &\fromSlide{5}{\!= 420m + 530n} 
+    \end{array}}
+    \onlySlide*{14}{\begin{array}{rll}
+     u &\!= \RED{1}(2m+\OLG{3}n)+\RED{1000}(4m+\OLG{5}n) 
+       &\fromSlide{5}{\!= 4002m + \BLUE{5003}n} \\
+     v &\!= 10(2m+3n)+100(4m+5n)
+       &\fromSlide{5}{\!= 420m + 530n} 
+    \end{array}}
+    \onlySlide*{15}{\begin{array}{rll}
+     u &\!= (2m+3n)+1000(4m+5n) 
+       &\fromSlide{5}{\!= 4002m + 5003n} \\
+     v &\!= \RED{10}(\OLG{2}m+3n)+\RED{100}(\OLG{4}m+5n)
+       &\fromSlide{5}{\!= \BLUE{420}m + 530n} 
+    \end{array}}
+    \onlySlide*{16}{\begin{array}{rll}
+     u &\!= (2m+3n)+1000(4m+5n) 
+       &\fromSlide{5}{\!= 4002m + 5003n} \\
+     v &\!= \RED{10}(2m+\OLG{3}n)+\RED{100}(4m+\OLG{5}n)
+       &\fromSlide{5}{\!= 420m + \BLUE{530}n} 
+    \end{array}}
+    \fromSlide*{17}{\begin{array}{rll}
+     u &\!= (2m+3n)+1000(4m+5n) 
+       &\fromSlide{5}{\!= 4002m + 5003n} \\
+     v &\!= 10(2m+3n)+100(4m+5n)
+       &\fromSlide{5}{\!= 420m + 530n} 
+    \end{array}}
+ \]
+ \[ \fromSlide{6}{\text{ If } \qquad
+     \bbm u \\ v \ebm = 
+     \bbm 1 & 1000 \\ 10 & 100 \ebm
+     \bbm p \\ q \ebm}
+    \fromSlide{7}{
+    \qquad \text{ and } \qquad
+     \bbm p \\ q \ebm = 
+     \bbm 2 & 3 \\ 4 & 5 \ebm 
+     \bbm m \\ n \ebm} 
+    \fromSlide{8}{\qquad \text{ then }}
+ \]
+ \[ \fromSlide{8}{\bbm u \\ v \ebm =}
+    \fromSlide{9}{
+     \bbm 1 & 1000 \\ 10 & 100 \ebm
+     \bbm 2 & 3 \\ 4 & 5 \ebm 
+     \bbm m \\ n \ebm =
+    }
+    \fromSlide{8}{
+     \bbm 4002 & 5003 \\ 420 & 530 \ebm
+     \bbm m \\ n \ebm
+    }
+ \]
+ \fromSlide{10}{
+  So we must define
+  $\bbm 1 & 1000 \\ 10 & 100 \ebm
+   \bbm 2 & 3 \\ 4 & 5 \ebm =
+   \bbm 4002 & 5003 \\ 420 & 530 \ebm$
+ } \\
+ \fromSlide{11}{
+  Entries in $AB$ are inner products of rows of $A$ with
+  columns of $B$.
+ }
+ \[
+  \onlySlide*{12}{
+   \bbm 1 & 1000 \\ 10 & 100 \ebm
+   \bbm 2 & 3 \\ 4 & 5 \ebm =
+   \bbm
+    \WHITE{(1,1000).(2,4)} & 
+    \WHITE{(1,1000).(3,5)} \\
+    \WHITE{(10,100).(2,4)} & 
+    \WHITE{(10,100).(3,5)} 
+   \ebm \WHITE{=}
+   \bbm
+    \WHITE{4002} & \WHITE{5003} \\
+    \WHITE{420} & \WHITE{530}
+   \ebm
+  }
+  \onlySlide*{13}{
+   \bbm \RED{1} & \RED{1000} \\ 10 & 100 \ebm
+   \bbm \OLG{2} & 3 \\ \OLG{4} & 5 \ebm =
+   \bbm
+    \RED{(1,1000)}.\OLG{(2,4)} & 
+    \WHITE{(1,1000).(3,5)} \\
+    \WHITE{(10,100).(2,4)} & 
+    \WHITE{(10,100).(3,5)} 
+   \ebm = 
+   \bbm
+    \BLUE{4002} & \WHITE{5003} \\
+    \WHITE{420} & \WHITE{530}
+   \ebm
+  }
+  \onlySlide*{14}{
+   \bbm \RED{1} & \RED{1000} \\ 10 & 100 \ebm
+   \bbm 2 & \OLG{3} \\ 4 & \OLG{5} \ebm =
+   \bbm
+    \GRAY{(1,1000).(2,4)} & 
+    \RED{(1,1000)}.\OLG{(3,5)} \\
+    \WHITE{(10,100).(2,4)} & 
+    \WHITE{(10,100).(3,5)} 
+   \ebm =
+   \bbm
+    4002 & \BLUE{5003} \\
+    \WHITE{420} & \WHITE{530}
+   \ebm
+  }
+  \onlySlide*{15}{
+   \bbm 1 & 1000 \\ \RED{10} & \RED{100} \ebm
+   \bbm \OLG{2} & 3 \\ \OLG{4} & 5 \ebm =
+   \bbm
+    \GRAY{(1,1000).(2,4)} & 
+    \GRAY{(1,1000).(3,5)} \\
+    \RED{(10,100)}.\OLG{(2,4)} & 
+    \WHITE{(10,100).(3,5)} 
+   \ebm =
+   \bbm
+    4002 & 5003 \\
+    \BLUE{420} & \WHITE{530}
+   \ebm
+  }
+  \onlySlide*{16}{
+   \bbm 1 & 1000 \\ \RED{10} & \RED{100} \ebm
+   \bbm 2 & \OLG{3} \\ 4 & \OLG{5} \ebm =
+   \bbm
+    \GRAY{(1,1000).(2,4)} & 
+    \GRAY{(1,1000).(3,5)} \\
+    \GRAY{(10,100).(2,4)} & 
+    \RED{(10,100)}.\OLG{(3,5)} 
+   \ebm =
+   \bbm
+    4002 & 5003 \\
+    420 & 530
+   \ebm
+  }
+  \fromSlide*{17}{
+   \bbm 1 & 1000 \\ 10 & 100 \ebm
+   \bbm 2 & 3 \\ 4 & 5 \ebm =
+   \bbm
+    \GRAY{(1,1000).(2,4)} & 
+    \GRAY{(1,1000).(3,5)} \\
+    \GRAY{(10,100).(2,4)} & 
+    \GRAY{(10,100).(3,5)} 
+   \ebm =
+   \bbm
+    4002 & 5003 \\
+    420 & 530
+   \ebm
+  }
+ \]
+\end{slide}
+}
+
+\overlays{38}{%
+\begin{slide}{Matrix multiplication --- Examples}
+\onlySlide*{2}{\tiny \[ \bbm
+1 & 2 & 3 & 4\\
+4 & 3 & 2 & 1
+\ebm
+\bbm
+1 & 2\\
+1 & 2\\
+1 & 2\\
+1 & 2
+\ebm = 
+\bbm
+\WHITE{10} & \WHITE{20}\\
+\WHITE{10} & \WHITE{20}\\
+\ebm
+\]}
+%
+\onlySlide*{3}{\tiny \[ \bbm
+\RED{1} & \RED{2} & \RED{3} & \RED{4}\\
+4 & 3 & 2 & 1
+\ebm
+\bbm
+\OLG{1} & 2\\
+\OLG{1} & 2\\
+\OLG{1} & 2\\
+\OLG{1} & 2
+\ebm = 
+\bbm
+10 & \WHITE{20}\\
+\WHITE{10} & \WHITE{20}\\
+\ebm
+\]}
+%
+\onlySlide*{4}{\tiny \[ \bbm
+\RED{1} & \RED{2} & \RED{3} & \RED{4}\\
+4 & 3 & 2 & 1
+\ebm
+\bbm
+1 & \OLG{2}\\
+1 & \OLG{2}\\
+1 & \OLG{2}\\
+1 & \OLG{2}
+\ebm = 
+\bbm
+10 & 20\\
+\WHITE{10} & \WHITE{20}\\
+\ebm
+\]}
+%
+\onlySlide*{5}{\tiny \[ \bbm
+1 & 2 & 3 & 4\\
+\RED{4} & \RED{3} & \RED{2} & \RED{1}
+\ebm
+\bbm
+\OLG{1} & 2\\
+\OLG{1} & 2\\
+\OLG{1} & 2\\
+\OLG{1} & 2
+\ebm = 
+\bbm
+10 & 20\\
+10 & \WHITE{20}\\
+\ebm
+\]}
+%
+\onlySlide*{6}{\tiny \[ \bbm
+1 & 2 & 3 & 4\\
+\RED{4} & \RED{3} & \RED{2} & \RED{1}
+\ebm
+\bbm
+1 & \OLG{2}\\
+1 & \OLG{2}\\
+1 & \OLG{2}\\
+1 & \OLG{2}
+\ebm = 
+\bbm
+10 & 20\\
+10 & 20\\
+\ebm
+\]}
+%
+\fromSlide*{7}{\tiny \[ \bbm
+1 & 2 & 3 & 4\\
+4 & 3 & 2 & 1
+\ebm
+\bbm
+1 & 2\\
+1 & 2\\
+1 & 2\\
+1 & 2
+\ebm = 
+\bbm
+10 & 20\\
+10 & 20\\
+\ebm
+\]}
+%
+\onlySlide*{7}{\tiny \[ \bbm
+1 & a & 0\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & 0 & 0\\
+b & 1 & 0\\
+0 & b & 1
+\ebm = 
+\bbm
+\WHITE{1+ab} & \WHITE{a} & \WHITE{0}\\
+\WHITE{b} & \WHITE{1+ab} & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{8}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{0}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+\OLG{1} & 0 & 0\\
+\OLG{b} & 1 & 0\\
+\OLG{0} & b & 1
+\ebm = 
+\bbm
+1+ab & \WHITE{a} & \WHITE{0}\\
+\WHITE{b} & \WHITE{1+ab} & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{9}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{0}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & \OLG{0} & 0\\
+b & \OLG{1} & 0\\
+0 & \OLG{b} & 1
+\ebm = 
+\bbm
+1+ab & a & \WHITE{0}\\
+\WHITE{b} & \WHITE{1+ab} & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{10}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{0}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & 0 & \OLG{0}\\
+b & 1 & \OLG{0}\\
+0 & b & \OLG{1}
+\ebm = 
+\bbm
+1+ab & a & 0\\
+\WHITE{b} & \WHITE{1+ab} & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{11}{\tiny \[ \bbm
+1 & a & 0\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+\OLG{1} & 0 & 0\\
+\OLG{b} & 1 & 0\\
+\OLG{0} & b & 1
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & \WHITE{1+ab} & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{12}{\tiny \[ \bbm
+1 & a & 0\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & \OLG{0} & 0\\
+b & \OLG{1} & 0\\
+0 & \OLG{b} & 1
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & \WHITE{a}\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{13}{\tiny \[ \bbm
+1 & a & 0\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & 0 & \OLG{0}\\
+b & 1 & \OLG{0}\\
+0 & b & \OLG{1}
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & a\\
+\WHITE{0} & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{14}{\tiny \[ \bbm
+1 & a & 0\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+\OLG{1} & 0 & 0\\
+\OLG{b} & 1 & 0\\
+\OLG{0} & b & 1
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & a\\
+0 & \WHITE{b} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{15}{\tiny \[ \bbm
+1 & a & 0\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+1 & \OLG{0} & 0\\
+b & \OLG{1} & 0\\
+0 & \OLG{b} & 1
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & a\\
+0 & b & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{16}{\tiny \[ \bbm
+1 & a & 0\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+1 & 0 & \OLG{0}\\
+b & 1 & \OLG{0}\\
+0 & b & \OLG{1}
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & a\\
+0 & b & 1
+\ebm
+\]}
+%
+\fromSlide*{17}{\tiny \[ \bbm
+1 & a & 0\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & 0 & 0\\
+b & 1 & 0\\
+0 & b & 1
+\ebm = 
+\bbm
+1+ab & a & 0\\
+b & 1+ab & a\\
+0 & b & 1
+\ebm
+\]}
+%
+\onlySlide*{17}{\tiny \[ \bbm
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & 1 & 1\\
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}
+\ebm = 
+\bbm
+\WHITE{a} & \WHITE{b} & \WHITE{c}\\
+\WHITE{{a}^{2}} & \WHITE{{b}^{2}} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{18}{\tiny \[ \bbm
+\RED{0} & \RED{1} & \RED{0}\\
+0 & 0 & 1\\
+1 & 0 & 0
+\ebm
+\bbm
+\OLG{1} & 1 & 1\\
+\OLG{a} & b & c\\
+\OLG{{a}^{2}} & {b}^{2} & {c}^{2}
+\ebm = 
+\bbm
+a & \WHITE{b} & \WHITE{c}\\
+\WHITE{{a}^{2}} & \WHITE{{b}^{2}} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{19}{\tiny \[ \bbm
+\RED{0} & \RED{1} & \RED{0}\\
+0 & 0 & 1\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & \OLG{1} & 1\\
+a & \OLG{b} & c\\
+{a}^{2} & \OLG{{b}^{2}} & {c}^{2}
+\ebm = 
+\bbm
+a & b & \WHITE{c}\\
+\WHITE{{a}^{2}} & \WHITE{{b}^{2}} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{20}{\tiny \[ \bbm
+\RED{0} & \RED{1} & \RED{0}\\
+0 & 0 & 1\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & 1 & \OLG{1}\\
+a & b & \OLG{c}\\
+{a}^{2} & {b}^{2} & \OLG{{c}^{2}}
+\ebm = 
+\bbm
+a & b & c\\
+\WHITE{{a}^{2}} & \WHITE{{b}^{2}} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{21}{\tiny \[ \bbm
+0 & 1 & 0\\
+\RED{0} & \RED{0} & \RED{1}\\
+1 & 0 & 0
+\ebm
+\bbm
+\OLG{1} & 1 & 1\\
+\OLG{a} & b & c\\
+\OLG{{a}^{2}} & {b}^{2} & {c}^{2}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & \WHITE{{b}^{2}} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{22}{\tiny \[ \bbm
+0 & 1 & 0\\
+\RED{0} & \RED{0} & \RED{1}\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & \OLG{1} & 1\\
+a & \OLG{b} & c\\
+{a}^{2} & \OLG{{b}^{2}} & {c}^{2}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & \WHITE{{c}^{2}}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{23}{\tiny \[ \bbm
+0 & 1 & 0\\
+\RED{0} & \RED{0} & \RED{1}\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & 1 & \OLG{1}\\
+a & b & \OLG{c}\\
+{a}^{2} & {b}^{2} & \OLG{{c}^{2}}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}\\
+\WHITE{1} & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{24}{\tiny \[ \bbm
+0 & 1 & 0\\
+0 & 0 & 1\\
+\RED{1} & \RED{0} & \RED{0}
+\ebm
+\bbm
+\OLG{1} & 1 & 1\\
+\OLG{a} & b & c\\
+\OLG{{a}^{2}} & {b}^{2} & {c}^{2}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}\\
+1 & \WHITE{1} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{25}{\tiny \[ \bbm
+0 & 1 & 0\\
+0 & 0 & 1\\
+\RED{1} & \RED{0} & \RED{0}
+\ebm
+\bbm
+1 & \OLG{1} & 1\\
+a & \OLG{b} & c\\
+{a}^{2} & \OLG{{b}^{2}} & {c}^{2}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}\\
+1 & 1 & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{26}{\tiny \[ \bbm
+0 & 1 & 0\\
+0 & 0 & 1\\
+\RED{1} & \RED{0} & \RED{0}
+\ebm
+\bbm
+1 & 1 & \OLG{1}\\
+a & b & \OLG{c}\\
+{a}^{2} & {b}^{2} & \OLG{{c}^{2}}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}\\
+1 & 1 & 1
+\ebm
+\]}
+%
+\fromSlide*{27}{\tiny \[ \bbm
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\ebm
+\bbm
+1 & 1 & 1\\
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}
+\ebm = 
+\bbm
+a & b & c\\
+{a}^{2} & {b}^{2} & {c}^{2}\\
+1 & 1 & 1
+\ebm
+\]}
+%
+\onlySlide*{27}{\tiny \[ \bbm
+1 & a & a^2/2\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & b & b^2/2\\
+0 & 1 & b\\
+0 & 0 & 1
+\ebm = 
+\bbm
+\WHITE{1} & \WHITE{a+b} & \WHITE{(a+b)^2/2}\\
+\WHITE{0} & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{28}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{a^2/2}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+\OLG{1} & b & b^2/2\\
+\OLG{0} & 1 & b\\
+\OLG{0} & 0 & 1
+\ebm = 
+\bbm
+1 & \WHITE{a+b} & \WHITE{(a+b)^2/2}\\
+\WHITE{0} & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{29}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{a^2/2}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & \OLG{b} & b^2/2\\
+0 & \OLG{1} & b\\
+0 & \OLG{0} & 1
+\ebm = 
+\bbm
+1 & a+b & \WHITE{(a+b)^2/2}\\
+\WHITE{0} & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{30}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{a^2/2}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & b & \OLG{b^2/2}\\
+0 & 1 & \OLG{b}\\
+0 & 0 & \OLG{1}
+\ebm = 
+\bbm
+1 & a+b & b^2/2+ab+a^2/2\\
+\WHITE{0} & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{31}{\tiny \[ \bbm
+\RED{1} & \RED{a} & \RED{a^2/2}\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & b & \OLG{b^2/2}\\
+0 & 1 & \OLG{b}\\
+0 & 0 & \OLG{1}
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+\WHITE{0} & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{32}{\tiny \[ \bbm
+1 & a & a^2/2\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+\OLG{1} & b & b^2/2\\
+\OLG{0} & 1 & b\\
+\OLG{0} & 0 & 1
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & \WHITE{1} & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{33}{\tiny \[ \bbm
+1 & a & a^2/2\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & \OLG{b} & b^2/2\\
+0 & \OLG{1} & b\\
+0 & \OLG{0} & 1
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & \WHITE{a+b}\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{34}{\tiny \[ \bbm
+1 & a & a^2/2\\
+\RED{0} & \RED{1} & \RED{a}\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & b & \OLG{b^2/2}\\
+0 & 1 & \OLG{b}\\
+0 & 0 & \OLG{1}
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & a+b\\
+\WHITE{0} & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{35}{\tiny \[ \bbm
+1 & a & a^2/2\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+\OLG{1} & b & b^2/2\\
+\OLG{0} & 1 & b\\
+\OLG{0} & 0 & 1
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & a+b\\
+0 & \WHITE{0} & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{36}{\tiny \[ \bbm
+1 & a & a^2/2\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+1 & \OLG{b} & b^2/2\\
+0 & \OLG{1} & b\\
+0 & \OLG{0} & 1
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & a+b\\
+0 & 0 & \WHITE{1}
+\ebm
+\]}
+%
+\onlySlide*{37}{\tiny \[ \bbm
+1 & a & a^2/2\\
+0 & 1 & a\\
+\RED{0} & \RED{0} & \RED{1}
+\ebm
+\bbm
+1 & b & \OLG{b^2/2}\\
+0 & 1 & \OLG{b}\\
+0 & 0 & \OLG{1}
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & a+b\\
+0 & 0 & 1
+\ebm
+\]}
+%
+\fromSlide*{38}{\tiny \[ \bbm
+1 & a & a^2/2\\
+0 & 1 & a\\
+0 & 0 & 1
+\ebm
+\bbm
+1 & b & b^2/2\\
+0 & 1 & b\\
+0 & 0 & 1
+\ebm = 
+\bbm
+1 & a+b & (a+b)^2/2\\
+0 & 1 & a+b\\
+0 & 0 & 1
+\ebm
+\]}
+%
+\end{slide}
+}
+
+\overlays{5}{%
+\begin{slide}{Noncommutativity}
+\begin{itemize}
+ \fromSlide{2}{
+  \item It is \EMPH{not} true that $AB=BA$ in general.
+ }
+ \fromSlide{3}{
+  \item Here $AB\neq BA$:
+   \[ \bbm 1 & 1 \\ 1 & 1 \ebm
+      \bbm 1 & 2 \\ 3 & 4 \ebm = 
+      \bbm 4 & 6 \\ 4 & 6 \ebm
+      \hspace{4em}
+      \bbm 1 & 2 \\ 3 & 4 \ebm   
+      \bbm 1 & 1 \\ 1 & 1 \ebm =
+      \bbm 3 & 3 \\ 7 & 7 \ebm
+   \]
+ }
+ \fromSlide{4}{
+  \item Here $AB$ and $BA$ do not even have the same shape:
+   {\tiny \[
+     \bbm 1 & 1 \\ 1 & 1 \\ 1 & 1 \ebm
+     \bbm 1 & 1 & 1 \\ 1 & 1 & 1 \ebm =
+     \bbm 2 & 2 & 2 \\ 2 & 2 & 2 \\ 2 & 2 & 2 \ebm
+     \hspace{4em}
+     \bbm 1 & 1 & 1 \\ 1 & 1 & 1 \ebm 
+     \bbm 1 & 1 \\ 1 & 1 \\ 1 & 1 \ebm =
+     \bbm 3 & 3 \\ 3 & 3 \ebm
+   \]}
+ }
+ \fromSlide{5}{
+  \item Here $AB$ is defined, but $BA$ is not:
+   {\tiny \[
+     \bbm 1 & 2 \\ 3 & 4 \\ 5 & 6 \ebm
+     \bbm -1 & 1 \\ 1 & -1 \ebm = 
+     \bbm 1 & -1 \\ 1 & -1 \\ 1 & -1 \ebm 
+     \hspace{4em}
+     \bbm -1 & 1 \\ 1 & -1 \ebm 
+     \bbm 1 & 2 \\ 3 & 4 \\ 5 & 6 \ebm = 
+     \text{\RED{UNDEFINED}}
+   \]}
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{16}{%
+\begin{slide}{Determinants}
+\begin{itemize}
+ \fromSlide{2}{
+  \item For any square matrix $A$, we will define a number
+   \DEFN{$\det(A)$}, called the \DEFN{determinant} of $A$. 
+ \fromSlide{3}{
+  Many applications, explained later.
+ }}
+ \fromSlide{4}{
+  \item {\tiny \(\displaystyle
+   \det\bbm a\ebm = a \hspace{3em}
+   \det\bbm a & b \\ c & d \ebm = ad-bc 
+  \)}}
+\fromSlide{5}{\item \ghost\vspace{-3ex}
+{\tiny \[
+\onlySlide*{5}{ \det{\ss{\bbm\ss{a} & \ss{b} & \ss{c}\\
+\ss{d} & \ss{e} & \ss{f}\\
+\ss{g} & \ss{h} & \ss{i}
+\ebm}}\WHITE{=}
+\WHITE{+\ss{a}\det{\ss{\bbm\ss{e} & \ss{f}\\
+\ss{h} & \ss{i}
+\ebm}}}\WHITE{-\ss{b}\det{\ss{\bbm\ss{d} & \ss{f}\\
+\ss{g} & \ss{i}
+\ebm}}}\WHITE{+\ss{c}\det{\ss{\bbm\ss{d} & \ss{e}\\
+\ss{g} & \ss{h}
+\ebm}}}}
+\onlySlide*{6}{ \det\bbm
+\RED{\ss{a}} & \YELLOW{\ss{b}} & \YELLOW{\ss{c}}\\
+\YELLOW{\ss{d}} & \OLG{\ss{e}} & \OLG{\ss{f}}\\
+\YELLOW{\ss{g}} & \OLG{\ss{h}} & \OLG{\ss{i}}
+\ebm =
+\MAGENTA{+}\RED{\ss{a}}\det{\ss{\bbm\OLG{\ss{e}} & \OLG{\ss{f}}\\
+\OLG{\ss{h}} & \OLG{\ss{i}}
+\ebm}}
+\WHITE{{-}\ss{b}\det{\ss{\bbm\ss{d} & \ss{f}\\
+\ss{g} & \ss{i}
+\ebm}}}
+\WHITE{{+}\ss{c}\det{\ss{\bbm\ss{d} & \ss{e}\\
+\ss{g} & \ss{h}
+\ebm}}}
+}
+\onlySlide*{7}{ \det\bbm
+\YELLOW{\ss{a}} & \RED{\ss{b}} & \YELLOW{\ss{c}}\\
+\OLG{\ss{d}} & \YELLOW{\ss{e}} & \OLG{\ss{f}}\\
+\OLG{\ss{g}} & \YELLOW{\ss{h}} & \OLG{\ss{i}}
+\ebm =
+\BLACK{+}\BLACK{\ss{a}}\det{\ss{\bbm\ss{e} & \ss{f}\\
+\ss{h} & \ss{i}
+\ebm}}
+\MAGENTA{-}\RED{\ss{b}}\det{\ss{\bbm\OLG{\ss{d}} & \OLG{\ss{f}}\\
+\OLG{\ss{g}} & \OLG{\ss{i}}
+\ebm}}
+\WHITE{{+}\ss{c}\det{\ss{\bbm\ss{d} & \ss{e}\\
+\ss{g} & \ss{h}
+\ebm}}}
+}
+\onlySlide*{8}{ \det\bbm
+\YELLOW{\ss{a}} & \YELLOW{\ss{b}} & \RED{\ss{c}}\\
+\OLG{\ss{d}} & \OLG{\ss{e}} & \YELLOW{\ss{f}}\\
+\OLG{\ss{g}} & \OLG{\ss{h}} & \YELLOW{\ss{i}}
+\ebm =
+\BLACK{+}\BLACK{\ss{a}}\det{\ss{\bbm\ss{e} & \ss{f}\\
+\ss{h} & \ss{i}
+\ebm}}
+\BLACK{-}\BLACK{\ss{b}}\det{\ss{\bbm\ss{d} & \ss{f}\\
+\ss{g} & \ss{i}
+\ebm}}
+\MAGENTA{+}\RED{\ss{c}}\det{\ss{\bbm\OLG{\ss{d}} & \OLG{\ss{e}}\\
+\OLG{\ss{g}} & \OLG{\ss{h}}
+\ebm}}
+}
+\fromSlide*{9}{ \det{\ss{\bbm\ss{a} & \ss{b} & \ss{c}\\
+\ss{d} & \ss{e} & \ss{f}\\
+\ss{g} & \ss{h} & \ss{i}
+\ebm}}=
+\BLACK{+}\BLACK{\ss{a}}\det{\ss{\bbm\ss{e} & \ss{f}\\
+\ss{h} & \ss{i}
+\ebm}}
+\BLACK{-}\BLACK{\ss{b}}\det{\ss{\bbm\ss{d} & \ss{f}\\
+\ss{g} & \ss{i}
+\ebm}}
+\BLACK{+}\BLACK{\ss{c}}\det{\ss{\bbm\ss{d} & \ss{e}\\
+\ss{g} & \ss{h}
+\ebm}}
+}
+\]}
+  \vspace{-4ex}
+  {\tiny
+  \begin{align*}
+   \hspace*{5em} &
+    \fromSlide{9}{= a(ei-fh) - b(di-fg) + c(dh-eg)} \\
+   &\fromSlide{10}{= aei-afh-bdi+bfg+cdh-ceg}
+  \end{align*}}
+  \vspace{-2ex}
+}
+\fromSlide{11}{\item \ghost\vspace{-3ex} {\tiny \[
+\onlySlide*{11}{ \det{\ss{\bbm\ss{1} & \ss{a} & \ss{b}\\
+\ss{b} & \ss{1} & \ss{1}\\
+\ss{a} & \ss{1} & \ss{1}
+\ebm}}\WHITE{=}
+\WHITE{+\ss{1}\det{\ss{\bbm\ss{1} & \ss{1}\\
+\ss{1} & \ss{1}
+\ebm}}}\WHITE{-\ss{a}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}}\WHITE{+\ss{b}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}}}
+\onlySlide*{12}{ \det\bbm
+\RED{\ss{1}} & \YELLOW{\ss{a}} & \YELLOW{\ss{b}}\\
+\YELLOW{\ss{b}} & \OLG{\ss{1}} & \OLG{\ss{1}}\\
+\YELLOW{\ss{a}} & \OLG{\ss{1}} & \OLG{\ss{1}}
+\ebm =
+\MAGENTA{+}\RED{\ss{1}}\det{\ss{\bbm\OLG{\ss{1}} & \OLG{\ss{1}}\\
+\OLG{\ss{1}} & \OLG{\ss{1}}
+\ebm}}
+\WHITE{{-}\ss{a}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}}
+\WHITE{{+}\ss{b}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}}
+}
+\onlySlide*{13}{ \det\bbm
+\YELLOW{\ss{1}} & \RED{\ss{a}} & \YELLOW{\ss{b}}\\
+\OLG{\ss{b}} & \YELLOW{\ss{1}} & \OLG{\ss{1}}\\
+\OLG{\ss{a}} & \YELLOW{\ss{1}} & \OLG{\ss{1}}
+\ebm =
+\BLACK{+}\BLACK{\ss{1}}\det{\ss{\bbm\ss{1} & \ss{1}\\
+\ss{1} & \ss{1}
+\ebm}}
+\MAGENTA{-}\RED{\ss{a}}\det{\ss{\bbm\OLG{\ss{b}} & \OLG{\ss{1}}\\
+\OLG{\ss{a}} & \OLG{\ss{1}}
+\ebm}}
+\WHITE{{+}\ss{b}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}}
+}
+\onlySlide*{14}{ \det\bbm
+\YELLOW{\ss{1}} & \YELLOW{\ss{a}} & \RED{\ss{b}}\\
+\OLG{\ss{b}} & \OLG{\ss{1}} & \YELLOW{\ss{1}}\\
+\OLG{\ss{a}} & \OLG{\ss{1}} & \YELLOW{\ss{1}}
+\ebm =
+\BLACK{+}\BLACK{\ss{1}}\det{\ss{\bbm\ss{1} & \ss{1}\\
+\ss{1} & \ss{1}
+\ebm}}
+\BLACK{-}\BLACK{\ss{a}}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}
+\MAGENTA{+}\RED{\ss{b}}\det{\ss{\bbm\OLG{\ss{b}} & \OLG{\ss{1}}\\
+\OLG{\ss{a}} & \OLG{\ss{1}}
+\ebm}}
+}
+\fromSlide*{15}{ \det{\ss{\bbm\ss{1} & \ss{a} & \ss{b}\\
+\ss{b} & \ss{1} & \ss{1}\\
+\ss{a} & \ss{1} & \ss{1}
+\ebm}}=
+\BLACK{+}\BLACK{\ss{1}}\det{\ss{\bbm\ss{1} & \ss{1}\\
+\ss{1} & \ss{1}
+\ebm}}
+\BLACK{-}\BLACK{\ss{a}}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}
+\BLACK{+}\BLACK{\ss{b}}\det{\ss{\bbm\ss{b} & \ss{1}\\
+\ss{a} & \ss{1}
+\ebm}}
+}
+\]
+  \begin{align*}
+   \hspace*{2em} &
+    \fromSlide{15}{= 1\tm 0 - a(b-a) + b(b-a)} \\ &
+    \fromSlide{16}{= (b-a)^2}
+  \end{align*}}}
+\end{itemize}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{Minors and cofactors}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Here is a matrix \fromSlide{3}{with one entry circled.} \\
+   {\tiny 
+    \parbox{3.5cm}{$
+     \onlySlide*{2}{\bbm
+       \bx{1} & 
+       \bx{0} & 
+       \bx{2} & 
+       \bx{0} \\
+       \bx{3} & 
+       \bx{4} & 
+       \bx{5} & 
+       \bx{6} \\
+       \bx{0} & 
+       \bx{2} & 
+       \bx{7} & 
+       \bx{0} \\
+       \bx{0} & 
+       \bx{0} & 
+       \bx{8} & 
+       \bx{1} \\
+     \ebm}
+     \onlySlide*{3}{\bbm
+       \bx{1} & 
+       \bx{0} & 
+       \bx{2} & 
+       \bx{0} \\
+       \bx{3} & 
+       \bx{4} & 
+       \bx{\pr{5}} & 
+       \bx{6} \\
+       \bx{0} & 
+       \bx{2} & 
+       \bx{7} & 
+       \bx{0} \\
+       \bx{0} & 
+       \bx{0} & 
+       \bx{8} & 
+       \bx{1} \\
+     \ebm}
+     \onlySlide*{4}{\bbm
+       \bx{\OLG{1}} & 
+       \bx{\OLG{0}} & 
+       \bx{\YELLOW{2}} & 
+       \bx{\OLG{0}} \\
+       \bx{\YELLOW{3}} & 
+       \bx{\YELLOW{4}} & 
+       \bx{\pr{5}} & 
+       \bx{\YELLOW{6}} \\
+       \bx{\OLG{0}} & 
+       \bx{\OLG{2}} & 
+       \bx{\YELLOW{7}} & 
+       \bx{\OLG{0}} \\
+       \bx{\OLG{0}} & 
+       \bx{\OLG{0}} & 
+       \bx{\YELLOW{8}} & 
+       \bx{\OLG{1}} \\
+     \ebm}
+     \onlySlide*{5}{\bbm
+       \bx{\OLG{1}} & 
+       \bx{\OLG{0}} & 
+       \bx{\YELLOW{2}} & 
+       \bx{\OLG{0}} \\
+       \bx{\YELLOW{3}} & 
+       \bx{\YELLOW{4}} & 
+       \bx{\pr{5}} & 
+       \bx{\YELLOW{6}} \\
+       \bx{\OLG{0}} & 
+       \bx{\OLG{2}} & 
+       \bx{\YELLOW{7}} & 
+       \bx{\OLG{0}} \\
+       \bx{\OLG{0}} & 
+       \bx{\OLG{0}} & 
+       \bx{\YELLOW{8}} & 
+       \bx{\OLG{1}} \\
+     \ebm}
+     \onlySlide*{6}{\bbm
+       \bx{\BLUE{$+$}} & 
+       \bx{\MAGENTA{$-$}} & 
+       \bx{\BLUE{$+$}} & 
+       \bx{\MAGENTA{$-$}} \\
+       \bx{\MAGENTA{$-$}} & 
+       \bx{\BLUE{$+$}} & 
+       \bx{\pr{\MAGENTA{$-$}}} & 
+       \bx{\BLUE{$+$}} \\
+       \bx{\BLUE{$+$}} & 
+       \bx{\MAGENTA{$-$}} & 
+       \bx{\BLUE{$+$}} & 
+       \bx{\MAGENTA{$-$}} \\
+       \bx{\MAGENTA{$-$}} & 
+       \bx{\BLUE{$+$}} & 
+       \bx{\MAGENTA{$-$}} & 
+       \bx{\BLUE{$+$}} \\
+     \ebm}
+     \fromSlide*{7}{\bbm
+       \bx{1} & 
+       \bx{0} & 
+       \bx{2} & 
+       \bx{0} \\
+       \bx{3} & 
+       \bx{4} & 
+       \bx{\pr{5}} & 
+       \bx{6} \\
+       \bx{0} & 
+       \bx{2} & 
+       \bx{7} & 
+       \bx{0} \\
+       \bx{0} & 
+       \bx{0} & 
+       \bx{8} & 
+       \bx{1} \\
+     \ebm}
+     $}
+     \hspace{2em}
+     \parbox{1cm}{\fromSlide{3}{\centering $5$}}
+     \parbox{1.7cm}{\fromSlide{4}{
+      $\bbm 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 1 \ebm$}}
+     \parbox{1cm}{\fromSlide{5}{\centering $2$}}
+     \parbox{1cm}{\fromSlide{6}{\centering $-$}} \\
+     \parbox{3.5cm}{\centering matrix}
+     \hspace{2em}
+     \parbox{1cm}{\fromSlide{3}{\centering entry}}
+     \parbox{1.7cm}{\fromSlide{4}{\centering minor}}
+     \parbox{1cm}{\fromSlide{5}{\centering cofactor}}
+     \parbox{1cm}{\fromSlide{6}{\centering sign}}
+   }
+ }
+ \fromSlide{4}{
+  \item The associated \DEFN{minor} is obtained by crossing out the
+    row and column containing that entry.
+ }
+ \fromSlide{5}{
+  \item The \DEFN{cofactor} is the determinant of the minor.
+ }
+ \fromSlide{6}{
+  \item The associated \DEFN{signs} alternate in a checkerboard
+   pattern.
+ }
+ \fromSlide{7}{
+  \item To find the determinant, multiply the entries in the top row
+   by their signs and cofactors, and add up the results.
+ }
+ \fromSlide{8}{
+  \item Alternatively: pick \emph{any} row or column, multiply the
+   entries by their signs and cofactors, then add up to get $\det(A)$ 
+   again.
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{16}{%
+\begin{slide}{Examples}
+{\tiny \[
+\onlySlide*{2}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b} & {\scriptstyle c} & {\scriptstyle d}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}\WHITE{=}
+\WHITE{+{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}\WHITE{-{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}\WHITE{+{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}\WHITE{-{\scriptstyle d}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}}
+\onlySlide*{3}{ \det\bbm
+\RED{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} & \YELLOW{{\scriptstyle c}} & \YELLOW{{\scriptstyle d}}\\
+\YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm =
+\MAGENTA{+}\RED{\scriptstyle a}\det{\scriptstyle\bbm\OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm}
+\WHITE{{-}{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}
+\WHITE{{+}{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}
+\WHITE{{-}{\scriptstyle d}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{4}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \RED{{\scriptstyle b}} & \YELLOW{{\scriptstyle c}} & \YELLOW{{\scriptstyle d}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm =
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\MAGENTA{-}\RED{\scriptstyle b}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm}
+\WHITE{{+}{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}}
+\WHITE{{-}{\scriptstyle d}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{5}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} & \RED{{\scriptstyle c}} & \YELLOW{{\scriptstyle d}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm =
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\MAGENTA{+}\RED{\scriptstyle c}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}
+\ebm}
+\WHITE{{-}{\scriptstyle d}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{6}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} & \YELLOW{{\scriptstyle c}} & \RED{{\scriptstyle d}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \YELLOW{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle 1}}
+\ebm =
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{+}\BLACK{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\MAGENTA{-}\RED{\scriptstyle d}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 1}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}
+\ebm}
+}
+\fromSlide*{7}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b} & {\scriptstyle c} & {\scriptstyle d}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}=
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle 1} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{+}\BLACK{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle d}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 1} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 1}\\
+{\scriptstyle 0} & {\scriptstyle 0} & {\scriptstyle 0}
+\ebm}
+}
+\]}
+{\tiny \vspace{-3ex}\[ \fromSlide{7}{ \hspace{4em} = a.1 - b.0 + c.0 - d.0 = a } \]}
+{\tiny \[
+\onlySlide*{8}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle 0} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle 0} & {\scriptstyle e}
+\ebm}\WHITE{=}
+\WHITE{+{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle e}
+\ebm}}\WHITE{-{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}}\WHITE{+{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle c}\\
+{\scriptstyle d} & {\scriptstyle 0}
+\ebm}}}
+\onlySlide*{9}{ \det\bbm
+\RED{{\scriptstyle a}} & \YELLOW{{\scriptstyle 0}} & \YELLOW{{\scriptstyle b}}\\
+\YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle c}} & \OLG{{\scriptstyle 0}}\\
+\YELLOW{{\scriptstyle d}} & \OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle e}}
+\ebm =
+\MAGENTA{+}\RED{\scriptstyle a}\det{\scriptstyle\bbm\OLG{{\scriptstyle c}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle e}}
+\ebm}
+\WHITE{{-}{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}}
+\WHITE{{+}{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle c}\\
+{\scriptstyle d} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{10}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \RED{{\scriptstyle 0}} & \YELLOW{{\scriptstyle b}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle c}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle e}}
+\ebm =
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle e}
+\ebm}
+\MAGENTA{-}\RED{\scriptstyle 0}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \OLG{{\scriptstyle e}}
+\ebm}
+\WHITE{{+}{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle c}\\
+{\scriptstyle d} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{11}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \YELLOW{{\scriptstyle 0}} & \RED{{\scriptstyle b}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle c}} & \YELLOW{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle e}}
+\ebm =
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle e}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\MAGENTA{+}\RED{\scriptstyle b}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle c}}\\
+\OLG{{\scriptstyle d}} & \OLG{{\scriptstyle 0}}
+\ebm}
+}
+\fromSlide*{12}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle 0} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle 0} & {\scriptstyle e}
+\ebm}=
+\BLACK{+}\BLACK{\scriptstyle a}\det{\scriptstyle\bbm{\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle 0} & {\scriptstyle e}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\BLACK{+}\BLACK{\scriptstyle b}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle c}\\
+{\scriptstyle d} & {\scriptstyle 0}
+\ebm}
+}
+\]}
+{\tiny \[ \fromSlide{12}{ \hspace{7.5em} =
+  a(ce-0) - 0(0e-0d) +b(0-cd) = ace-bcd.}
+\]}
+{\tiny \[
+\onlySlide*{12}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle 0} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle 0} & {\scriptstyle e}
+\ebm}\WHITE{=}
+\WHITE{-{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}}\WHITE{+{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}}\WHITE{-{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}}
+\onlySlide*{13}{ \det\bbm
+\YELLOW{{\scriptstyle a}} & \RED{{\scriptstyle 0}} & \YELLOW{{\scriptstyle b}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle c}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle e}}
+\ebm =
+\MAGENTA{-}\RED{\scriptstyle 0}\det{\scriptstyle\bbm\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \OLG{{\scriptstyle e}}
+\ebm}
+\WHITE{{+}{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}}
+\WHITE{{-}{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{14}{ \det\bbm
+\OLG{{\scriptstyle a}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle b}}\\
+\YELLOW{{\scriptstyle 0}} & \RED{{\scriptstyle c}} & \YELLOW{{\scriptstyle 0}}\\
+\OLG{{\scriptstyle d}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle e}}
+\ebm =
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\MAGENTA{+}\RED{\scriptstyle c}\det{\scriptstyle\bbm\OLG{{\scriptstyle a}} & \OLG{{\scriptstyle b}}\\
+\OLG{{\scriptstyle d}} & \OLG{{\scriptstyle e}}
+\ebm}
+\WHITE{{-}{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle 0}
+\ebm}}
+}
+\onlySlide*{15}{ \det\bbm
+\OLG{{\scriptstyle a}} & \YELLOW{{\scriptstyle 0}} & \OLG{{\scriptstyle b}}\\
+\OLG{{\scriptstyle 0}} & \YELLOW{{\scriptstyle c}} & \OLG{{\scriptstyle 0}}\\
+\YELLOW{{\scriptstyle d}} & \RED{{\scriptstyle 0}} & \YELLOW{{\scriptstyle e}}
+\ebm =
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\BLACK{+}\BLACK{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\MAGENTA{-}\RED{\scriptstyle 0}\det{\scriptstyle\bbm\OLG{{\scriptstyle a}} & \OLG{{\scriptstyle b}}\\
+\OLG{{\scriptstyle 0}} & \OLG{{\scriptstyle 0}}
+\ebm}
+}
+\fromSlide*{16}{ \det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle 0} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle c} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle 0} & {\scriptstyle e}
+\ebm}=
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle 0} & {\scriptstyle 0}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\BLACK{+}\BLACK{\scriptstyle c}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle d} & {\scriptstyle e}
+\ebm}
+\BLACK{-}\BLACK{\scriptstyle 0}\det{\scriptstyle\bbm{\scriptstyle a} & {\scriptstyle b}\\
+{\scriptstyle 0} & {\scriptstyle 0}
+\ebm}
+}
+\]}
+{\tiny \[ \fromSlide{16}{ \hspace{7.5em} =
+  -0 + c(ae-bd) - 0 = ace-bcd}
+\]}
+
+\end{slide}
+}
+
+
+\overlays{8}{%
+\begin{slide}{Row operations and determinants}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Swap 2 rows in $A$ to get a new matrix $A'$, then
+   $\det(A')=-\det(A)$. 
+ }
+ \fromSlide{3}{
+  \item {\tiny $\displaystyle
+   \det\bbm
+    1&1&1 \\
+    \RED{a} & \RED{0} & \RED{0} \\
+    \OLG{0} & \OLG{b} & \OLG{0}
+   \ebm = ab \hspace{4em}
+   \det\bbm
+    1&1&1 \\
+    \OLG{0} & \OLG{b} & \OLG{0} \\
+    \RED{a} & \RED{0} & \RED{0}
+   \ebm = -ab$}
+ }
+ \fromSlide{4}{
+  \item Add a multiple of one row of $A$ to another row to get $A'$:
+   then $\det(A')=\det(A)$.
+ }
+ \fromSlide{5}{
+  \item {\tiny $\displaystyle
+   \det\bbm
+    \RED{a} & \RED{b} \\
+    \RED{a}+c & \RED{b}+d
+   \ebm = (\OLG{ab}+ad) - (\OLG{ab}+bc) = ad-bc =
+   \det\bbm
+    \RED{a} & \RED{b} \\ c & d
+   \ebm$}
+ }
+ \fromSlide{6}{
+  \item Multiply one row of $A$ by $t$ to get $A'$: then
+   $\det(A')=t\,\det(A)$. 
+ }
+ \fromSlide{7}{
+  \item {\tiny $\displaystyle
+   \det\bbm
+    \RED{10} & \RED{0} & \RED{20} \\
+    0 & 3 & 0 \\
+    4 & 0 & 5 
+   \ebm = -90 \hspace{4em}
+   \det\bbm
+    \RED{1} & \RED{0} & \RED{2} \\
+    0 & 3 & 0 \\
+    4 & 0 & 5 
+   \ebm = -9$}
+ }
+ \fromSlide{8}{
+  \item All this also works with columns instead of rows.
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{9}{%
+\begin{slide}{The Vandermonde determinant}
+\begin{itemize}
+ \fromSlide{2}{
+  \item $\det\bbm 1&1&1 \\ a&b&c \\ a^2&b^2&c^2 \ebm =
+         (b-a)(c-a)(c-b)$.
+ }
+ \fromSlide{3}{
+  \item \ghost\vspace{-3ex} \[ \scriptstyle
+   \fromSlide{3}{\det\bbm
+     \ss{1}&\ss{1}&\ss{1} \\
+     \ss{a}&\ss{b}&\ss{c} \\
+     \ss{a^2}&\ss{b^2}&\ss{c^2}
+   \ebm}
+   \fromSlide{4}{ =
+   \det\bbm
+     \ss{1}&\ss{0}&\ss{0} \\
+     \ss{a}&\ss{b-a}&\ss{c-a} \\
+     \ss{a^2}&\ss{b^2-a^2}&\ss{c^2-a^2}
+   \ebm} 
+   \fromSlide{5}{=
+   \det\bbm
+     \ss{1}&\ss{0}&\ss{0} \\
+     \ss{a}&\ss{b-a}&\ss{c-a} \\
+     \ss{a^2}&\ss{(b-a)(b+a)}&\ss{(c-a)(c+a)}
+   \ebm} \fromSlide{6}{=}
+  \] \[ \scriptstyle
+   \fromSlide{6}{(b-a)(c-a)\det\bbm
+     \ss{1}&\ss{0}&\ss{0} \\
+     \ss{a}&\ss{1}&\ss{1} \\
+     \ss{a^2}&\ss{b+a}&\ss{c+a}
+   \ebm}
+   \fromSlide{7}{=
+   (b-a)(c-a)\det\bbm
+     \ss{1}&\ss{0}&\ss{0} \\
+     \ss{a}&\ss{1}&\ss{0} \\
+     \ss{a^2}&\ss{b+a}&\ss{c-b}
+   \ebm} \fromSlide{8}{=}
+  \] \[ \scriptstyle
+   \fromSlide{8}{(b-a)(c-a)(c-b)\det\bbm
+     \ss{1}&\ss{0}&\ss{0} \\
+     \ss{a}&\ss{1}&\ss{0} \\
+     \ss{a^2}&\ss{b+a}& 1
+   \ebm} \fromSlide{9}{=
+   (b-a)(c-a)(c-b).}
+  \]
+ }
+ \fromSlide{3}{
+  \item
+   \onlySlide*{3}{Subtract $C_1$ from $C_2$ and $C_3$.}
+   \onlySlide*{4}{Factorise the entries.}
+   \onlySlide*{5}{Pull out factors of $b-a$ and $c-a$.}
+   \onlySlide*{6}{Subtract $C_2$ from $C_3$.}
+   \onlySlide*{7}{Pull out a factor of $c-b$.}
+   \onlySlide*{8}{The remaining matrix has determinant one.}
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{5}{%
+\begin{slide}{Further properties}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $A$ and $B$ are square matrices of the same size, then
+   $\det(AB)=\det(A)\det(B)$.
+ }
+ \fromSlide{3}{
+  \item $\det(A^T)=\det(A)$
+ }
+ \fromSlide{4}{
+  \item Here $A^T$ means the \DEFN{transpose} of $A$: the columns of
+   $A$ are the rows of $A^T$ and \emph{vice versa}.
+ }
+ \fromSlide{5}{
+  \item $
+   \bbm
+    \RED{1} & \RED{2} & \RED{3} & \RED{4} \\
+    \BLUE{5} & \BLUE{6} & \BLUE{7} & \BLUE{8} \\
+    \OLG{9} & \OLG{10} & \OLG{11} & \OLG{12} \\
+    \MAGENTA{13} & \MAGENTA{14} & \MAGENTA{15} & \MAGENTA{16}
+   \ebm^T = 
+   \bbm
+    \RED{ 1} & \BLUE{ 5} & \OLG{ 9} & \MAGENTA{13} \\
+    \RED{ 2} & \BLUE{ 6} & \OLG{10} & \MAGENTA{14} \\
+    \RED{ 3} & \BLUE{ 7} & \OLG{11} & \MAGENTA{15} \\
+    \RED{ 4} & \BLUE{ 8} & \OLG{12} & \MAGENTA{16}
+   \ebm$
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{Inverse matrices}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $A$ is square and $\det(A)\neq 0$ then there is an
+   \DEFN{inverse matrix} $A^{-1}$ with $AA^{-1}=I=A^{-1}A$.
+ }
+ \fromSlide{3}{
+  \item If {\tiny $A=\bbm 2&1&3 \\ 1&1&2 \\ 1&1&3 \ebm$} then
+   {\tiny $A^{-1}=\bbm 1&0&-1\\ -1&3&1\\ 0&-1&1\ebm$}.
+ }
+ \fromSlide{4}{
+  \item If $\det(A)=0$, there is no inverse.
+ }
+ \fromSlide{5}{
+  \item Inverses can be used to solve equations: $A\VEC{x}=\VEC{b}$
+   gives $\VEC{x}=A^{-1}\VEC{b}$.
+ }
+ \fromSlide{6}{
+  \item \ghost\vspace{-5ex}
+   {\tiny \[
+    \left.\begin{aligned}
+     2x+y+3z &= 3 \\ x+y+2z &= 4 \\ x+y+3z &= 5 
+    \end{aligned}\right\}
+    \fromSlide{7}{
+      \Leftrightarrow
+      \bbm 2&1&3 \\ 1&1&2 \\ 1&1&3 \ebm
+      \bbm x \\ y \\ z \ebm =
+      \bbm 3 \\ 4 \\ 5 \ebm
+    } 
+    \fromSlide{8}{
+      \Leftrightarrow
+      \bbm x\\ y \\ z\ebm = 
+      \bbm 1&0&-1\\ -1&3&1\\ 0&-1&1\ebm 
+      \bbm 3 \\ 4 \\ 5 \ebm
+    } 
+    \fromSlide{9}{ = \bbm -2\\ 4\\ 1\ebm.}
+  \]
+  \[ \fromSlide{10}{\Leftrightarrow x=-2,\; y=4,\; z=1.} \] 
+ }}
+ \fromSlide{11}{ \tiny
+  \[\bbm \ss{a}&\ss{b} \\ \ss{c}&\ss{d}\ebm^{-1} =
+    \bbm \ss{ d/(ad-bc)} & \ss{-b/(ad-bc)} \\ 
+         \ss{-c/(ad-bc)} & \ss{ a/(ad-bc)} \ebm =
+    \frac{1}{ad-bc}\bbm \ss{d}&\ss{-b} \\ \ss{-c}&\ss{a} \ebm 
+  \]
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{18}{%
+\begin{slide}{The cofactor method}
+\parbox[t][2cm][c]{2cm}{
+ \onlySlide*{2}{
+${\ss{\bbm\ss{2} & \ss{2} & \ss{3}\\
+\ss{1} & \ss{2} & \ss{2}\\
+\ss{1} & \ss{2} & \ss{3}
+\ebm}}$
+ }
+\onlySlide*{3}{
+$\bbm
+\RED{\ss{2}} & \YLW{\ss{2}} & \YLW{\ss{3}}\\
+\YLW{\ss{1}} & \OLG{\ss{2}} & \OLG{\ss{2}}\\
+\YLW{\ss{1}} & \OLG{\ss{2}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{4}{
+$\bbm
+\YLW{\ss{2}} & \RED{\ss{2}} & \YLW{\ss{3}}\\
+\OLG{\ss{1}} & \YLW{\ss{2}} & \OLG{\ss{2}}\\
+\OLG{\ss{1}} & \YLW{\ss{2}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{5}{
+$\bbm
+\YLW{\ss{2}} & \YLW{\ss{2}} & \RED{\ss{3}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}} & \YLW{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{6}{
+$\bbm
+\YLW{\ss{2}} & \OLG{\ss{2}} & \OLG{\ss{3}}\\
+\RED{\ss{1}} & \YLW{\ss{2}} & \YLW{\ss{2}}\\
+\YLW{\ss{1}} & \OLG{\ss{2}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{7}{
+$\bbm
+\OLG{\ss{2}} & \YLW{\ss{2}} & \OLG{\ss{3}}\\
+\YLW{\ss{1}} & \RED{\ss{2}} & \YLW{\ss{2}}\\
+\OLG{\ss{1}} & \YLW{\ss{2}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{8}{
+$\bbm
+\OLG{\ss{2}} & \OLG{\ss{2}} & \YLW{\ss{3}}\\
+\YLW{\ss{1}} & \YLW{\ss{2}} & \RED{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{9}{
+$\bbm
+\YLW{\ss{2}} & \OLG{\ss{2}} & \OLG{\ss{3}}\\
+\YLW{\ss{1}} & \OLG{\ss{2}} & \OLG{\ss{2}}\\
+\RED{\ss{1}} & \YLW{\ss{2}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{10}{
+$\bbm
+\OLG{\ss{2}} & \YLW{\ss{2}} & \OLG{\ss{3}}\\
+\OLG{\ss{1}} & \YLW{\ss{2}} & \OLG{\ss{2}}\\
+\YLW{\ss{1}} & \RED{\ss{2}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{11}{
+$\bbm
+\OLG{\ss{2}} & \OLG{\ss{2}} & \YLW{\ss{3}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}} & \YLW{\ss{2}}\\
+\YLW{\ss{1}} & \YLW{\ss{2}} & \RED{\ss{3}}
+\ebm
+$}
+ \untilSlide*{16}{\fromSlide*{12}{
+${\ss{\bbm\ss{2} & \ss{2} & \ss{3}\\
+\ss{1} & \ss{2} & \ss{2}\\
+\ss{1} & \ss{2} & \ss{3}
+\ebm}}$
+ }}
+\onlySlide*{17}{$\bbm 
+\OLG{\ss{2}} & \OLG{\ss{2}} & \OLG{\ss{3}}\\
+\ss{1} & \ss{2} & \ss{2}\\
+\ss{1} & \ss{2} & \ss{3}\ebm$}
+\fromSlide*{18}{
+${\ss{\bbm\ss{2} & \ss{2} & \ss{3}\\
+\ss{1} & \ss{2} & \ss{2}\\
+\ss{1} & \ss{2} & \ss{3}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{3}{$\xra{}$}}
+\parbox[t][2cm][c]{2cm}{
+\onlySlide*{3}{
+ $\bbm
+\ss{\BLUE{2}} & \ss{\WHITE{1}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{0}} & \ss{\WHITE{3}} & \ss{\WHITE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{4}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLUE{1}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{0}} & \ss{\WHITE{3}} & \ss{\WHITE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{5}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLUE{0}} \\
+\ss{\WHITE{0}} & \ss{\WHITE{3}} & \ss{\WHITE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{6}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLUE{0}} & \ss{\WHITE{3}} & \ss{\WHITE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{7}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{0}} & \ss{\BLUE{3}} & \ss{\WHITE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{8}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{0}} & \ss{\BLACK{3}} & \ss{\BLUE{2}} \\
+\ss{\WHITE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{9}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{0}} & \ss{\BLACK{3}} & \ss{\BLACK{2}} \\
+\ss{\BLUE{-2}} & \ss{\WHITE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{10}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{0}} & \ss{\BLACK{3}} & \ss{\BLACK{2}} \\
+\ss{\BLACK{-2}} & \ss{\BLUE{1}} & \ss{\WHITE{2}}\ebm $}
+\onlySlide*{11}{
+ $\bbm
+\ss{\BLACK{2}} & \ss{\BLACK{1}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{0}} & \ss{\BLACK{3}} & \ss{\BLACK{2}} \\
+\ss{\BLACK{-2}} & \ss{\BLACK{1}} & \ss{\BLUE{2}}\ebm $}
+ \fromSlide*{12}{
+${\ss{\bbm\ss{2} & \ss{1} & \ss{0}\\
+\ss{0} & \ss{3} & \ss{2}\\
+\ss{-2} & \ss{1} & \ss{2}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{13}{$\xra{}$}}
+ \parbox[t][2cm][c]{2.8cm}{
+\onlySlide*{13}{$\bbm
+\ss{\BLUE{\mathbf{\oplus}}\ss{2}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{1}} & \ss{\BLUE{\mathbf{\oplus}}\ss{0}}\\
+\ss{\MAGENTA{\mathbf{\ominus}}\ss{0}} & \ss{\BLUE{\mathbf{\oplus}}\ss{3}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{2}}\\
+\ss{\BLUE{\mathbf{\oplus}}\ss{-2}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{1}} & \ss{\BLUE{\mathbf{\oplus}}\ss{2}}\ebm$}
+ \onlySlide*{14}{
+${\ss{\bbm\ss{2} & \ss{-1} & \ss{0}\\
+\ss{0} & \ss{3} & \ss{-2}\\
+\ss{-2} & \ss{-1} & \ss{2}
+\ebm}}$
+ }
+\onlySlide*{15}{$\bbm
+\RED{\ss{2}} & \RED{\ss{-1}} & \RED{\ss{0}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}} & \OLG{\ss{-2}}\\
+\BLUE{\ss{-2}} & \BLUE{\ss{-1}} & \BLUE{\ss{2}}\ebm$}
+\onlySlide*{16}{$\bbm
+\RED{\ss{2}} & \RED{\ss{-1}} & \RED{\ss{0}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}} & \OLG{\ss{-2}}\\
+\BLUE{\ss{-2}} & \BLUE{\ss{-1}} & \BLUE{\ss{2}}\ebm$}
+ \fromSlide*{17}{
+${\ss{\bbm\ss{2} & \ss{-1} & \ss{0}\\
+\ss{0} & \ss{3} & \ss{-2}\\
+\ss{-2} & \ss{-1} & \ss{2}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{16}{$\xra{}$}}
+ \parbox[t][2cm][c]{2.0cm}{
+\onlySlide*{16}{$\bbm
+\RED{\ss{2}} & \OLG{\ss{0}} & \BLUE{\ss{-2}}\\
+\RED{\ss{-1}} & \OLG{\ss{3}} & \BLUE{\ss{-1}}\\
+\RED{\ss{0}} & \OLG{\ss{-2}} & \BLUE{\ss{2}}\ebm$}
+\onlySlide*{17}{$\bbm 
+\RED{\ss{2}} & \ss{0} & \ss{-2}\\
+\RED{\ss{-1}} & \ss{3} & \ss{-1}\\
+\RED{\ss{0}} & \ss{-2} & \ss{2}\ebm$}
+\fromSlide*{18}{$\bbm
+\ss{2} & \ss{0} & \ss{-2}\\
+\ss{-1} & \ss{3} & \ss{-1}\\
+\ss{0} & \ss{-2} & \ss{2}\ebm$}
+
+}
+\hfill \\
+ \parbox[t][2cm][t]{10.0cm}{
+\onlySlide*{3}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{2}}\\
+\OLG{\ss{2}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{2}}$
+}
+\onlySlide*{4}{
+$\ss{\det{\ss{\bbm\OLG{\ss{1}} & \OLG{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{1}}$
+}
+\onlySlide*{5}{
+$\ss{\det{\ss{\bbm\OLG{\ss{1}} & \OLG{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}}
+\ebm}}=\BLUE{0}}$
+}
+\onlySlide*{6}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{3}}\\
+\OLG{\ss{2}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{0}}$
+}
+\onlySlide*{7}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{3}}\\
+\OLG{\ss{1}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{3}}$
+}
+\onlySlide*{8}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}}
+\ebm}}=\BLUE{2}}$
+}
+\onlySlide*{9}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{3}}\\
+\OLG{\ss{2}} & \OLG{\ss{2}}
+\ebm}}=\BLUE{-2}}$
+}
+\onlySlide*{10}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{3}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}}
+\ebm}}=\BLUE{1}}$
+}
+\onlySlide*{11}{
+$\ss{\det{\ss{\bbm\OLG{\ss{2}} & \OLG{\ss{2}}\\
+\OLG{\ss{1}} & \OLG{\ss{2}}
+\ebm}}=\BLUE{2}}$
+}
+\fromSlide*{17}{
+\[\scriptstyle \det(A)=(\OLG{2},\OLG{2},\OLG{3}).(\RED{2},\RED{-1},\RED{0})=2\]
+}\fromSlide*{18}{
+\vspace{-2ex}\[\scriptstyle A^{-1}=\frac{1}{2}{\ss{\bbm\ss{2} & \ss{0} & \ss{-2}\\
+\ss{-1} & \ss{3} & \ss{-1}\\
+\ss{0} & \ss{-2} & \ss{2}
+\ebm}}={\ss{\bbm\ss{1} & \ss{0} & \ss{-1}\\
+\ss{-1/2} & \ss{3/2} & \ss{-1/2}\\
+\ss{0} & \ss{-1} & \ss{1}
+\ebm}}\]}
+}
+ \begin{itemize}
+  \fromSlide{ 3}{\item Replace each entry by its cofactor.}
+  \fromSlide{12}{\item Multiply by the associated signs.}
+  \fromSlide{15}{\item Take the transpose to get the \DEFN{adjugate}
+                       matrix $\text{adj}(A)$.}
+  \fromSlide{17}{\item $\det(A)$ is the dot product of the first row
+   of $A$ and the first column of $\adj(A)$.}
+  \fromSlide{18}{\item Divide $\adj(A)$ by $\det(A)$ to get $A^{-1}$.}
+ \end{itemize}
+\end{slide}
+}
+
+\overlays{18}{%
+\begin{slide}{Another example}
+\parbox[t][2cm][c]{2cm}{
+ \onlySlide*{2}{
+${\ss{\bbm\ss{0} & \ss{0} & \ss{3}\\
+\ss{0} & \ss{3} & \ss{3}\\
+\ss{3} & \ss{3} & \ss{3}
+\ebm}}$
+ }
+\onlySlide*{3}{
+$\bbm
+\RED{\ss{0}} & \YLW{\ss{0}} & \YLW{\ss{3}}\\
+\YLW{\ss{0}} & \OLG{\ss{3}} & \OLG{\ss{3}}\\
+\YLW{\ss{3}} & \OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{4}{
+$\bbm
+\YLW{\ss{0}} & \RED{\ss{0}} & \YLW{\ss{3}}\\
+\OLG{\ss{0}} & \YLW{\ss{3}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \YLW{\ss{3}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{5}{
+$\bbm
+\YLW{\ss{0}} & \YLW{\ss{0}} & \RED{\ss{3}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}} & \YLW{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{6}{
+$\bbm
+\YLW{\ss{0}} & \OLG{\ss{0}} & \OLG{\ss{3}}\\
+\RED{\ss{0}} & \YLW{\ss{3}} & \YLW{\ss{3}}\\
+\YLW{\ss{3}} & \OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{7}{
+$\bbm
+\OLG{\ss{0}} & \YLW{\ss{0}} & \OLG{\ss{3}}\\
+\YLW{\ss{0}} & \RED{\ss{3}} & \YLW{\ss{3}}\\
+\OLG{\ss{3}} & \YLW{\ss{3}} & \OLG{\ss{3}}
+\ebm
+$}
+\onlySlide*{8}{
+$\bbm
+\OLG{\ss{0}} & \OLG{\ss{0}} & \YLW{\ss{3}}\\
+\YLW{\ss{0}} & \YLW{\ss{3}} & \RED{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{9}{
+$\bbm
+\YLW{\ss{0}} & \OLG{\ss{0}} & \OLG{\ss{3}}\\
+\YLW{\ss{0}} & \OLG{\ss{3}} & \OLG{\ss{3}}\\
+\RED{\ss{3}} & \YLW{\ss{3}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{10}{
+$\bbm
+\OLG{\ss{0}} & \YLW{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{0}} & \YLW{\ss{3}} & \OLG{\ss{3}}\\
+\YLW{\ss{3}} & \RED{\ss{3}} & \YLW{\ss{3}}
+\ebm
+$}
+\onlySlide*{11}{
+$\bbm
+\OLG{\ss{0}} & \OLG{\ss{0}} & \YLW{\ss{3}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}} & \YLW{\ss{3}}\\
+\YLW{\ss{3}} & \YLW{\ss{3}} & \RED{\ss{3}}
+\ebm
+$}
+ \untilSlide*{16}{\fromSlide*{12}{
+${\ss{\bbm\ss{0} & \ss{0} & \ss{3}\\
+\ss{0} & \ss{3} & \ss{3}\\
+\ss{3} & \ss{3} & \ss{3}
+\ebm}}$
+ }}
+\onlySlide*{17}{$\bbm 
+\OLG{\ss{0}} & \OLG{\ss{0}} & \OLG{\ss{3}}\\
+\ss{0} & \ss{3} & \ss{3}\\
+\ss{3} & \ss{3} & \ss{3}\ebm$}
+\fromSlide*{18}{
+${\ss{\bbm\ss{0} & \ss{0} & \ss{3}\\
+\ss{0} & \ss{3} & \ss{3}\\
+\ss{3} & \ss{3} & \ss{3}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{3}{$\xra{}$}}
+\parbox[t][2cm][c]{2cm}{
+\onlySlide*{3}{
+ $\bbm
+\ss{\BLUE{0}} & \ss{\WHITE{-9}} & \ss{\WHITE{-9}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{-9}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{4}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLUE{-9}} & \ss{\WHITE{-9}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{-9}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{5}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLUE{-9}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{-9}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{6}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLUE{-9}} & \ss{\WHITE{-9}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{7}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLACK{-9}} & \ss{\BLUE{-9}} & \ss{\WHITE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{8}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLACK{-9}} & \ss{\BLACK{-9}} & \ss{\BLUE{0}} \\
+\ss{\WHITE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{9}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLACK{-9}} & \ss{\BLACK{-9}} & \ss{\BLACK{0}} \\
+\ss{\BLUE{-9}} & \ss{\WHITE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{10}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLACK{-9}} & \ss{\BLACK{-9}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{-9}} & \ss{\BLUE{0}} & \ss{\WHITE{0}}\ebm $}
+\onlySlide*{11}{
+ $\bbm
+\ss{\BLACK{0}} & \ss{\BLACK{-9}} & \ss{\BLACK{-9}} \\
+\ss{\BLACK{-9}} & \ss{\BLACK{-9}} & \ss{\BLACK{0}} \\
+\ss{\BLACK{-9}} & \ss{\BLACK{0}} & \ss{\BLUE{0}}\ebm $}
+ \fromSlide*{12}{
+${\ss{\bbm\ss{0} & \ss{-9} & \ss{-9}\\
+\ss{-9} & \ss{-9} & \ss{0}\\
+\ss{-9} & \ss{0} & \ss{0}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{13}{$\xra{}$}}
+ \parbox[t][2cm][c]{2.8cm}{
+\onlySlide*{13}{$\bbm
+\ss{\BLUE{\mathbf{\oplus}}\ss{0}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{-9}} & \ss{\BLUE{\mathbf{\oplus}}\ss{-9}}\\
+\ss{\MAGENTA{\mathbf{\ominus}}\ss{-9}} & \ss{\BLUE{\mathbf{\oplus}}\ss{-9}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{0}}\\
+\ss{\BLUE{\mathbf{\oplus}}\ss{-9}} & \ss{\MAGENTA{\mathbf{\ominus}}\ss{0}} & \ss{\BLUE{\mathbf{\oplus}}\ss{0}}\ebm$}
+ \onlySlide*{14}{
+${\ss{\bbm\ss{0} & \ss{9} & \ss{-9}\\
+\ss{9} & \ss{-9} & \ss{0}\\
+\ss{-9} & \ss{0} & \ss{0}
+\ebm}}$
+ }
+\onlySlide*{15}{$\bbm
+\RED{\ss{0}} & \RED{\ss{9}} & \RED{\ss{-9}}\\
+\OLG{\ss{9}} & \OLG{\ss{-9}} & \OLG{\ss{0}}\\
+\BLUE{\ss{-9}} & \BLUE{\ss{0}} & \BLUE{\ss{0}}\ebm$}
+\onlySlide*{16}{$\bbm
+\RED{\ss{0}} & \RED{\ss{9}} & \RED{\ss{-9}}\\
+\OLG{\ss{9}} & \OLG{\ss{-9}} & \OLG{\ss{0}}\\
+\BLUE{\ss{-9}} & \BLUE{\ss{0}} & \BLUE{\ss{0}}\ebm$}
+ \fromSlide*{17}{
+${\ss{\bbm\ss{0} & \ss{9} & \ss{-9}\\
+\ss{9} & \ss{-9} & \ss{0}\\
+\ss{-9} & \ss{0} & \ss{0}
+\ebm}}$
+ }
+
+}
+ \parbox[t][2cm][c]{0.5cm}{\fromSlide{16}{$\xra{}$}}
+ \parbox[t][2cm][c]{2.0cm}{
+\onlySlide*{16}{$\bbm
+\RED{\ss{0}} & \OLG{\ss{9}} & \BLUE{\ss{-9}}\\
+\RED{\ss{9}} & \OLG{\ss{-9}} & \BLUE{\ss{0}}\\
+\RED{\ss{-9}} & \OLG{\ss{0}} & \BLUE{\ss{0}}\ebm$}
+\onlySlide*{17}{$\bbm 
+\RED{\ss{0}} & \ss{9} & \ss{-9} \\
+\RED{\ss{9}} & \ss{-9} & \ss{0}\\
+\RED{\ss{-9}} & \ss{0} & \ss{0}\ebm$}
+\fromSlide*{18}{$\bbm
+\ss{0} & \ss{9} & \ss{-9}\\
+\ss{9} & \ss{-9} & \ss{0}\\
+\ss{-9} & \ss{0} & \ss{0}\ebm$}
+
+}
+\hfill \\
+ \parbox[t][2cm][t]{10.0cm}{
+\onlySlide*{3}{
+$\ss{\det{\ss{\bbm\OLG{\ss{3}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{0}}$
+}
+\onlySlide*{4}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{-9}}$
+}
+\onlySlide*{5}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{-9}}$
+}
+\onlySlide*{6}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{-9}}$
+}
+\onlySlide*{7}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{-9}}$
+}
+\onlySlide*{8}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{0}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{0}}$
+}
+\onlySlide*{9}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{3}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{-9}}$
+}
+\onlySlide*{10}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{3}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{0}}$
+}
+\onlySlide*{11}{
+$\ss{\det{\ss{\bbm\OLG{\ss{0}} & \OLG{\ss{0}}\\
+\OLG{\ss{0}} & \OLG{\ss{3}}
+\ebm}}=\BLUE{0}}$
+}
+\fromSlide*{17}{
+\[\scriptstyle \det(A)=(\OLG{0},\OLG{0},\OLG{3}).(\RED{0},\RED{9},\RED{-9})=-27\]
+}\fromSlide*{18}{
+\vspace{-2ex}\[\scriptstyle A^{-1}=\frac{1}{-27}{\ss{\bbm\ss{0} & \ss{9} & \ss{-9}\\
+\ss{9} & \ss{-9} & \ss{0}\\
+\ss{-9} & \ss{0} & \ss{0}
+\ebm}}={\ss{\bbm\ss{0} & \ss{-1/3} & \ss{1/3}\\
+\ss{-1/3} & \ss{1/3} & \ss{0}\\
+\ss{1/3} & \ss{0} & \ss{0}
+\ebm}}\]}
+}
+ \begin{itemize}
+  \fromSlide{ 3}{\item Replace each entry by its cofactor.}
+  \fromSlide{12}{\item Multiply by the associated signs.}
+  \fromSlide{15}{\item Take the transpose to get the \DEFN{adjugate}
+                       matrix $\text{adj}(A)$.}
+  \fromSlide{17}{\item $\det(A)$ is the dot product of the first row
+   of $A$ and the first column of $\adj(A)$.}
+  \fromSlide{18}{\item Divide $\adj(A)$ by $\det(A)$ to get $A^{-1}$.}
+ \end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Inverses by row-reduction}
+ {\tiny \[
+  \fromSlide{2}{
+   A = \bbm
+    \ss{0} & \ss{0} & \ss{1} \\
+    \ss{0} & \ss{-1} & \ss{1} \\
+    \ss{1} & \ss{1} & \ss{-1} 
+   \ebm
+  }
+  \fromSlide{3}{
+   \xra{}
+   \left[\begin{array}{ccc|ccc}
+    \ss{ 0} & \ss{ 0} & \ss{ 1}  & \ss{ 1} & \ss{0} & \ss{0} \\
+    \ss{ 0} & \ss{-1} & \ss{ 1}  & \ss{ 0} & \ss{1} & \ss{0} \\
+    \ss{ 1} & \ss{ 1} & \ss{-1}  & \ss{ 0} & \ss{0} & \ss{1}
+   \end{array}\right]
+  }
+  \fromSlide{4}{
+   \xra{}
+   \left[\begin{array}{ccc|ccc}
+    \ss{ 1} & \ss{ 1} & \ss{-1}  & \ss{ 0} & \ss{0} & \ss{1} \\
+    \ss{ 0} & \ss{-1} & \ss{ 1}  & \ss{ 0} & \ss{1} & \ss{0} \\
+    \ss{ 0} & \ss{ 0} & \ss{ 1}  & \ss{ 1} & \ss{0} & \ss{0} 
+   \end{array}\right]
+  }
+ \] \vspace{-1ex} \[
+  \fromSlide{5}{
+   \xra{}
+   \left[\begin{array}{ccc|ccc}
+    \ss{ 1} & \ss{ 1} & \ss{-1}  & \ss{ 0} & \ss{0} & \ss{1} \\
+    \ss{ 0} & \ss{ 1} & \ss{-1}  & \ss{ 0} &-\ss{1} & \ss{0} \\
+    \ss{ 0} & \ss{ 0} & \ss{ 1}  & \ss{ 1} & \ss{0} & \ss{0} 
+   \end{array}\right]
+  }
+  \fromSlide{6}{
+   \xra{}
+   \left[\begin{array}{ccc|ccc}
+    \ss{ 1} & \ss{ 0} & \ss{ 0}  & \ss{ 0} & \ss{1} & \ss{1} \\
+    \ss{ 0} & \ss{ 1} & \ss{-1}  & \ss{ 0} &-\ss{1} & \ss{0} \\
+    \ss{ 0} & \ss{ 0} & \ss{ 1}  & \ss{ 1} & \ss{0} & \ss{0} 
+   \end{array}\right]
+   \fromSlide{7}{\xra{}}
+  }
+ \] \vspace{-1ex} \[
+  \fromSlide{7}{
+   \left[\begin{array}{ccc|ccc}
+    \ss{ 1} & \ss{ 0} & \ss{ 0}  & \ss{ 0} & \ss{1} & \ss{1} \\
+    \ss{ 0} & \ss{ 1} & \ss{ 0}  & \ss{ 1} &-\ss{1} & \ss{0} \\
+    \ss{ 0} & \ss{ 0} & \ss{ 1}  & \ss{ 1} & \ss{0} & \ss{0} 
+   \end{array}\right]
+  }
+  \fromSlide{8}{
+   \xra{}
+   \bbm
+     \ss{0} & \ss{1}  & \ss{1} \\
+     \ss{1} & \ss{-1} & \ss{0} \\
+     \ss{1} & \ss{0}  & \ss{0} 
+   \ebm = A^{-1}
+  }
+ \]}
+ \vspace{-1ex}
+ \begin{itemize}
+  \fromSlide{3}{\item Form the augmented matrix $[A|I_n]$.}
+  \fromSlide{4}{\item Row-reduce it:
+   $R_1\leftrightarrow R_3$;
+   \fromSlide{5}{$R_2\mapsto -R_2$; }
+   \fromSlide{6}{$R_1\mapsto R_1-R_2$; }
+   \fromSlide{7}{$R_2\mapsto R_2+R_3$. }
+  }
+  \fromSlide{8}{\vspace{-1ex}
+   \item If the left-hand block is $I_n$, then the right-hand block is
+   $A^{-1}$. 
+  }
+  \fromSlide{9}{
+   \item If the left-hand block is not $I_n$, then $\det(A)=0$ and $A$
+    has no inverse.
+  }
+ \end{itemize}
+\end{slide}
+}
+
+
+\overlays{13}{%
+\begin{slide}{Linear equations}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $n$ linear equations in $n$ variables.
+ }
+ \fromSlide{3}{
+  \item This can be rewritten as $A\VEC{x}=\VEC{b}$, where $A$ is an
+   $n\tm n$ matrix, and $\VEC{x}$ is the list of variables.
+ }
+ \fromSlide{4}{
+  \item Suppose $\det(A)\neq 0$:
+   \begin{itemize}
+    \fromSlide{5}{\item $A$ has an inverse matrix.}
+    \fromSlide{6}{\item This can be found by the cofactor method, or by
+      row-reducing $[A|I_n]$.}   
+    \fromSlide{7}{\item The equation $A\VEC{x}=\VEC{b}$ has a unique
+      solution, namely $\VEC{x}=A^{-1}\VEC{b}$.} 
+    \fromSlide{8}{\item This can also be found by row-reducing the
+     augmented matrix $[A|\VEC{b}]$.}
+  \end{itemize}
+ }
+ \fromSlide{9}{
+  \item Suppose $\det(A)= 0$:
+   \begin{itemize}
+    \fromSlide{10}{\item There is no inverse matrix.}
+    \fromSlide{11}{\item The equation $A\VEC{x}=\VEC{b}$ may or may not
+      have a solution.}
+    \fromSlide{12}{\item Row-reduce the
+     augmented matrix $[A|\VEC{b}]$: if there is a pivot in the last
+     column, then there are no solutions to $A\VEC{x}=\VEC{b}$.}
+    \fromSlide{13}{\item
+     If there is no pivot in the last column, then there is at least
+     one independent variable, so there are infinitely many solutions.
+    }
+  \end{itemize}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{20}{%
+\begin{slide}{Examples}
+ {\tiny \[ 
+  \fromSlide{2}{\left.\begin{aligned}
+   x + 2y &= 5 \\ 3x + 4y &= 6 
+  \end{aligned}\right\}}
+  \hspace{3em}
+  \fromSlide{3}{
+   \bbm 1 & 2 \\ 3 & 4 \ebm \bbm x \\ y \ebm =
+    A\VEC{x}=\VEC{b} = \bbm 5 \\ 6 \ebm
+  }
+  \hspace{3em}
+  \fromSlide{4}{
+   \det(A) = 1\tm 4 - 2\tm 3 = -2 \neq 0.
+  }
+ \]}
+ \fromSlide{5}{
+  As $\det(A)\neq 0$, there is an inverse matrix $A^{-1}$, and 
+  a unique solution.
+ }
+ \untilSlide*{8}{\tiny \[ 
+  \fromSlide{6}{
+   A^{-1} = \bbm \ss{-2} & \ss{1} \\ \ss{3/2} & \ss{-1/2} \ebm 
+  } \hspace{3em}
+  \fromSlide{7}{
+   \bbm x\\y \ebm = 
+    \bbm \ss{-2} & \ss{1} \\ \ss{3/2} & \ss{-1/2} \ebm
+     \bbm \ss{5}\\\ss{6}\ebm = 
+     \bbm \ss{-4} \\ \ss{9/2} \ebm
+  }
+  \hspace{3em}
+  \fromSlide{8}{
+   \left\{\begin{aligned}
+    x &= -4 \\ y &= 9/2
+   \end{aligned}\right.
+  }
+ \]}
+ \fromSlide{9}{\vspace{1ex}\hrule}
+ {\tiny \[ 
+  \fromSlide{10}{\left.\begin{aligned}
+   x + 2y &= 5 \\ 2x + 4y &= 6 
+  \end{aligned}\right\}}
+  \hspace{3em}
+  \fromSlide{11}{
+   \bbm 1 & 2 \\ 2 & 4 \ebm \bbm x \\ y \ebm =
+    A\VEC{x}=\VEC{b} = \bbm 5 \\ 6 \ebm
+  }
+  \hspace{3em}
+  \fromSlide{12}{
+   \det(A) = 1\tm 4 - 2\tm 2 = 0
+  }
+ \]}
+ \fromSlide{13}{{\tiny
+  $\left[\begin{array}{cc|c}
+    1 & 2 & 5 \\ 2 & 4 & 6
+   \end{array}\right]
+   \xra{}
+   \left[\begin{array}{cc|c}
+    1 & 2 & 0 \\ 0 & 0 & 1
+   \end{array}\right]$}
+ }
+ \fromSlide{14}{
+  Pivot in last column, so no solutions.
+ }
+ \fromSlide{15}{\vspace{1ex}\hrule}
+ {\tiny \[ 
+  \fromSlide{16}{\left.\begin{aligned}
+   x + 2y &= 3 \\ 2x + 4y &= 6 
+  \end{aligned}\right\}}
+  \hspace{3em}
+  \fromSlide{17}{
+   \bbm 1 & 2 \\ 2 & 4 \ebm \bbm x \\ y \ebm =
+    A\VEC{x}=\VEC{b} = \bbm 3 \\ 6 \ebm
+  }
+  \hspace{3em}
+  \fromSlide{18}{
+   \det(A) = 1\tm 4 - 2\tm 2 = 0
+  }
+ \]}
+ \fromSlide{19}{{\tiny
+  $\left[\begin{array}{cc|c}
+    1 & 2 & 3 \\ 2 & 4 & 6
+   \end{array}\right]
+   \xra{}
+   \left[\begin{array}{cc|c}
+    1 & 2 & 3 \\ 0 & 0 & 0
+   \end{array}\right]$}
+ } 
+ \fromSlide{20}{
+  \parbox{5cm}{
+   $x=3-2y$, with $y$ independent: \\
+   infinitely many solutions.}} 
+\end{slide}
+}
+
+\end{document}

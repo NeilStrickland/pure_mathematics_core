@@ -1,0 +1,195 @@
+\documentclass[12pt,twoside]{shefexam}
+%\usepackage[metapost,mplabels,truebbox]{mfpic}
+
+\newcommand{\half}      {{\textstyle\frac{1}{2}}}
+\newcommand{\st}        {\;|\;}
+\newcommand{\xra}       {\rightarrow}
+
+\renewcommand{\:}{\colon}
+
+\def\myrubric{Attempt \textbf{all} the questions. The allocation of 
+marks is shown in brackets; Section A is worth 60 marks in total, and
+Section B is worth 30 marks.}
+
+\begin{document}
+
+%\Pressmark{PMA101}
+\Department{PURE MATHEMATICS}
+\Title{Pure Mathematics Core --- Mock exam}
+\Semester{\autumn}
+\Duration{$2$ hours}
+\Rubric{\myrubric}
+
+\paper{PMA101}
+\stepcounter{secnum}
+\gdef\theenumi{\textbf{\sectionstyle{secnum}\arabic{enumi}}}%
+\gdef\thequestion{\sectionstyle{secnum}\arabic{enumi}}%
+
+ \question % pfrac 1
+  Convert the function
+  $\displaystyle f(x) = \frac{4}{(x+1)(x^2-1)}$
+  to partial fraction form, and thus find $\int f(x)\,dx$.
+  \marks{6}
+
+ \question % inverse 3
+  Let $f\:(-1,1)\xra{}(-1,1)$ be given by $f(x)=(5x+4)/(4x+5)$.  Find
+  a formula for $f^{-1}(x)$.  (You need not check anything about the
+  domain or range of $f$ or $f^{-1}$.)
+  \marks{4}
+
+ \question % composite 1
+  Let $a$ and $b$ be constants, and define $f,g\:\R\xra{}\R$ by
+  $f(x)=a+x$ and $g(x)=b-x$.  Find $f^{-1}(x)$, $g^{-1}(x)$ and
+  $(g\circ f\circ g)(x)$.
+  \marks{6}
+
+ \question % log 2
+  Simplify the expression 
+  $\displaystyle{\log\left(\frac{e^a e^b}{(e^c)^d}\right)}$.
+  \marks{2}
+
+ \question % arctan
+  Sketch the graphs of the functions $\tan(\theta)$ and $\sin(\theta)$.
+  Find an angle $\theta$ such that $\tan(\theta)=1$ and $\sin(\theta)<0$.
+  \marks{4}
+
+ \question % identity 2 
+  Show that
+  $\displaystyle 8\cosh(x)^4 - 8 \cosh(x)^2 + 1 = \cosh(4x)$.
+  \marks{5}
+
+ \question % diff rat 1
+  Let $a$, $b$ and $n$ be constants.  Find $f'(x)$, where 
+  $f(x)=\displaystyle{\left(\frac{x-a}{x-b}\right)^n}$.
+  \marks{3}
+
+ \question % diff chain 
+  Find
+  $\displaystyle\frac{d}{dx}\cos\left(\left(\frac{x+1}{2}\right)^2\right)$.
+  \marks{2}
+
+ \question % diff log
+  Find $\displaystyle\frac{d}{dx}\log(\cos(x))$.
+  \marks{2}
+
+ \question % diff rat 3
+  Let $a$, $b$, $c$ and $d$ be constants.  Find 
+  $\displaystyle{\frac{d}{dx}\left(\frac{ax+bx^{-1}}{cx+dx^{-1}}\right)}$.
+  \marks{4}
+
+ \question % diff stirling
+  If $y=\sqrt{2\pi}x^{x-1/2}e^{-x}$, show that $y'/y=\log(x)-1/(2x)$.
+  \marks{4}
+
+ \question % int subs 1
+  By putting $u=\log(x)$, find
+  $\int\frac{(1+\log(x))^2}{x}\,dx$.
+  \marks{4}
+
+ \question % int poly exp
+  Find $\int (4x^2+2x+1)e^{2x}\,dx$.
+  \marks{4}
+
+ \question % linear 2
+  Find the general solution of the following system of equations:
+  \begin{eqnarray*}
+   y+2z &=& 1 \\ -x+3z &=& 2 \\ -2x-3y &=& 1
+  \end{eqnarray*} \vspace{-2ex}
+%   What can you deduce about the determinant of the matrix
+%   \[ \left[\begin{array}{ccc}
+%       0 & 1 & 2 \\ -1 & 0 & 3 \\ -2 & -3 & 0 
+%      \end{array}\right] ?
+%   \]
+  \marks{6}
+
+ \question % char sym
+  Find the determinant of the following matrix, simplifying 
+  your answer as much as possible.
+  \[ \left[\begin{array}{ccc}
+      t & a & b \\ a & t & c \\ b & c & t
+     \end{array}\right]
+  \]
+  \marks{4}
+
+\stepcounter{secnum}
+\setcounter{enumi}{0}
+\gdef\theenumi{\textbf{\sectionstyle{secnum}\arabic{enumi}}}%
+\gdef\thequestion{\sectionstyle{secnum}\arabic{enumi}}%
+
+ \question % range 1
+  Let $g\:[0,\infty)\xra{}\R$ be given by
+  $g(x)=\sin(\pi e^{-x}/2)$.  Find the range of $g$.
+  \marks{4}
+
+ \question % int poly trig
+  Find $\int 8x\sin(x)\cos(x)\,dx$
+  \marks{7}
+
+ \question % int subs 2
+  By substituting $u=x^n$, find 
+  $\displaystyle\int\frac{dx}{x\sqrt{x^{-2n}-1}}$.
+  \marks{7}
+
+ \question % pfrac 4
+  Find $\displaystyle{\int\frac{x^5-1}{x^2(x-1)}\,dx}$.
+  \marks{6}
+
+ \question % inverse matrix
+  Find the inverse of the following matrix:
+  {\small \[ \left[ \begin{array}{cccc}
+    0 & 1 & 1 & 1 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 1 \\
+    1 & 1 & 1 & 1 
+   \end{array}\right]
+  \]}
+  \marks{6}
+
+\endpaper
+
+\end{document}
+
+
+ \question % expand
+  Simplify the expression
+  \begin{eqnarray*}
+   (aw+by)(cx+dz) &-& (cw+dy)(ax+bz) - \\
+   (aw+cx)(by+dz) &+& (ay+cz)(bw+dx).
+  \end{eqnarray*}
+  \marks{3}
+
+
+
+ \question % int exp trig 1
+  Find $\int e^{-x}\sin(x)^2\,dx$
+  \marks{9}
+
+ \question % diff misc
+  Put $f(x)=x/\sqrt{1+x^2}$.  Simplify $\sqrt{1+x^2}f'(x)$, and hence
+  find a constant $c$ such that $f'(x)=(1+x^2)^c$.
+  \marks{5}
+
+
+ \question % pfrac 2
+  Convert the function 
+  \[ f(x) = \frac{x+1}{(x-1)^4} \]
+  to partial fraction form, and thus find $\int f(x)\,dx$.
+  \marks{6}
+
+
+ \question % range 2
+  Put $A=\{x\in\R\st x\neq 0 \text{ and } -1<x<1\}$.  Define
+  $h\:A\xra{}\R$ by $h(x)=1/x$.  What is the range of $h$?
+  \marks{6}
+
+ \question % range 3
+  Find the range of the function $f\:[0,1]\xra{}\R$ given by
+  $f(x)=x-x^2$. 
+  \marks{4}
+
+
+
+ \question % inverse 2
+  Define $f,g\:\R\xra{}\R$ by $f(x)=\sinh(x)$ and
+  $g(x)=\log(x+\sqrt{x^2+1})$.  Check that $g(f(x))=x$.
+  \marks{5}

@@ -1,0 +1,267 @@
+\documentclass[%
+pdf,
+neil,
+colorBG,
+slideColor,
+]{prosper}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{pstricks,pst-node,pst-text,pst-3d,pst-plot,multido}
+\usepackage[usenames,dvips]{color}
+%\usepackage{graphicx}
+
+\input{lectmac}
+\newcommand{\vc}{\vphantom{\pscirclebox{1}}}
+\newcommand{\hc}{\hspace*{0.6em}}
+\newcommand{\pb}[1]{\pscirclebox[linecolor=OliveGreen]{#1}}
+\newcommand{\pc}[1]{\pscirclebox[linecolor=blue]{#1}}
+\newcommand{\pr}[1]{\pscirclebox[linecolor=red]{#1}}
+\newcommand{\pw}[1]{\pscirclebox[linecolor=white]{#1}}
+
+\newcommand{\mb}[1]{\makebox[1em][c]{#1}}
+
+\newcommand{\zb}[1]{\pb{\mb{#1}}}
+\newcommand{\zc}[1]{\pc{\mb{#1}}}
+\newcommand{\zr}[1]{\pr{\mb{#1}}}
+\newcommand{\zw}[1]{\pw{\mb{#1}}}
+
+\newcommand{\yb}[1]{\pb{\mb{\OLG{#1}}}}
+\newcommand{\yc}[1]{\pc{\mb{\BLUE{#1}}}}
+\newcommand{\yr}[1]{\pr{\mb{\RED{#1}}}}
+\newcommand{\yw}[1]{\pw{\mb{\WHITE{#1}}}}
+
+\newcommand{\xb}[1]{\pw{\mb{\OLG{#1}}}}
+\newcommand{\xc}[1]{\pw{\mb{\BLUE{#1}}}}
+\newcommand{\xr}[1]{\pw{\mb{\RED{#1}}}}
+\newcommand{\xw}[1]{\pw{\mb{\WHITE{#1}}}}
+
+\newcommand{\bwid}{3.7cm}
+\newcommand{\bx}[1]{\parbox{0.5cm}{\centering #1}}
+\renewcommand{\ss}[1]{{\scriptstyle #1}}
+
+\begin{document}
+
+
+
+\end{document}
+
+\overlays{16}{%
+\begin{slide}{Determinants}
+\begin{itemize}
+ \fromSlide{2}{
+  \item For any square matrix $A$, we will define a number
+   \DEFN{$\det(A)$}, called the \DEFN{determinant} of $A$. 
+ \fromSlide{3}{
+  Many applications, explained later.
+ }}
+ \fromSlide{4}{
+  \item {\tiny \(\displaystyle
+   \det\bbm a\ebm = a \hspace{3em}
+   \det\bbm a & b \\ c & d \ebm = ad-bc 
+  \)}}
+ \fromSlide{5}{ \item \ghost\vspace{-3ex}
+  {\tiny \[
+  \onlySlide*{5}{ \det\bbm
+  {\scriptstyle a} & {\scriptstyle b} & {\scriptstyle c}\\
+  {\scriptstyle d} & {\scriptstyle e} & {\scriptstyle f}\\
+  {\scriptstyle g} & {\scriptstyle h} & {\scriptstyle i}
+  \ebm =
+  \WHITE{+{\scriptstyle a}\det\bbm
+  {\scriptstyle e} & {\scriptstyle f}\\
+  {\scriptstyle h} & {\scriptstyle i}
+  \ebm}
+  \WHITE{-{\scriptstyle b}\det\bbm
+  {\scriptstyle d} & {\scriptstyle f}\\
+  {\scriptstyle g} & {\scriptstyle i}
+  \ebm}
+  \WHITE{+{\scriptstyle c}\det\bbm
+  {\scriptstyle d} & {\scriptstyle e}\\
+  {\scriptstyle g} & {\scriptstyle h}
+  \ebm}
+  }
+  \onlySlide*{6}{ \det\bbm
+  \RED{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} & \YELLOW{{\scriptstyle c}} \\
+  \YELLOW{{\scriptstyle d}} & \OLG{{\scriptstyle e}} & \OLG{{\scriptstyle f}}\\
+  \YELLOW{{\scriptstyle g}} & \OLG{{\scriptstyle h}} & \OLG{{\scriptstyle i}}
+  \ebm =
+  \MAGENTA{+}\RED{\scriptstyle a}\det\bbm
+  \OLG{\scriptstyle e} & \OLG{\scriptstyle f}\\
+  \OLG{\scriptstyle h} & \OLG{\scriptstyle i}
+  \ebm
+  \WHITE{{-}{\scriptstyle b}\det\bbm
+  {\scriptstyle e} & {\scriptstyle f}\\
+  {\scriptstyle h} & {\scriptstyle i}
+  \ebm}
+  \WHITE{{+}{\scriptstyle c}\det\bbm
+  {\scriptstyle e} & {\scriptstyle f}\\
+  {\scriptstyle h} & {\scriptstyle i}
+  \ebm}
+  }
+  \onlySlide*{7}{ \det\bbm
+  \YELLOW{{\scriptstyle a}} & \RED{{\scriptstyle b}} & \YELLOW{{\scriptstyle c}} \\
+  \OLG{{\scriptstyle d}} & \YELLOW{{\scriptstyle e}} & \OLG{{\scriptstyle f}}\\
+  \OLG{{\scriptstyle g}} & \YELLOW{{\scriptstyle h}} & \OLG{{\scriptstyle i}}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle a}\det\bbm
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle f}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle i}
+  \ebm
+  \MAGENTA{-}\RED{\scriptstyle b}\det\bbm
+  \OLG{\scriptstyle d} & \OLG{\scriptstyle f}\\
+  \OLG{\scriptstyle g} & \OLG{\scriptstyle i}
+  \ebm
+  \WHITE{{+}{\scriptstyle c}\det\bbm
+  {\scriptstyle d} & {\scriptstyle f}\\
+  {\scriptstyle g} & {\scriptstyle i}
+  \ebm}
+  }
+  \onlySlide*{8}{ \det\bbm
+  \YELLOW{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} & \RED{{\scriptstyle c}} \\
+  \OLG{{\scriptstyle d}} & \OLG{{\scriptstyle e}} & \YELLOW{{\scriptstyle f}}\\
+  \OLG{{\scriptstyle g}} & \OLG{{\scriptstyle h}} & \YELLOW{{\scriptstyle i}}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle a}\det\bbm
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle e}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle h}
+  \ebm
+  \BLACK{-}\BLACK{\scriptstyle b}\det\bbm
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle e}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle h}
+  \ebm
+  \MAGENTA{+}\RED{\scriptstyle c}\det\bbm
+  \OLG{\scriptstyle d} & \OLG{\scriptstyle e}\\
+  \OLG{\scriptstyle g} & \OLG{\scriptstyle h}
+  \ebm
+  }
+  \fromSlide*{9}{ \det\bbm
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle b} & \BLACK{\scriptstyle c}\\
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle e} & \BLACK{\scriptstyle f}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle h} & \BLACK{\scriptstyle i}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle a}\det\bbm
+  \BLACK{\scriptstyle e} & \BLACK{\scriptstyle f}\\
+  \BLACK{\scriptstyle h} & \BLACK{\scriptstyle i}
+  \ebm
+  \BLACK{-}\BLACK{\scriptstyle b}\det\bbm
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle f}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle i}
+  \ebm
+  \BLACK{+}\BLACK{\scriptstyle c}\det\bbm
+  \BLACK{\scriptstyle d} & \BLACK{\scriptstyle e}\\
+  \BLACK{\scriptstyle g} & \BLACK{\scriptstyle h}
+  \ebm
+  }
+  \]}
+  \vspace{-4ex}
+  {\tiny
+  \begin{align*}
+   \hspace*{5em} &
+    \fromSlide{9}{= a(ei-fh) - b(di-fg) + c(dh-eg)} \\
+   &\fromSlide{10}{= aei-afh-bdi+bfg+cdh-ceg}
+  \end{align*}}
+  \vspace{-2ex}
+ }
+ \fromSlide{11}{\item \ghost\vspace{-3ex} {\tiny 
+  \[
+  \onlySlide*{11}{ \det\bbm
+  {\scriptstyle 1} & {\scriptstyle a} & {\scriptstyle b}\\
+  {\scriptstyle b} & {\scriptstyle 1} & {\scriptstyle 1}\\
+  {\scriptstyle a} & {\scriptstyle 1} & {\scriptstyle 1}
+  \ebm =
+  \WHITE{+{\scriptstyle 1}\det\bbm
+  {\scriptstyle 1} & {\scriptstyle 1}\\
+  {\scriptstyle 1} & {\scriptstyle 1}
+  \ebm}
+  \WHITE{-{\scriptstyle a}\det\bbm
+  {\scriptstyle b} & {\scriptstyle 1}\\
+  {\scriptstyle a} & {\scriptstyle 1}
+  \ebm}
+  \WHITE{+{\scriptstyle b}\det\bbm
+  {\scriptstyle b} & {\scriptstyle 1}\\
+  {\scriptstyle a} & {\scriptstyle 1}
+  \ebm}
+  }
+  \onlySlide*{12}{ \det\bbm
+  \RED{{\scriptstyle 1}} & \YELLOW{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} \\
+  \YELLOW{{\scriptstyle b}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 1}}\\
+  \YELLOW{{\scriptstyle a}} & \OLG{{\scriptstyle 1}} & \OLG{{\scriptstyle 1}}
+  \ebm =
+  \MAGENTA{+}\RED{\scriptstyle 1}\det\bbm
+  \OLG{\scriptstyle 1} & \OLG{\scriptstyle 1}\\
+  \OLG{\scriptstyle 1} & \OLG{\scriptstyle 1}
+  \ebm
+  \WHITE{{-}{\scriptstyle a}\det\bbm
+  {\scriptstyle 1} & {\scriptstyle 1}\\
+  {\scriptstyle 1} & {\scriptstyle 1}
+  \ebm}
+  \WHITE{{+}{\scriptstyle b}\det\bbm
+  {\scriptstyle 1} & {\scriptstyle 1}\\
+  {\scriptstyle 1} & {\scriptstyle 1}
+  \ebm}
+  }
+  \onlySlide*{13}{ \det\bbm
+  \YELLOW{{\scriptstyle 1}} & \RED{{\scriptstyle a}} & \YELLOW{{\scriptstyle b}} \\
+  \OLG{{\scriptstyle b}} & \YELLOW{{\scriptstyle 1}} & \OLG{{\scriptstyle 1}}\\
+  \OLG{{\scriptstyle a}} & \YELLOW{{\scriptstyle 1}} & \OLG{{\scriptstyle 1}}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle 1}\det\bbm
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1}
+  \ebm
+  \MAGENTA{-}\RED{\scriptstyle a}\det\bbm
+  \OLG{\scriptstyle b} & \OLG{\scriptstyle 1}\\
+  \OLG{\scriptstyle a} & \OLG{\scriptstyle 1}
+  \ebm
+  \WHITE{{+}{\scriptstyle b}\det\bbm
+  {\scriptstyle b} & {\scriptstyle 1}\\
+  {\scriptstyle a} & {\scriptstyle 1}
+  \ebm}
+  }
+  \onlySlide*{14}{ \det\bbm
+  \YELLOW{{\scriptstyle 1}} & \YELLOW{{\scriptstyle a}} & \RED{{\scriptstyle b}} \\
+  \OLG{{\scriptstyle b}} & \OLG{{\scriptstyle 1}} & \YELLOW{{\scriptstyle 1}}\\
+  \OLG{{\scriptstyle a}} & \OLG{{\scriptstyle 1}} & \YELLOW{{\scriptstyle 1}}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle 1}\det\bbm
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1}
+  \ebm
+  \BLACK{-}\BLACK{\scriptstyle a}\det\bbm
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1}
+  \ebm
+  \MAGENTA{+}\RED{\scriptstyle b}\det\bbm
+  \OLG{\scriptstyle b} & \OLG{\scriptstyle 1}\\
+  \OLG{\scriptstyle a} & \OLG{\scriptstyle 1}
+  \ebm
+  }
+  \fromSlide*{15}{ \det\bbm
+  \BLACK{\scriptstyle 1} & \BLACK{\scriptstyle a} & \BLACK{\scriptstyle b}\\
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1} & \BLACK{\scriptstyle 1}
+  \ebm =
+  \BLACK{+}\BLACK{\scriptstyle 1}\det\bbm
+  \BLACK{\scriptstyle 1} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle 1} & \BLACK{\scriptstyle 1}
+  \ebm
+  \BLACK{-}\BLACK{\scriptstyle a}\det\bbm
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1}
+  \ebm
+  \BLACK{+}\BLACK{\scriptstyle b}\det\bbm
+  \BLACK{\scriptstyle b} & \BLACK{\scriptstyle 1}\\
+  \BLACK{\scriptstyle a} & \BLACK{\scriptstyle 1}
+  \ebm
+  }
+  \]
+  \begin{align*}
+   \hspace*{2em} &
+    \fromSlide{15}{= 1\tm 0 - a(b-a) + b(b-a)} \\ &
+    \fromSlide{16}{= (b-a)^2}
+  \end{align*}
+  }}
+\end{itemize}
+\end{slide}
+}
+
+

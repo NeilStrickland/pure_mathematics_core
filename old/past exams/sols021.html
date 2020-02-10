@@ -1,0 +1,470 @@
+<?xml version="1.0"  encoding="iso-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>sols02.html</title>
+<!-- Created by Maple 8.00, IBM INTEL NT -->
+</head>
+<body bgcolor="FFFFFF">
+<basefont size="3">
+<a name="MapleAutoBookmark1" />
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">with(Student[Calculus1]):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">with(linalg):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<font color="#000000">1(i)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">f := (x) -&gt; (3-x)/(5-2*x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols021.gif" width="122" height="45" alt="f := proc (x) options operator, arrow; (3-x)/(5-2*x) end proc" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">solve(x=f(y),y);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols022.gif" width="65" height="45" alt="(5*x-3)/(2*x-1)" />
+</p>
+<p align="left">
+<font color="#000000">1(ii)(a)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">simplify(diff(exp(-x)*sin(x+1),x));</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols023.gif" width="231" height="33" alt="-exp(-x)*(sin(x+1)-cos(x+1))" />
+</p>
+<p align="left">
+<font color="#000000">1(ii)(b)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">diff(cos(x^2+3*x+1),x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols024.gif" width="197" height="29" alt="-sin(x^2+3*x+1)*(2*x+3)" />
+</p>
+<p align="left">
+<font color="#000000">1(ii)(c)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">simplify(diff(exp(x)/(2+sin(x)),x));</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols025.gif" width="178" height="63" alt="exp(x)*(2+sin(x)-cos(x))/(5+4*sin(x)-cos(x)^2)" />
+</p>
+<p align="left">
+<font color="#000000">1(iii) Omitted</font>
+</p>
+<p align="left">
+<font color="#000000">2(i)(a)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Int(x * sin(x^2),x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols026.gif" width="106" height="49" alt="Int(x*sin(x^2),x)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[change,u=x^2](%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols027.gif" width="204" height="65" alt="Int(x*sin(x^2),x) = Int(1/2*sin(u),u)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[constantmultiple](%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols028.gif" width="204" height="49" alt="Int(x*sin(x^2),x) = 1/2*Int(sin(u),u)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[sin](%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols029.gif" width="187" height="49" alt="Int(x*sin(x^2),x) = -1/2*cos(u)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[revert](%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0210.gif" width="196" height="49" alt="Int(x*sin(x^2),x) = -1/2*cos(x^2)" />
+</p>
+<p align="left">
+<font color="#000000">2(i)(b)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">int((3*x+2)/(x^2+4),x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0211.gif" width="176" height="45" alt="3/2*ln(x^2+4)+arctan(1/2*x)" />
+</p>
+<p align="left">
+<font color="#000000">2(ii)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Int(1/(x*(1+ln(x)^2)),x=1..exp(1));</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0212.gif" width="152" height="98" alt="Int(1/(x*(1+ln(x)^2)),x = 1 .. exp(1))" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[change,u=ln(x)](%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0213.gif" width="255" height="98" alt="Int(1/(x*(1+ln(x)^2)),x = 1 .. exp(1)) = Int(1/(1+u^2),u = 0 .. 1)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">Rule[constant](Rule[change,u=tan(v)](%));</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0214.gif" width="183" height="98" alt="Int(1/(x*(1+ln(x)^2)),x = 1 .. exp(1)) = 1/4*Pi" />
+</p>
+<p align="left">
+<font color="#000000">2(iii)(a) Omitted</font>
+</p>
+<p align="left">
+<font color="#000000">2(iii)(b)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">int(x^2*exp(3*x),x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0215.gif" width="256" height="45" alt="1/3*x^2*exp(3*x)-2/9*x*exp(3*x)+2/27*exp(3*x)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">int(x^2*exp(3*x),x=0..3);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0216.gif" width="86" height="45" alt="65/27*exp(9)-2/27" />
+</p>
+<p align="left">
+<font color="#000000">3(i)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">A := matrix([[1,2,0,2,7],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0,3,-3,4,5],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2,1,3,-1,10],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-1,-3,1,-5,-7]]);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0217.gif" width="194" height="110" alt="A := matrix([[1, 2, 0, 2, 7], [0, 3, -3, 4, 5], [2, 1, 3, -1, 10], [-1, -3, 1, -5, -7]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">rref(A);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0218.gif" width="164" height="110" alt="matrix([[1, 0, 2, 0, 3], [0, 1, -1, 0, 3], [0, 0, 0, 1, -1], [0, 0, 0, 0, 0]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">solve({<br />
+&nbsp;x + 2*y + 2 * w = 7,<br />
+&nbsp;3*y - 3*z + 4*w = 5,<br />
+&nbsp;2*x + y + 3*z - w = 10,<br />
+&nbsp;-x - 3*y + z - 5*w = -7},</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">&nbsp;{x,y,z,w});</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0219.gif" width="253" height="20" alt="{y = 3+z, x = 3-2*z, w = -1, z = z}" />
+</p>
+<p align="left">
+<font color="#000000">3(ii)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">A := matrix([[1,1,1],[1,0,1],[-1,-1,1]]);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0220.gif" width="138" height="80" alt="A := matrix([[1, 1, 1], [1, 0, 1], [-1, -1, 1]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">B := matrix([[1,-1,1],[0,-1,1],[1,0,1]]);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0221.gif" width="137" height="80" alt="B := matrix([[1, -1, 1], [0, -1, 1], [1, 0, 1]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">evalm(A &amp;* B);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0222.gif" width="108" height="80" alt="matrix([[2, -2, 3], [2, -1, 2], [0, 2, -1]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">evalm(B &amp;* A);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0223.gif" width="108" height="80" alt="matrix([[-1, 0, 1], [-2, -1, 0], [0, 0, 2]])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">evalm(A &amp;* B - B &amp;* A);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0224.gif" width="108" height="80" alt="matrix([[3, -2, 2], [4, 0, 2], [0, 2, -3]])" />
+</p>
+<p align="left">
+<font color="#000000">3(iii)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">det(matrix([[1,a,0],[2,1,-1],[-a,2,3]]));</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0225.gif" width="95" height="29" alt="5-6*a+a^2" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">factor(%);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0226.gif" width="114" height="20" alt="(a-1)*(a-5)" />
+</p>
+<p align="left">
+<font color="#000000">The equations have a unique solution except when a = 1 or a = 5.</font>
+</p>
+<p align="left">
+<font color="#000000">4(i)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">convert((7*x^2-2*x+13)/((x+2)*(x^2-x+3)),parfrac,x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0227.gif" width="141" height="54" alt="(-1+2*x)/(x^2-x+3)+5/(x+2)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">int((7*x^2-2*x+13)/((x+2)*(x^2-x+3)),x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0228.gif" width="193" height="29" alt="5*ln(x+2)+ln(x^2-x+3)" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">int((7*x^2-2*x+13)/((x+2)*(x^2-x+3)),x=1..2);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0229.gif" width="178" height="20" alt="10*ln(2)+ln(5)-6*ln(3)" />
+</p>
+<p align="left">
+<font color="#000000">4(ii)(a)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">solve(abs(x-2)&lt;2,x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0230.gif" width="215" height="20" alt="RealRange(Open(0),Open(4))" />
+</p>
+<p align="left">
+<font color="#000000">(This means the open interval (0,4)) </font>
+</p>
+<p align="left">
+<font color="#000000">4(ii)(b)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">solve(x^2-5*x+4 &gt;= 0,x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0231.gif" width="245" height="20" alt="RealRange(-infinity,1), RealRange(4,infinity)" />
+</p>
+<p align="left">
+<font color="#000000">(This means the union of the intervals (-infinity,1] and [4,infinity).)</font>
+</p>
+<p align="left">
+</p>
+<p align="left">
+<font color="#000000">4(ii)(c)</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">solve(x^4-5*x^2+4 &gt;= 0,x);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/sols0232.gif" width="368" height="20" alt="RealRange(-infinity,-2), RealRange(-1,1), RealRange(2,infinity)" />
+</p>
+<p align="left">
+<font color="#000000">(This means the union of the intervals (-infinity,-2], [-1,1] and [2,infinity).) </font>
+</p>
+<p align="left">
+<font color="#000000">4(iii) Omitted</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+</basefont>
+</body>
+</html>

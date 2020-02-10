@@ -1,0 +1,857 @@
+\documentclass[%
+pdf,
+neil,
+colorBG,
+slideColor,
+]{prosper}
+\usepackage{amsmath}
+\usepackage{pstricks,pst-node,pst-text,pst-3d,pst-plot}
+\usepackage[usenames,dvips]{color}
+
+\input{lectmac}
+\title{Differentiation}
+\author{}
+
+\begin{document}
+
+\slideCaption{\color{white}}
+
+\begin{slide}{}
+ {\Huge
+  \vspace{6ex}
+  \begin{center}
+   Differentiation
+  \end{center}
+ }
+\end{slide}
+
+%\maketitle
+
+\overlays{13}{
+\begin{slide}{Introduction}
+\fromSlide{2}{\noindent{\bf Things you should know:}}
+\begin{itemize}
+\fromSlide{3}{
+ \item The meaning of differentiation 
+  (slopes of graphs, time-dependent and space-dependent variables,
+  etc)}
+\fromSlide{4}{
+ \item Some derivatives from first principles: $x^2$, $1/x$, $e^x$.}
+\fromSlide{5}{
+ \item Rules for finding derivatives:
+  \begin{itemize}
+   \fromSlide{6}{ \item The product rule ($(uv)'=u'v+uv'$) }
+   \fromSlide{7}{ \item The quotient rule ($(u/v)'=(u'v-uv')/v^2$) }
+   \fromSlide{8}{ \item The chain rule ($\frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dx}$)}
+   \fromSlide{9}{ \item The power rule ($(u^n)'=n u^{n-1}u'$) }
+   \fromSlide{10}{ \item The logarithmic rule ($\log(u)'=u'/u$) }
+   \fromSlide{11}{ \item The inverse function rule ($\frac{dx}{dy} = 1/\frac{dy}{dx}$)}
+  \end{itemize}
+} 
+\fromSlide{12}{
+ \item Derivatives of various classes of functions (eg the derivative
+  of a rational function is another rational function.)
+}
+\end{itemize}
+\fromSlide{13}{
+ You must learn to find derivatives quickly and accurately.
+}
+\end{slide}
+}
+
+\overlays{12}{%
+\begin{slide}{Meaning}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider related variables $x$ and $y$;
+   so whenever $x$ changes, so does $y$.
+ }
+ \fromSlide{3}{
+  \item Examples:
+   \begin{itemize}
+    \fromSlide{4}{ \item $p=\text{ price of chocolate }$;
+                         $d=\text{ demand for chocolate }$. }
+    \fromSlide{5}{ \item $t=\text{ time }$;
+                         $d=\text{ atmospheric $CO_2$ concentration }$. }
+    \fromSlide{6}{ \item $r=\text{ distance from sun }$;
+                         $g=\text{ strength of solar gravity }$. }
+   \end{itemize}
+ }
+
+ \fromSlide{7}{
+  \item If $x$ changes to $x+\dl x$, then $y$ changes to $y+\dl y$.
+   \fromSlide{8}{
+    \[ \frac{dy}{dx} = \lim_{\dl x\xra{} 0} \frac{\dl y}{\dl x}
+        = \text{ derivative of $y$ with respect to $x$. }
+    \]}
+ }
+ \fromSlide{9}{
+  \item If $y=f(x)$, then $\dl y=f(x+\dl x)-f(x)$, so
+   \fromSlide{10}{\[ f'(x) = \frac{dy}{dx} =
+       \lim_{\dl x\xra{}0} \frac{f(x+\dl x)-f(x)}{\dl x} 
+       \fromSlide{11}{= \lim_{h\xra{}0} \frac{f(x+h)-f(x)}{h}.}
+   \]}
+ }
+ \fromSlide{12}{
+  \item We sometimes write $y'$ for $dy/dx$ ({\Red care needed}).
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{Slopes}
+   \psset{yunit=3cm,xunit=3cm}
+\onlySlide*{1}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \rput[tl](1.6,1.6){${\scriptstyle y=f(x)}$}
+  \end{pspicture}\end{center}
+  Consider variables $x$ and $y$ related by $y=f(x)$.
+}
+\onlySlide*{2}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+  \end{pspicture}\end{center}
+  Consider variables $x$ and $y$ related by $y=f(x)$.
+}
+\onlySlide*{3}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  $dy/dx$ is the slope of the tangent line to the graph.
+}
+\onlySlide*{4}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.5,0)( 1.5, 1.49)(0, 1.49)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.5,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.49){${\scriptstyle y+\dl y}$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  If $x$ changes by a small amount $\dl x$, then $y$ will change by a
+  small amount $\dl y$.
+}
+\onlySlide*{5}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.5,0)( 1.5, 1.49)(0, 1.49)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.5,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.49){${\scriptstyle y+\dl y}$}
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)( 1.5, 1.04)
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)(1, 1.49)
+    \rput[t]( 1.250000000, 0.94){${\scriptstyle \dl x}$} 
+    \rput[r]( 0.9, 1.265000000){${\scriptstyle \dl y}$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  If $x$ changes by a small amount $\dl x$, then $y$ will change by a
+  small amount $\dl y$.
+}
+\onlySlide*{6}{
+   \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=OliveGreen](0, 0.1400000000)( 1.7, 1.670000000)
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.5,0)( 1.5, 1.49)(0, 1.49)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.5,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.49){${\scriptstyle y+\dl y}$}
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)( 1.5, 1.04)
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)(1, 1.49)
+    \rput[t]( 1.250000000, 0.94){${\scriptstyle \dl x}$} 
+    \rput[r]( 0.9, 1.265000000){${\scriptstyle \dl y}$}
+    \rput[bl]( 1.75, 1.670000000){slope $\scriptstyle \dl y/\dl x$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  The ratio $\dl y/\dl x$ is the slope of a chord cutting across the
+  graph.
+}
+\onlySlide*{7}{
+  \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=OliveGreen](0, 0.3900000000)( 1.7, 1.495000000)
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.250000000,0)( 1.250000000, 1.202500000)(0, 1.202500000)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.250000000,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.202500000){${\scriptstyle y+\dl y}$}
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)( 1.250000000, 1.04)
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)(1, 1.202500000)
+    \rput[t]( 1.125000000, 0.94){${\scriptstyle \dl x}$} 
+    \rput[r]( 0.9, 1.121250000){${\scriptstyle \dl y}$}
+    \rput[bl]( 1.75, 1.495000000){slope $\scriptstyle \dl y/\dl x$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  The slope of the chord changes slightly as $\dl x$ decreases.
+}
+\onlySlide*{8}{
+  \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=OliveGreen](0, 0.5150000000)( 1.7, 1.407500000)
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.125000000,0)( 1.125000000, 1.105625000)(0, 1.105625000)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.125000000,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.105625000){${\scriptstyle y+\dl y}$}
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)( 1.125000000, 1.04)
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)(1, 1.105625000)
+    \rput[t]( 1.062500000, 0.94){${\scriptstyle \dl x}$} 
+    \rput[r]( 0.9, 1.072812500){${\scriptstyle \dl y}$}
+    \rput[bl]( 1.75, 1.407500000){slope $\scriptstyle \dl y/\dl x$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  As $\dl x$ approaches zero, the chord approaches the tangent, and
+  $\dl y/\dl x$ approaches $dy/dx$.
+}
+\onlySlide*{9}{
+  \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=OliveGreen](0, 0.5775000000)( 1.7, 1.363750000)
+    \psline[linecolor=Orange](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \psline[linecolor=blue]( 1.062500000,0)( 1.062500000, 1.068906250)(0, 1.068906250)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[tl]( 1.062500000,-0.05){${\scriptstyle x+\dl x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[r](- 0.05, 1.068906250){${\scriptstyle y+\dl y}$}
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)( 1.062500000, 1.04)
+    \psline[linecolor=OliveGreen,arrows=<->](1, 1.04)(1, 1.068906250)
+    \rput[t]( 1.031250000, 0.94){${\scriptstyle \dl x}$} 
+    \rput[r]( 0.9, 1.054453125){${\scriptstyle \dl y}$}
+    \rput[bl]( 1.75, 1.363750000){slope $\scriptstyle \dl y/\dl x$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  As $\dl x$ approaches zero, the chord approaches the tangent, and
+  $\dl y/\dl x$ approaches $dy/dx$.
+}
+\fromSlide{10}{
+  \begin{center}\begin{pspicture}[1](-0.2,-0.2)( 1.7, 2.00)
+    \psset{linewidth=0.1pt}
+    \psaxes[labels=none,ticksize=1pt]{->}(0,0)(-0.1,0)( 1.7, 1.81)
+    \psplot[linecolor=red]{0}{ 1.7}{x -0.8 add dup mul 1 add}
+    \psline[linecolor=OliveGreen](0, 0.64)( 1.7, 1.32)
+    \psline[linecolor=blue](1,0)(1, 1.04)(0, 1.04)
+    \rput[tr](1,-0.05){${\scriptstyle x}$}
+    \rput[r](- 0.05, 1.04){${\scriptstyle y}$}
+    \rput[tl]( 1.75, 1.32){slope $\scriptstyle dy/dx$}
+  \end{pspicture}\end{center}
+  As $\dl x$ approaches zero, the chord approaches the tangent, and
+  $\dl y/\dl x$ approaches $dy/dx$.
+}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{The function $f(x)=x^2$}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider the function $f(x)=x^2$.
+ }
+ \fromSlide{3}{
+  \item Then $f(x+h)=(x+h)^2=x^2+2xh+h^2$
+   \fromSlide{4}{
+    , so 
+    \begin{align*}
+     \frac{f(x+h) - f(x)}{h} &= \frac{(x+h)^2 - x^2}{h}
+      \hphantom{mmmmmmmm}\\
+     & \fromSlide{5}{
+      = \frac{\RED{x^2} + 2xh + h^2 - \RED{x^2}}{h}
+     } \\
+     & \fromSlide{6}{
+      = \frac{2x\OLIVEGREEN{h} + \OLIVEGREEN{h}^2}{\OLIVEGREEN{h}}
+     } \\
+     & \fromSlide{7}{
+      = 2x+h
+     }
+    \end{align*} 
+   }
+ }
+ \fromSlide{8}{
+  \item Thus
+   \[ f'(x) = \lim_{h\xra{}0} \frac{f(x+h) - f(x)}{h}
+       \fromSlide{9}{= \lim_{\RED{h}\xra{}0} (2x+\RED{h})} 
+       \fromSlide{10}{= 2x.}
+   \]
+ }
+ \fromSlide{11}{
+  \item Similarly: 
+   \psframebox[framearc=.3,linecolor=magenta]{
+    $\frac{d}{dx}(x^n)=nx^{n-1}$ for all $n$.} 
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{The function $f(x)=1/x$}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider the function $f(x)=1/x$.
+ }
+ \fromSlide{3}{
+  \item \ghost\vspace{-3ex}
+   \[ f(x+h)-f(x)
+       = \frac{1}{x+h} - \frac{1}{x} 
+%   \untilSlide*{3}{\hphantom{= \frac{\RED{x}-(\RED{x}+h)}{x(x+h)}}}
+   \fromSlide{4}{= \frac{\RED{x}-(\RED{x}+h)}{x(x+h)}}
+%   \untilSlide*{4}{\hphantom{= \frac{-h}{x(x+h)}}}
+   \fromSlide{5}{= \frac{-h}{x(x+h)}}
+   \]
+  \fromSlide{6}{
+   so 
+   \[ \frac{f(x+h) - f(x)}{h} = 
+      \frac{-1}{x(x+h)}
+   \]
+  }
+  \fromSlide{7}{
+   so
+   \[ f'(x) = 
+       \lim_{h\xra{}0} \frac{f(x+h) - f(x)}{h} 
+      \fromSlide{8}{= \lim_{\RED{h}\xra{}0} \frac{-1}{x(x+\RED{h})}}
+      \fromSlide{9}{= \frac{-1}{x^2}}
+   \]
+  }
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{The exponential function}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider the function
+   $f(x)=e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\dotsb$.
+ }
+ \fromSlide{3}{
+  \item \ghost\vspace{-3ex}
+   \[ f(x+h)-f(x)
+       = e^{x+h} - e^x 
+   \fromSlide{4}{= e^x(e^h - 1)}
+   \fromSlide{5}{= e^x\left(h + \tfrac{h^2}{2!} + \tfrac{h^3}{3!}+\dotsb\right)}
+   \]
+  \fromSlide{6}{
+   so 
+   \[ \frac{f(x+h) - f(x)}{h} = 
+      e^x\left(1 + \tfrac{h}{2!} + \tfrac{h^2}{3!} + \dotsb\right) 
+   \]
+  }
+  \fromSlide{7}{
+   so
+   \begin{align*} f'(x) &= 
+       \lim_{h\xra{}0} \frac{f(x+h) - f(x)}{h} \hphantom{mmmmmmm} \\ &
+      \fromSlide{8}{= \lim_{\RED{h}\xra{}0} 
+       e^x\left(1 + \tfrac{\RED{h}}{2!} + \tfrac{\RED{h}^2}{3!} + \dotsb\right)} \\ & 
+      \fromSlide{9}{= e^x(1+0+0+\dotsb)} \\ &
+      \fromSlide{10}{= e^x.}
+   \end{align*}
+  }
+}
+ \fromSlide{11}{
+  \item Conclusion: $\exp'(x)=\exp(x)$.
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{6}{%
+\begin{slide}{Special functions}
+\[ \begin{array}{rlcrl}
+ \fromSlide{2}{\exp'(x)}     & \fromSlide{2}{=\exp(x)} &\hspace{3em}&
+ \fromSlide{5}{\log'(x)}     & \fromSlide{5}{=1/x} \\
+ \fromSlide{3}{\sinh'(x)}    & \fromSlide{3}{=\cosh(x)} &&
+ \fromSlide{6}{\arcsinh'(x)} & \fromSlide{6}{=(1+x^2)^{-1/2}} \\
+ \fromSlide{3}{\cosh'(x)}    & \fromSlide{3}{=\sinh(x)} &&
+ \fromSlide{6}{\arccosh'(x)} & \fromSlide{6}{=(x^2-1)^{-1/2}} \\
+ \fromSlide{3}{\tanh'(x)}    & \fromSlide{3}{=\sech(x)^2 = 1 - \tanh(x)^2} &&
+ \fromSlide{6}{\arctanh'(x)} & \fromSlide{6}{=(1-x^2)^{-1}} \\
+ \fromSlide{4}{\sin'(x)}     & \fromSlide{4}{=\cos(x)} &&
+ \fromSlide{6}{\arcsin'(x)}  & \fromSlide{6}{=(1-x^2)^{-1/2}} \\
+ \fromSlide{4}{\cos'(x)}     & \fromSlide{4}{=-\sin(x)} &&
+ \fromSlide{6}{\arccos'(x)}  & \fromSlide{6}{=-(1-x^2)^{-1/2}} \\
+ \fromSlide{4}{\tan'(x)}     & \fromSlide{4}{=\sec(x)^2 = 1 + \tan(x)^2} &&
+ \fromSlide{6}{\arctan'(x)}  & \fromSlide{6}{=(1+x^2)^{-1}}
+\end{array} \]
+\begin{itemize}
+ \fromSlide{2}{\item We showed earlier that $\exp'(x)=\exp(x)$}
+ \fromSlide{3}{\item We deduce $\sinh'(x)$ using the identity
+ $\sinh(x)=(e^x-e^{-x})/2$.  Similarly for $\cosh$ and $\tanh$.}
+ \fromSlide{4}{\item Using $\cos(x)=\cosh(ix)$ etc, we find
+ $\sin'(x)$, $\cos'(x)$ and $\tan'(x)$.}
+ \fromSlide{5}{\item Using $\exp'(x)=\exp(x)$ and the inverse function
+ rule, we find that $\log'(x)=1/x$}
+ \fromSlide{6}{\item The inverse function rule also gives the
+ remaining derivatives.}
+\end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{The product rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider variables $u$ and $v$ depending on $x$, and put
+   $w=uv$.  Then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+        w' = (uv)' = u'v + u v' \vphantom{\frac{dw}{dx}} } 
+     \fromSlide{3}{
+      \hspace{1em} \text{ or } \hspace{1 em}
+     \psframebox[framearc=.3,linecolor=magenta]{
+       \frac{dw}{dx} = \frac{d}{dx}(uv) =
+        \frac{du}{dx} v + u \frac{dv}{dx}.
+   }} \]
+  }
+ \fromSlide{4}{
+  \item If $x$ changes to $x+\RED{\dl x}$, then $u$ changes to
+   $u+\RED{\dl u}$ \& $v$ changes to $v+\RED{\dl v}$
+   \fromSlide{5}{ so $w$ changes to
+    \begin{align*} w + \RED{\dl w}  &= (u+\RED{\dl u})(v+\RED{\dl v}) 
+     \fromSlide{6}{ = uv + \RED{(\dl u)\,v + u\,(\dl v) + (\dl u)(\dl v)}}
+     \\
+     \fromSlide{7}{ \dl w} &
+     \fromSlide{7}{ = (\dl u)\,v + u\,(\dl v) + (\dl u)(\dl v)}
+     \\
+     \fromSlide{8}{\frac{\dl w}{\dl x}} &
+     \fromSlide{8}{
+       =
+        \frac{\dl u}{\dl x} v + u\frac{\dl v}{\dl x} + 
+        \frac{\dl u}{\dl x} \frac{\dl v}{\dl x} \dl x}
+     \\ &
+     \fromSlide{9}{
+      \simeq
+        \frac{du}{dx} v + u\frac{dv}{dx} + 
+        \frac{du}{dx} \frac{dv}{dx} \dl x
+     } \\ &
+     \fromSlide{10}{
+      \simeq
+        \frac{du}{dx} v + u\frac{dv}{dx}
+     }
+    \end{align*}}
+    \fromSlide{11}{
+     (The approximations become exact in the limit as $\dl x\xra{}0$.)
+    }
+   }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{13}{%
+\begin{slide}{Examples of the product rule}
+\begin{align*}
+ \fromSlide{2}{(\RED{u}\BLUE{v})'} & 
+ \fromSlide{2}{=\RED{u}'\BLUE{v}+\RED{u}\BLUE{v'}
+               \hphantom{mmmmmmmmmmmmmmmmmmmmmm}} \\
+ \fromSlide{3}{\frac{d}{dx}(\RED{\sin(x)}\BLUE{\cos(x)})} &
+ \fromSlide{4}{=\RED{\sin'(x)}\BLUE{\cos(x)} +
+                \RED{\sin(x)}\BLUE{\cos'(x)}}  \\ &
+ \fromSlide{5}{=\RED{\cos(x)}\BLUE{\cos(x)} + 
+                \RED{\sin(x)}(\BLUE{-\sin(x)}) } \\ &
+ \fromSlide{6}{=\cos(x)^2 - \sin(x)^2 } \\
+ \fromSlide{7}{\frac{d}{dx}(\RED{x^3}\BLUE{\log(x)})} &
+ \fromSlide{8}{=\RED{3x^2}\BLUE{\log(x)} + 
+                \RED{x^3}\BLUE{\log'(x)} } \\ &
+ \fromSlide{9}{=\RED{3x^2}\BLUE{\log(x)} + 
+                \RED{x^3}(\BLUE{x^{-1}})} \\ &
+ \fromSlide{10}{=(3\log(x) - 1)x^2 } \\ 
+ \fromSlide{11}{\frac{d}{dx}(\RED{e^{ax}}\BLUE{\sin(bx)})} &
+ \fromSlide{12}{=\RED{a\,e^{ax}}\BLUE{\sin(bx)} +
+                 \RED{e^{ax}}\BLUE{b\cos(bx)}}  \\ &
+ \fromSlide{13}{=e^{ax}(a\sin(bx)+b\cos(bx))}
+\end{align*}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{The quotient rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider variables $u$ and $v$ depending on $x$, and put
+   $w=u/v$.  Then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+        w' = \left(\frac{u}{v}\right)' = \frac{u'v - u v'}{v^2} }
+   \]
+  }
+ \fromSlide{3}{
+  \item Indeed: $u=vw$
+   \fromSlide{4}{, so $u'=v'w+vw'$ (product rule)}
+   \fromSlide{5}{, so
+    \[ w' = \frac{u' - v'w}{v}
+      \fromSlide{6}{ = \frac{u'}{v} - \frac{v'.(u/v)}{v} }
+      \fromSlide{7}{ = \frac{u'}{v} - \frac{uv'}{v^2} }
+      \fromSlide{8}{ = \frac{u'v - u v'}{v^2}. }
+    \]
+   }
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{17}{%
+\begin{slide}{Examples of the quotient rule}
+\begin{align*}
+% \fromSlide{2}{(\RED{u}/\BLUE{v})'} & 
+% \fromSlide{2}{=(\RED{u}'\BLUE{v}-\RED{u}\BLUE{v'})/\BLUE{v^2}
+%               \hphantom{mmmmmmmmmmmmmmmmmmmmmm}} \\
+ \fromSlide{2}{\frac{d}{dx}\left(\frac{\RED{x}}{\BLUE{\log(x)}}\right)} &
+ \fromSlide{3}{=\frac{\RED{1}.\BLUE{\log(x)} - 
+                      \RED{x}\BLUE{x^{-1}}}{\BLUE{\log(x)}^2}} 
+ \fromSlide{4}{=\frac{\log(x)-1}{\log(x)^2}}
+ \fromSlide{5}{=\log(x)^{-1}-\log(x)^{-2}} \\
+\intertext{\fromSlide{6}{
+ \hspace{3em} (Aside: $x/\log(x) \simeq ($ number of primes $\leq x)$)
+}}
+ \fromSlide{7}{\frac{d}{dx}\left(\frac{\RED{x}}{\BLUE{1-x^2}}\right)} &
+ \fromSlide{8}{= \frac{\RED{1}.(\BLUE{1-x^2}) - \RED{x}.(\BLUE{-2x})}
+                      {\BLUE{(1-x^2)^2}} } 
+ \fromSlide{9}{= \frac{1-x^2+2x^2}{(1-x^2)^2}}
+ \fromSlide{10}{= \frac{1+x^2}{(1-x^2)^2}} \\
+\intertext{
+ \fromSlide{11}{Now consider $\tan'(x)$, remembering that $\tan(x)=\sin(x)/\cos(x)$.}}
+ \fromSlide{12}{\frac{d}{dx}\left(\frac{\RED{\sin(x)}}{\BLUE{\cos(x)}}\right)} & 
+ \fromSlide{13}{=\frac{\RED{\sin'(x)}\BLUE{\cos(x)}-\RED{\sin(x)}\BLUE{\cos'(x)}}
+                      {\BLUE{\cos(x)}^2}} \\ &
+ \fromSlide{14}{=\frac{\RED{\cos(x)}\BLUE{\cos(x)}-\RED{\sin(x)}(\BLUE{-\sin(x)})}
+                      {\BLUE{\cos(x)}^2} } \\ &
+ \fromSlide{15}{=\frac{\cos(x)^2+\sin(x)^2}{\cos(x)^2}}
+ \fromSlide{16}{=\frac{1}{\cos(x)^2}}
+ \fromSlide{17}{=\sec(x)^2}
+\end{align*}
+\end{slide}
+}
+
+
+\overlays{6}{%
+\begin{slide}{The chain rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Suppose that $y$ depends on $u$, and $u$ depends on $x$.  Then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       \frac{dy}{dx} = \frac{dy}{du} \frac{du}{dx} }
+   \]
+ }
+ \fromSlide{3}{
+  \item If $x$ changes to $x+\dl x$, then $u$ changes to $u+\dl u$ and $y$
+   changes to $y+\dl y$.
+   \fromSlide{4}{Clearly
+    \[ \frac{\dl y}{\dl x} = \frac{\dl y}{\dl u} \frac{\dl u}{\dl x}. \]
+   }
+   \fromSlide{5}{In the limit, $\dl x$, $\dl u$ and $\dl y$ all approach
+    zero, and we get
+    \[ \frac{dy}{dx} = \frac{dy}{du} \frac{du}{dx}. \]
+   }
+ }
+ \fromSlide{6}{
+  \item Alternative notation: suppose that $f(x)=g(h(x))$.  Then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       f'(x) = g'(h(x)) h'(x) }
+   \]
+ }
+ \end{itemize}
+\end{slide}
+}
+
+
+\overlays{19}{%
+\begin{slide}{Examples of the chain rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $y=\cos(x^2)$.
+  \fromSlide{3}{This is $y=\cos(u)$, where $u=x^2$.}
+  \[
+   \fromSlide{4}{\frac{du}{dx} = 2x \hspace{3em}}
+   \fromSlide{5}{\frac{dy}{du} = -\sin(u)}
+   \fromSlide{6}{= -\sin(x^2)}
+  \] \[
+   \fromSlide{7}{\frac{dy}{dx} = \frac{dy}{du}\frac{du}{dx}}
+   \fromSlide{8}{= -\sin(x^2).2x}
+   \fromSlide{9}{= -2x\sin(x^2).}
+  \]}
+ \fromSlide{10}{
+  \item Consider $f(x)=\exp(\sin(x))$.  
+   \[ \fromSlide{11}{f'(x) = \exp'(\sin(x)).\sin'(x)}
+      \fromSlide{12}{= \exp(\sin(x))\cos(x).}
+   \]
+ }
+ \fromSlide{13}{
+  \item Consider $y=a\sin(b x+c)$.  
+   \fromSlide{14}{Put $u=bx+c$, so $y=a\sin(u)$. \par}
+   \fromSlide{15}{Then $\frac{du}{dx}=b$}
+   \fromSlide{16}{and $\frac{dy}{du}=a\cos(u)$}
+   \fromSlide{17}{so }
+    \[ \fromSlide{17}{\frac{dy}{dx} = \frac{dy}{du}\frac{du}{dx}}
+       \fromSlide{18}{= a\cos(u).b = ab\cos(u)}
+       \fromSlide{19}{= ab\cos(bx+c). }
+    \]
+   }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{The power rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $u$ depends on $x$ and $n$ does not, then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       \frac{d}{dx}(u^n)=
+        \RED{nu^{n-1}}\BLUE{\frac{du}{dx}}}
+   \]}
+ \fromSlide{3}{
+  \item Reason: If $y=u^n$ then $\frac{dy}{du}=nu^{n-1}$ so
+   $\frac{dy}{dx}=\frac{dy}{du}\frac{du}{dx}=nu^{n-1}\frac{du}{dx}$
+ }
+ \fromSlide{4}{
+  \item Consider $y=\sqrt{1+x^2}$.  This is $y=u^{1/2}$, where
+   $u=1+x^2$.  Then 
+   \[ \frac{dy}{du}=\RED{\frac{1}{2}u^{-1/2}}
+                   = \RED{\frac{1}{2\sqrt{1+x^2}}}
+      \hspace{3em}
+      \fromSlide{5}{\frac{du}{dx}=\BLUE{2x}}
+   \]
+   \fromSlide{6}{
+   \[ \frac{dy}{dx} = \RED{\frac{1}{2\sqrt{1+x^2}}}\BLUE{2x}
+                    = \frac{x}{\sqrt{1+x^2}}.
+   \]}
+ }
+ \fromSlide{7}{
+  \item $\frac{d}{dx}\left(\sin(x)^5\right)=
+         \RED{5\sin(x)^4}\BLUE{\cos(x)}$
+ }
+ \fromSlide{8}{
+  \item $\frac{d}{dx}\left(\log(x)^3\right)=
+         \RED{3\log(x)^2}\BLUE{x^{-1}}=3\log(x)^2/x$
+ } 
+\end{itemize}
+\end{slide}
+}
+
+
+
+\overlays{17}{%
+\begin{slide}{The logarithmic rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item \ghost \vspace{-3ex}
+   \[ 
+    \psframebox[framearc=.3,linecolor=magenta]{
+     \frac{d}{dx}\log(u) = \frac{1}{u}\,\frac{du}{dx}}
+    \hspace{3em}
+    \fromSlide{3}{\psframebox[framearc=.3,linecolor=magenta]{
+     \frac{du}{dx} = u\,\frac{d}{dx}\log(u)}}
+   \]
+ }
+ \fromSlide{4}{
+  \item \ghost \vspace{-3ex}
+   \[ \frac{d}{dx}\log(\cos(x)) 
+       \fromSlide{5}{= \frac{1}{\cos(x)}\cos'(x) }
+       \fromSlide{6}{= \frac{-\sin(x)}{\cos(x)} }
+       \fromSlide{7}{= -\tan(x)}
+   \]
+ }
+ \fromSlide{8}{
+  \item \ghost \vspace{-3ex}
+   \[ \frac{d}{dx}\log(1+x^2) 
+       \fromSlide{9}{= \frac{\frac{d}{dx}(1+x^2)}{1+x^2}}
+       \fromSlide{10}{= \frac{2x}{1+x^2} }
+   \]
+ }
+ \fromSlide{11}{
+  \item Consider $y=x^x$%
+   \fromSlide{12}{, so $\log(y)=x\log(x)$.}
+   \fromSlide{13}{Then }
+   \begin{align*}
+    \fromSlide{13}{\frac{d}{dx}\log(y)} &
+    \fromSlide{13}{= \frac{d}{dx}(x\log(x))} \\ &
+    \fromSlide{14}{= 1.\log(x) + x.x^{-1}}
+    \fromSlide{15}{= \log(x) + 1} \\
+    \fromSlide{16}{\frac{dy}{dx}} &
+    \fromSlide{16}{= y\frac{d}{dx}\log(y)} \\ &
+    \fromSlide{17}{= x^x(\log(x) + 1).}
+   \end{align*}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{The inverse function rule}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $x$ and $y$ are interdependent variables, then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       \frac{dx}{dy} = 1/\frac{dy}{dx}}
+   \]
+ }
+ \fromSlide{3}{
+  \item (Take limits in the obvious relation 
+   $\frac{\dl x}{\dl y} = 1/\frac{\dl y}{\dl x}$.)
+ }
+ \fromSlide{4}{
+  \item Consider $y=\log(x)$\fromSlide{5}{, so $x=e^y$.} 
+   \[
+    \fromSlide{6}{\frac{dx}{dy}} 
+    \fromSlide{6}{=e^y=x} \hspace{4em}
+    \fromSlide{7}{\frac{dy}{dx}} 
+    \fromSlide{7}{=1/\frac{dx}{dy}}
+    \fromSlide{8}{=\frac{1}{x}}
+   \]
+ }
+ \fromSlide{9}{
+  \item Alternative notation: if $y=g(x)$ then $x=f(y)$, where
+   $f=g^{-1}$ and $g=f^{-1}$.  Then
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       g'(x) = 1/f'(g(x))}
+   \]
+ }
+ \fromSlide{10}{
+  \item $\log'(x)=1/\exp'(\log(x))=1/\exp(\log(x))=1/x$.
+ }
+ \end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{The arcsin function}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $y=\arcsin(x)$\fromSlide{3}{, so $x=\sin(y)$.}
+   \begin{align*}
+    \fromSlide{4}{\frac{dx}{dy}} &
+    \fromSlide{5}{= \sin'(y) = \cos(y) \hphantom{mmmmm}} \\
+    \fromSlide{6}{\frac{dy}{dx}} &
+    \fromSlide{6}{= 1/\frac{dx}{dy} = \cos(y)^{-1}.}
+   \end{align*}
+ }
+ \fromSlide{7}{
+  \item Also $\sin(y)^2+\cos(y)^2=1$\fromSlide{8}{, so}
+   \begin{align*}
+    \fromSlide{8}{\cos(y)} &
+    \fromSlide{8}{=\sqrt{1-\sin(y)^2}} 
+    \fromSlide{9}{=\sqrt{1-x^2}} \\
+    \fromSlide{10}{\cos(y)^{-1}} &
+    \fromSlide{10}{=(1-x^2)^{-1/2}\hphantom{mmmmmmmmm}}
+   \end{align*}
+ }
+ \fromSlide{11}{
+  \item So $\arcsin'(x)=\frac{dy}{dx}=(1-x^2)^{-1/2}$.
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{10}{%
+\begin{slide}{The arctanh function}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $y=\arctanh(x)$\fromSlide{3}{, so
+    $x=\tanh(y)=\frac{\sinh(y)}{\cosh(y)}$.}
+   \begin{align*}
+    \fromSlide{4}{\frac{dx}{dy}} &
+    \fromSlide{4}{= \tanh'(y) \hphantom{mmmmmmmmmmmmmmmmm}} \\ & 
+    \fromSlide{5}{= \frac{\sinh'(y)\cosh(y)-\sinh(y)\cosh'(y)}
+                         {\cosh(y)^2}} \\ &
+    \fromSlide{6}{= \frac{\cosh(y)^2-\sinh(y)^2}{\cosh(y)^2}} \\ &
+    \fromSlide{7}{= 1 - \tanh(y)^2}
+    \fromSlide{8}{= 1-x^2} \\
+    \fromSlide{9}{\frac{dy}{dx}} &
+    \fromSlide{9}{= 1/\frac{dx}{dy} = \frac{1}{1-x^2}.}
+   \end{align*}
+ }
+ \fromSlide{10}{
+  \item So $\arctanh'(x)=\frac{dy}{dx}=(1-x^2)^{-1}$.
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{13}{%
+\begin{slide}{Classes of functions}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $f(x)$ is a polynomial, then so is $f'(x)$.
+   \begin{itemize}
+    \item \fromSlide{3}{
+     Eg $f(x)=x+x^{10}+x^{100}$;\qquad $f'(x)=1+10x^9+100x^{99}$}
+    \item \fromSlide{4}{
+     Eg $f(x)=(x-1)^4+(x+1)^4$;\qquad $f'(x)=4(x-1)^3+4(x+1)^3$}
+   \end{itemize}
+ }
+ \fromSlide{5}{
+  \item If $f(x)$ is a rational function, then so is $f'(x)$.
+   \begin{itemize}
+    \item \fromSlide{6}{
+     Eg $f(x)=\frac{x^2-1}{x^2+1}$;\qquad $f'(x)=\frac{4x}{(x^2+1)^2}$}
+    \item \fromSlide{7}{
+     Eg $f(x)=\frac{1}{x}+\frac{1}{x+1}+\frac{1}{x+2}$;\qquad
+        $f'(x)=-\frac{1}{x^2}-\frac{1}{(x+1)^2}-\frac{1}{(x+2)^2}$}
+   \end{itemize}
+ }
+ \fromSlide{8}{
+  \item If $f(x)$ is a trigonomatric polynomial, so is $f'(x)$.
+   \begin{itemize}
+    \item \fromSlide{9}{
+     Eg $f(x)=\sin(x)+\sin(3x)/3+\sin(5x)/5$;\qquad
+        $f'(x)=\cos(x)+\cos(3x)+\cos(5x)$.}
+    \item \fromSlide{10}{
+     Eg $f(x)=\sin(3x)+\cos(3x)$;\qquad $f'(x)=3\cos(3x)-3\sin(3x)$.}
+   \end{itemize}
+ }
+ \fromSlide{11}{
+  \item If $f(x)$ is a polynomial times $e^x$, so is $f'(x)$.
+   \begin{itemize}
+    \item \fromSlide{12}{
+     Eg $f(x)=(x+x^2)e^x$;\qquad $f'(x)=(1+3x+x^2)e^x$.}
+    \item \fromSlide{13}{
+     Eg $f(x)=(x^4-4x^3+12x^2-24x+24)e^x$;\qquad $f'(x)=x^4e^x$.}
+   \end{itemize}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\end{document}

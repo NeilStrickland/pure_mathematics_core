@@ -1,0 +1,2 @@
+pdflatex mock
+mock.pdf

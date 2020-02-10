@@ -1,3 +1,5 @@
+# This file is obsolete.  It was used to generate plots which are now handled by tikz.
+
 with(plots):
 #currentdir("c:/Documents and Settings/Neil Strickland/My Documents/teach/core/notes"):
 

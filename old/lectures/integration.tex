@@ -1,0 +1,1348 @@
+\documentclass[%
+pdf,
+neil,
+colorBG,
+slideColor,
+]{prosper}
+\usepackage{amsmath}
+\usepackage{pstricks,pst-node,pst-text,pst-3d,pst-plot}
+\usepackage[usenames,dvips]{color}
+
+\input{lectmac}
+
+\newcommand{\ff}{dup dup dup -0.6 mul 5.0 add exch mul -12.8 add exch mul 10.4 add exch mul 1 add}
+\newcommand{\vl}[1]{\psdots(#1,0) \psline(#1,0)(! #1 #1 \ff)}
+\newcommand{\hh}{0.2}
+\newcommand{\bx}[1]{%
+ \psframe*[linecolor=green](#1,0.0)(! #1 \hh\space add #1 \ff)%
+ \psframe[linecolor=OliveGreen](#1,0.0)(! #1 \hh\space add #1 \ff)%
+ \psdots(#1,0)(!#1 \hh\space add 0)}
+\newcommand{\bxp}[1]{%
+ \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+  \parametricplot{0}{1}{#1 \hh\space t mul add dup \ff}
+  \psline(! #1 \hh\space add 0)(#1,0)}
+ \pscustom[linestyle=none,fillstyle=solid,fillcolor=blue]{%
+  \parametricplot{0}{1}{#1 \hh\space t mul add dup \ff}
+  \psline(! #1 \hh\space add #1 \ff)(! #1 #1 \ff)}
+ \psframe[linecolor=OliveGreen](#1,0.0)(! #1 \hh\space add #1 \ff)%
+ \psdots(#1,0)(!#1 \hh\space add 0)}
+\newcommand{\bxn}[1]{%
+ \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+  \parametricplot{0}{1}{#1 \hh\space t mul add dup \ff}
+  \psline(! #1 \hh\space add 0)(#1,0)}
+ \pscustom[linestyle=none,fillstyle=solid,fillcolor=magenta]{%
+  \parametricplot{0}{1}{#1 \hh\space t mul add dup \ff}
+  \psline(! #1 \hh\space add #1 \ff)(! #1 #1 \ff)}
+ \psframe[linecolor=OliveGreen](#1,0.0)(! #1 \hh\space add #1 \ff)%
+ \psdots(#1,0)(!#1 \hh\space add 0)}
+
+\title{Integration}
+\author{}
+
+\begin{document}
+
+\slideCaption{\color{white}}
+
+\begin{slide}{}
+ {\Huge
+  \vspace{6ex}
+  \begin{center}
+   Integration
+  \end{center}
+ }
+\end{slide}
+
+%\maketitle
+
+\overlays{8}{
+\begin{slide}{Introduction}
+\fromSlide{2}{\noindent{\bf Things you should know:}}
+\begin{itemize}
+\fromSlide{3}{
+ \item The meaning of integration (take the sum of a large number of
+  very small contributions, and pass to the limit)}
+\fromSlide{4}{
+ \item Integration as the reverse of differentiation}
+\fromSlide{5}{
+ \item Integrals of standard functions and classes of functions
+} 
+\fromSlide{6}{
+ \item The method of undetermined coefficients
+}
+\fromSlide{7}{
+ \item Integration by parts
+}
+\fromSlide{8}{
+ \item Integration by substitution
+}
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Meaning}
+\begin{itemize}
+ \fromSlide{2}{
+  \item To define $\int_a^b f(x)\, dx$:
+   \begin{itemize}
+    \fromSlide{3}{
+     \item Divide the interval $[a,b]$ into many short intervals
+      $[x,x+h]$.} 
+    \fromSlide{4}{
+     \item For each short interval $[x,x+h]$, find $f(x)h$.}
+    \fromSlide{5}{
+     \item Add these terms together to get an
+      approximation to $\int_a^b f(x)\,dx$.}
+    \fromSlide{6}{
+     \item For the exact value of $\int_a^b f(x)\,dx$, take
+      the limit $h\xra{}0$.
+    }
+   \end{itemize}
+ }
+ \fromSlide{7}{
+  \item In economics, government revenue depends on time, and total
+   revenue in the last decade is
+   $\int_{1990}^{2000}\text{revenue(t)}\,dt$. 
+ }
+ \fromSlide{8}{
+  \item If a particle moves with velocity $v(t)>0$ at time $t$, then
+   the total distance moved between times $a$ and $b$ is
+   $\int_a^b v(t)\,dt$.
+ }
+ \fromSlide{9}{
+  \item A current flowing in a wire exerts a magnetic force on a moving
+  electron.  There is a formula for the force contributed by a short
+  section of wire; to get the total force, we integrate.
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{Areas}
+
+ \psset{xunit=2.5cm,yunit=1.25cm}
+ \onlySlide*{1}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  Consider the integral $\int_a^b f(x)\,dx$.
+ }
+ \onlySlide*{2}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.4}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \psline[linecolor=magenta,arrows=<->](1.35,0)(! 1.35 1.40 \ff)
+   \rput[r](! 1.32 1.40 \ff\space 0.5 mul){$\scriptstyle f(x)$}
+   \psline[linecolor=magenta,arrows=<->]%
+    (! 1.40 1.40 \ff\space 0.1 add)(! 1.60 1.40 \ff\space 0.1 add)
+   \rput[b](! 1.50 1.40 \ff\space 0.2 add){$\scriptstyle h$}
+   \psline[arrows=->](1.8,0.5)(1.5,0.5)
+   \rput[l](1.82,0.5){$\scriptstyle \mbox{Area} = f(x)h$}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](1.4,-0.2){$\scriptstyle x$}
+   \rput[Bl](1.6,-0.2){$\scriptstyle x+h$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  For each short interval $[x,x+h]\subset [a,b]$, we have a contribution
+  $f(x)h$.  This is the area of the green rectangle.
+ }
+ \onlySlide*{3}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.4}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  This is the contribution from one short interval, but we need to add
+  together the contributions from many short intervals.
+ }
+ \onlySlide*{4}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.2} \bx{1.4} \bx{1.6}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  Here we have added in two more intervals
+ }
+ \onlySlide*{5}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.0} \bx{1.2} \bx{1.4} \bx{1.6} \bx{1.8}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  Here we have added in two more intervals
+  --- and two more
+ }
+ \onlySlide*{6}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.0} \bx{1.2} \bx{1.4} \bx{1.6} \bx{1.8} 
+   \bx{2.0} \bx{2.2}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  Here we have added in two more intervals
+  --- and two more --- and two more
+ }
+ \onlySlide*{7}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bx{1.0} \bx{1.2} \bx{1.4} \bx{1.6} \bx{1.8} 
+   \bx{2.0} \bx{2.2} \bx{2.4} \bx{2.6} \bx{2.8}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  Now we have divided the whole interval $[a,b]$ into subintervals of
+  length $h$.  The sum of the terms $f(x)h$ is the area of the green
+  region.
+ }
+ \onlySlide*{8}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bxp{1.0} \bxp{1.2} \bxp{1.4} \bxp{1.6} \bxp{1.8} 
+   \bxn{2.0} \bxn{2.2} \bxn{2.4} \bxn{2.6} \bxn{2.8}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  This is not exactly the same as the area under the curve, because of
+  the regions marked in blue and pink.
+ }
+ \onlySlide*{9}{
+  \renewcommand{\hh}{0.1}
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \bxp{1.0} \bxp{1.1} \bxp{1.2} \bxp{1.3} \bxp{1.4} 
+   \bxp{1.5} \bxp{1.6} \bxp{1.7} \bxp{1.8} \bxp{1.9}
+   \bxn{2.0} \bxn{2.1} \bxn{2.2} \bxn{2.3} \bxn{2.4} 
+   \bxn{2.5} \bxn{2.6} \bxn{2.7} \bxn{2.8} \bxn{2.9}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[B](3.0,-0.2){$\scriptstyle b$}
+   \rput(3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  However, the error decreases if we make $h$ smaller
+ }
+ \onlySlide*{10}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{1.0}{3.0}{x \ff}
+    \psline(3.0,0)(1.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[Bc](1.0,-0.2){$\scriptstyle a$}
+   \rput[Bc](3.0,-0.2){$\scriptstyle b$}
+   \rput[cc](3.0,4.7){$\scriptstyle y=f(x)$}
+  \end{pspicture}\end{center}
+  However, the error decreases if we make $h$ smaller, and tends to
+  zero in the limit.
+ }
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{The Fundamental Theorem of Calculus}
+\begin{itemize}
+ \fromSlide{2}{
+  \item An \DEFN{indefinite integral} of $f(x)$ is a function $F(x)$
+   such that $F'(x)=f(x)$.
+ }
+ \fromSlide{3}{
+  \item Examples:
+   \begin{itemize}
+    \fromSlide{4}{
+     \item $\log(x)$ is an indefinite integral of $1/x$}
+    \fromSlide{5}{
+     \item $\sin(x)$ is an indefinite integral of $\cos(x)$}
+    \fromSlide{6}{
+     \item $F(x)=x^2+2x$ and $G(x)=(x+1)^2$ are indefinite integrals
+      of $2x+2$}
+   \end{itemize}
+ }
+ \fromSlide{7}{
+  \item The \DEFN{Fundamental Theorem of Calculus:}
+   \begin{itemize}
+    \fromSlide{8}{
+     \item For any number $a$, the function $F(x)=\int_a^x f(t)\,dt$
+      is an indefinite integral of $f(x)$.}
+    \fromSlide{9}{
+     \item If $F(x)$ is any indefinite integral of $f(x)$, then
+      $\int_a^b f(x)\,dx=
+       \left[\vphantom{\int}F(x)\right]_a^b = F(b)-F(a)$.}
+   \end{itemize}
+ }
+ \fromSlide{10}{
+  \item The functions $F(x)=\int_0^x 2t+2\,dt=x^2+2x$ and 
+   $G(x)=\int_{-1}^x 2t+2\,dt=(x+1)^2$ are both indefinite integrals
+   of $2x+2$.
+ }
+ \fromSlide{11}{
+  \item $\int_a^b\frac{1}{x}=\left[\vphantom{\int}\log(x)\right]_a^b
+         =\log(b)-\log(a)$
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{7}{%
+\begin{slide}{Proof of the Fundamental Theorem}
+ \psset{xunit=2.2cm,yunit=1.1cm}
+ \onlySlide*{1}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{1.0}{3.0}{x \ff}
+    \psline(3.0,0)(1.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](3.0,-0.2){$\scriptstyle x$}
+   \rput(3.7,4.7){$\scriptstyle y=f(x)$}
+   \rput[l](1.8,0.5){\psframebox[framearc=.3,linecolor=OliveGreen]{\tiny $\mbox{Area} = F(x)$}}
+  \end{pspicture}\end{center}
+  Choose a number $a$, and define $F(x)=\int_a^x f(t)\, dt$.  
+  We must show that $F'(x)=f(x)$.
+ }
+ \onlySlide*{2}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{1.0}{3.2}{x \ff}
+    \psline(3.2,0)(1.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \psline[linestyle=dotted](3.0,0)(! 3.0 dup \ff)
+   \psdots(3.0,0)(3.2,0)
+   \vl{3.2}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](3.0,-0.2){$\scriptstyle x$}
+   \rput[Bl](3.2,-0.2){$\scriptstyle x+h$}
+   \rput(3.7,4.7){$\scriptstyle y=f(x)$}
+   \rput[l](1.8,0.5){\psframebox[framearc=.3,linecolor=OliveGreen]{\tiny $\mbox{Area} = F(x+h)$}}
+  \end{pspicture}\end{center}
+  We now change $x$ to $x+h$.
+ }
+ \onlySlide*{3}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+    \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{3.0}{3.2}{x \ff}
+    \psline(3.2,0)(3.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \vl{3.2}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](3.0,-0.2){$\scriptstyle x$}
+   \rput[Bl](3.2,-0.2){$\scriptstyle x+h$}
+   \rput(3.7,4.7){$\scriptstyle y=f(x)$}
+   \rput(2.0,4.0){\psframebox[framearc=.3,linecolor=OliveGreen]{\tiny
+    $\begin{array}{rl} 
+      \text{Area} &= F(x+h)-F(x) \\
+      & \vphantom{\simeq f(x)h}
+     \end{array}$}}
+   \psline[linewidth=0.05pt,linecolor=OliveGreen,arrows=<-](3.1,1.5)(2.11,3.48)
+  \end{pspicture}\end{center}
+  The increase in $F(x)$ is $F(x+h)-F(x)$, which is the area of the
+  thin strip as shown. 
+ }
+ \onlySlide*{4}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{3.0}{3.2}{x \ff}
+    \psline(3.2,0)(3.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \vl{3.2}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](3.0,-0.2){$\scriptstyle x$}
+   \rput[Bl](3.2,-0.2){$\scriptstyle x+h$}
+   \rput(3.7,4.7){$\scriptstyle y=f(x)$}
+   \rput(2.0,4.0){\psframebox[framearc=.3,linecolor=OliveGreen]{\tiny
+    $\begin{array}{rl} 
+      \text{Area} &= F(x+h)-F(x) \\
+      & \simeq f(x)h
+     \end{array}$}}
+   \psline[linewidth=0.05pt,linecolor=OliveGreen,arrows=<-](3.1,1.5)(2.12,3.46)
+   \psline[linecolor=magenta,arrows=<->](2.95,0)(! 2.95 3.0 \ff)
+   \rput[r](2.92,1.0){$\scriptstyle f(x)$}
+   \psline[linecolor=magenta,arrows=<->]%
+    (! 3.0 3.0 \ff)(! 3.20 3.0 \ff)
+   \rput[b](! 3.10 3.00 \ff\space -0.15 add){$\scriptstyle h$}
+  \end{pspicture}\end{center}
+  The increase in $F(x)$ is $F(x+h)-F(x)$, which is the area of the
+  thin strip as shown.  This is approximately the same as $f(x)h$.
+ }
+ \fromSlide*{5}{
+  \begin{center}\begin{pspicture}[1](-0.3,-0.3)(3.8,5.3)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \pscustom[linestyle=none,fillstyle=solid,fillcolor=green]{%
+    \psplot{3.0}{3.1}{x \ff}
+    \psline(3.1,0)(3.0,0)}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.3,-0.3)( 3.8, 5.3)
+   \psplot[linecolor=red]{0}{3.5}{x \ff}
+   \vl{1.0}
+   \vl{3.0}
+   \vl{3.1}
+   \rput[B](1.0,-0.2){$\scriptstyle a$}
+   \rput[Br](3.0,-0.2){$\scriptstyle x$}
+   \rput[Bl](3.1,-0.2){$\scriptstyle x+h$}
+   \rput(3.7,4.7){$\scriptstyle y=f(x)$}
+   \rput(2.0,4.0){\psframebox[framearc=.3,linecolor=OliveGreen]{\tiny
+    $\begin{array}{rl} 
+      \text{Area} &= F(x+h)-F(x) \\
+      & \simeq f(x)h
+     \end{array}$}}
+   \psline[linewidth=0.05pt,linecolor=OliveGreen,arrows=<-](3.05,1.5)(2.07,3.46)
+   \psline[linecolor=magenta,arrows=<->](2.95,0)(! 2.95 3.0 \ff)
+   \rput[r](2.92,1.0){$\scriptstyle f(x)$}
+   \psline[linecolor=magenta,arrows=<->]%
+    (! 3.0 3.0 \ff)(! 3.10 3.0 \ff)
+   \rput[b](! 3.05 3.00 \ff\space -0.15 add){$\scriptstyle h$}
+  \end{pspicture}\end{center}
+  The increase in $F(x)$ is $F(x+h)-F(x)$, which is the area of the
+  thin strip as shown.  This is approximately the same as $f(x)h$.
+  \onlySlide*{6}{
+   \[ F'(x) \simeq \frac{F(x+h)-F(x)}{h} \simeq f(x). \]
+  }
+  \onlySlide*{7}{
+   \[ F'(x) = \lim_{h\xra{}0} \frac{F(x+h)-F(x)}{h} = f(x). \]
+  }
+ }
+
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{Checking and Guessing}
+\begin{itemize}
+ \fromSlide{2}{
+  \item 
+   \psframebox[framearc=.3,linecolor=magenta]{
+    Integrals can easily be checked by differentiating
+ }}
+ \fromSlide{3}{
+  \item 
+   \onlySlide*{3}{$\int \sin(x)^2\,dx=\sin(x)^3/3$?}
+   \fromSlide{4}{$\int \sin(x)^2\,dx\RED{\,\neq\,}\sin(x)^3/3$,
+    because
+    \[ \frac{d}{dx}\left(\sin(x)^3/3\right) = 
+        3\sin(x)^2\cos(x)/3 = \sin(x)^2\cos(x) \RED{\neq} \sin(x)^2. 
+    \] 
+   }
+ }
+ \fromSlide{5}{
+  \item 
+   \onlySlide*{5}{$\int \frac{\cos(x)}{x}-\frac{\sin(x)}{x^2}\,dx=
+                   \frac{\sin(x)}{x}$?}
+   \fromSlide{6}{$\int \frac{\cos(x)}{x}-\frac{\sin(x)}{x^2}\,dx=
+                   \frac{\sin(x)}{x}$,
+    because
+    \[ \frac{d}{dx}\left(\frac{\sin(x)}{x}\right) = 
+        \frac{\sin'(x).x-\sin(x).1}{x^2} =
+        \frac{\cos(x)}{x} - \frac{\sin(x)}{x^2}.
+    \] 
+   }
+ }
+ \fromSlide{7}{
+  \item $\int 2x\,e^{x^2}\,dx=e^{x^2}$\fromSlide{8}{, because
+   $\frac{d}{dx}e^{x^2}=2x\,e^{x^2}$.}
+ }
+ \fromSlide{9}{
+  \item $\int\frac{3x^2+2x+1}{x^3+x^2+x+1}\,dx=\log(x^3+x^2+x+1)$%
+   \fromSlide{10}{, 
+   because 
+   \[ \frac{d}{dx}\log(x^3+x^2+x+1) = 
+       \frac{\frac{d}{dx}(x^3+x^2+x+1)}{x^3+x^2+x+1} = 
+       \frac{3x^2+2x+1}{x^3+x^2+x+1}.
+   \]}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{Undetermined coefficients}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Suppose we know that for some constants $a,\dotsc,d$
+   \vspace{-1ex}
+   \[ \int \log(x)^3\,dx= (a\log(x)^3+b\log(x)^2+c\log(x)+d)x \]
+   \vspace{-1ex}
+ \fromSlide{3}{
+  (How could we know this? --- see later)
+ }}
+ \fromSlide{4}{
+  \item \textbf{Problem:} find $a$, $b$, $c$ and $d$.
+ }
+ \fromSlide{5}{
+  \item \ghost\vspace{-6ex}
+   \begin{eqnarray*}
+    \log(x)^3 &=&
+     \frac{d}{dx}\left((a\log(x)^3+b\log(x)^2+c\log(x)+d)x\right) \\ &
+    \fromSlide{6}{=} &
+     \fromSlide{6}{(3a\log(x)^2x^{-1} + 2b\log(x)x^{-1}+cx^{-1})x +} \\
+     && \fromSlide{6}{(a\log(x)^3+ b\log(x)^2+c\log(x)+d).1} 
+    \\ &
+    \fromSlide{7}{=} &
+    \fromSlide{7}{
+     a\log(x)^3 +(b+3a)\log(x)^2 + (c+2b)\log(x) + (d+c)
+    }
+   \end{eqnarray*}
+   \fromSlide{8}{
+    \item So $a=1$, $b+3a=0$, $c+2b=0$ and $d+c=0$ (compare coefficients)
+   }
+   \fromSlide{9}{
+    \item So $a=1$, $b=-3$, $c=6$ and $d=-6$
+   }
+   \fromSlide{10}{
+    \[ \int \log(x)^3\,dx= (\log(x)^3-3\log(x)^2+6\log(x)-6)x. \]
+   }
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Standard integrals}%
+ \fromSlide{2}{
+  \[ \begin{array}{rlcrl}
+   \onlySlide*{2}{\exp'(x)\vphantom{\int\exp(x)\,dx}}%
+   \fromSlide*{3}{\int \exp(x)\,dx} &\!= %
+   \onlySlide*{2}{\exp(x)}%
+   \fromSlide*{3}{\exp(x)} &\hspace{1em}& %
+   \onlySlide*{2}{\log'(x)}%
+   \fromSlide*{3}{\int 1/x \,dx} &\!= %
+   \onlySlide*{2}{1/x}%
+   \fromSlide*{3}{\log(x)} \\ %
+   \onlySlide*{2}{\sinh'(x)}%
+   \fromSlide*{3}{\int \cosh(x)\,dx} &\!= %
+   \onlySlide*{2}{\cosh(x)}%
+   \fromSlide*{3}{\sinh(x)} && %
+   \onlySlide*{2}{\arcsinh'(x)}%
+   \fromSlide*{3}{\int (1+x^2)^{-1/2}\,dx} &\!= %
+   \onlySlide*{2}{(1+x^2)^{-1/2}}%
+   \fromSlide*{3}{\arcsinh(x)} \\ %
+   \onlySlide*{2}{\cosh'(x)}%
+   \fromSlide*{3}{\int \sinh(x)\,dx} &\!= %
+   \onlySlide*{2}{\sinh(x)}%
+   \fromSlide*{3}{\cosh(x)} && %
+   \onlySlide*{2}{\arccosh'(x)}%
+   \fromSlide*{3}{\int (x^2-1)^{-1/2}\,dx} &\!= %
+   \onlySlide*{2}{(x^2-1)^{-1/2}}%
+   \fromSlide*{3}{\arccosh(x)} \\ %
+   \onlySlide*{2}{\tanh'(x)}%
+   \fromSlide*{3}{\int \sech(x)^2 \,dx} &\!= %
+   \onlySlide*{2}{\sech(x)^2}%
+   \fromSlide*{3}{\tanh(x)} && %
+   \onlySlide*{2}{\arctanh'(x)}%
+   \fromSlide*{3}{\int (1-x^2)^{-1}\,dx} &\!= %
+   \onlySlide*{2}{(1-x^2)^{-1}}%
+   \fromSlide*{3}{\arctanh(x)} \\ %
+   \onlySlide*{2}{\sin'(x)}%
+   \fromSlide*{3}{\int \cos(x)\,dx} &\!= %
+   \onlySlide*{2}{\cos(x)}%
+   \fromSlide*{3}{\sin(x)} && %
+   \onlySlide*{2}{\arcsin'(x)}%
+   \fromSlide*{3}{\int (1-x^2)^{-1/2}\,dx} &\!= %
+   \onlySlide*{2}{(1-x^2)^{-1/2}}%
+   \fromSlide*{3}{\arcsin(x)} \\ %
+   \onlySlide*{2}{\cos'(x)}%
+   \fromSlide*{3}{\int \sin(x)\,dx} &\!= %
+   \onlySlide*{2}{-\sin(x)}%
+   \fromSlide*{3}{-\cos(x)} && %
+   \onlySlide*{2}{\arccos'(x)}%
+   \fromSlide*{3}{\int (1-x^2)^{-1/2}\,dx} &\!= %
+   \onlySlide*{2}{-(1-x^2)^{-1/2}}%
+   \fromSlide*{3}{-\arccos(x)} \\ %
+   \onlySlide*{2}{\tan'(x)}%
+   \fromSlide*{3}{\int \sec(x)^2 \,dx} &\!= %
+   \onlySlide*{2}{\sec(x)^2}%
+   \fromSlide*{3}{\tan(x)} && %
+   \onlySlide*{2}{\arctan'(x)}%
+   \fromSlide*{3}{\int (1+x^2)^{-1}\,dx} &\!= %
+   \onlySlide*{2}{(1+x^2)^{-1}}%
+   \fromSlide*{3}{\arctan(x)} \\
+   \hphantom{mmmmmmmm} & \hphantom{mmmmmmmm} &&
+   \hphantom{mmmmmmmmm} & \hphantom{mmmmmmmm} 
+  \end{array} \] }
+ \vspace{-6ex}
+ \begin{align*}
+  \fromSlide{4}{\textstyle\int x^n\, dx}       &
+  \fromSlide{4}{= x^{n+1}/(n+1) \hspace{3em} (n\neq -1)} \\
+  \fromSlide{5}{\textstyle\int a^x\, dx} &
+  \fromSlide{5}{= a^x/\log(a)} \\
+  \fromSlide{6}{\textstyle\int \log(x)\,dx} &
+  \fromSlide{6}{= x\log(x) - x} \\
+  \fromSlide{7}{\textstyle\int \tan(x)\, dx} &
+  \fromSlide{7}{= -\log(\cos(x))} \\
+  \fromSlide{8}{\textstyle\int \sin(x)^2\, dx} &
+  \fromSlide{8}{= (2x-\sin(2x))/4} \\
+  \fromSlide{9}{\textstyle\int \cos(x)^2\, dx} &
+  \fromSlide{9}{= (2x+\sin(2x))/4} \\
+  \end{align*}
+\end{slide}
+}
+
+
+\overlays{12}{%
+\begin{slide}{Rational functions}
+ \fromSlide{2}{
+  To integrate a rational function, rewrite in partial fraction form.
+   \fromSlide{3}{Then use:
+    \begin{center}
+    \psframebox[framearc=.3,linecolor=magenta]{
+    $\begin{aligned}
+     \tint x^k\,dx &= x^{k+1}/(k+1) 
+       \hspace{6.5em} \text{(for $k>0$)} \\
+     \tint (x-a)^{-1}\, dx &= \log(x-a) \\
+     \tint (x-a)^{-k}\, dx &= (x-a)^{1-k}/(1-k) 
+       \hspace{4em} \text{(for $k>1$)} 
+    \end{aligned}$
+   }
+   \end{center}}}
+ \vspace{-1ex}
+ \begin{align*}
+    \fromSlide{4}{\tfrac{x^2+1}{x^2-1}} &
+    \fromSlide{4}{= 1 + \tfrac{1}{x-1} - \tfrac{1}{x+1}
+                  \hphantom{mmmmmmmmmmmmmmmmmmmm}} \\
+    \fromSlide{5}{\tint\frac{x^2+1}{x^2-1}\,dx} &
+    \fromSlide{5}{= x + \log(x-1) - \log(x+1)} \\
+    \fromSlide{6}{\left(\tfrac{x+1}{x-1}\right)^3} &
+    \fromSlide{6}{= 1 + 6(x-1)^{-1} + 12(x-1)^{-2} +
+                    8(x-1)^{-3}} \\
+    \fromSlide{7}{\tint\left(\frac{x+1}{x-1}\right)^3\,dx} &
+    \fromSlide{7}{= x + 6\log(x-1) - 12 (x-1)^{-1} - 4(x-1)^{-2}} \\
+    \fromSlide{8}{\tfrac{2}{x^2+1}} &
+    \fromSlide{8}{= \tfrac{\RED{i}}{x+\RED{i}} - 
+                    \tfrac{\RED{i}}{x-\RED{i}}} \\
+    \fromSlide{9}{\tint\frac{2\,dx}{x^2+1}} &
+    \fromSlide{9}{= i\log(x+i)-i\log(x-i)} 
+    \fromSlide{10}{= i\log\left(\tfrac{x+i}{x-i}\right)}
+    \fromSlide{11}{= 2\arctan(x)} \\ 
+     & \fromSlide{12}{\qquad\text{(Correct but not usually convenient.)}}
+   \end{align*}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Quadratic partial fractions}
+\begin{itemize}
+ \fromSlide{2}{
+  \item A quadratic partial fraction decomposition may contain terms
+   like 
+   \[ \frac{ux+v}{ax^2+bx+c} \]
+   (with $b^2<4ac$).
+ }
+ \fromSlide{3}{
+  \item \ghost\vspace{-3ex}
+  \[ 
+   \onlySlide*{3}{
+    \int \frac{x+1}{x^2+1} \, dx = 
+     \frac{1}{2}\log(x^2+1) +
+     \arctan(x)
+     \vphantom{\arctan\left(\frac{2ax+b}{\sqrt{4ac-b^2}}\right)}
+   } %
+   \onlySlide*{4}{
+    \int \frac{x+1}{x^2+x+1} \, dx = 
+     \frac{1}{2}\log(x^2+x+1) +
+     \frac{1}{\sqrt{3}}\arctan\left(\frac{2x+1}{\sqrt{3}}\right) 
+   } %
+   \onlySlide*{5}{
+    \int \frac{2x+3}{4x^2+5x+6} \, dx = 
+     \frac{1}{4}\log(4x^2+5x+6) +
+     \frac{7}{2\sqrt{71}}\arctan\left(\frac{8x+5}{\sqrt{71}}\right) 
+   } %
+   \fromSlide*{6}{
+    \psframebox[framearc=.3,linecolor=magenta]{
+    \int \frac{ux+v}{ax^2+bx+c} \, dx = 
+        A\log(ax^2+bx+c) +
+        B\arctan(px+q)
+   }}
+  \]
+  \fromSlide{7}{
+   \hspace{4em}
+   \psframebox[framearc=.3,linecolor=magenta]{
+    $\begin{array}{rlcrl}
+     A &\!= u/(2a)                  &&  p &\!= 2a/\sqrt{4ac-b^2} \\
+     B &\!= (2av-bu)/\sqrt{4ac-b^2} &&  q &\!= b/\sqrt{4ac-b^2}
+    \end{array}$}
+ }}
+ \fromSlide{8}{
+  \item \ghost\vspace{-3ex}
+   \[ \frac{d}{dx}\log(ax^2+bx+c) = \frac{2ax+b}{ax^2+bx+c} \]
+ }
+ \fromSlide{9}{
+  \item \ghost\vspace{-4ex}
+   \[ \frac{d}{dx}\arctan(px+q) =
+       \frac{p}{1+(px+q)^2}  = \frac{p}{p^2x^2+2pqx+(q^2+1)}
+   \]
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{12}{%
+\begin{slide}{Trigonometric polynomials}
+ \fromSlide{2}{
+  \[\psframebox[framearc=.3,linecolor=magenta]{
+   \tint \sin(nx)\,dx = -\cos(nx)/n \hspace{3em}
+   \tint \cos(nx)\,dx = \sin(nx)/n }\]}
+ \begin{align*}
+  \fromSlide{3}{\cos(2x)} &
+  \fromSlide{3}{
+   =\cos(x)^2-\sin(x)^2 = 2\cos(x)^2-1 = 1-2\sin(x)^2 \hphantom{m}
+  } \\
+  \fromSlide{4}{\sin(x)^2} &
+   \fromSlide{4}{= 1/2-\cos(2x)/2 } \\
+  \fromSlide{5}{\tint\sin(x)^2\,dx} &
+   \fromSlide{5}{= x/2-\sin(2x)/4 } \\
+  \fromSlide{6}{\tint\cos(x)^2\,dx} &
+   \fromSlide{6}{= x/2+\sin(2x)/4 } \\
+  \fromSlide{7}{\sin(x)^3} &
+   \fromSlide{7}{= 3\sin(x)/4 - \sin(3x)/4} \\
+  \fromSlide{8}{\tint \sin(x)^3\,dx} &
+   \fromSlide{8}{= -3\cos(x)/4 + \cos(3x)/12} \\
+  \fromSlide{9}{\sin(x)\sin(2x)\sin(4x)} &
+   \fromSlide{9}{= -\sin(x)/4 + \sin(3x)/4 + \sin(5x)/4 - \sin(7x)/4} \\
+  \fromSlide{10}{\tint\sin(x)\sin(2x)\sin(4x)\,dx} &
+   \fromSlide{10}{= \cos(x)/4 - \cos(3x)/12 - \cos(5x)/20 + \cos(7x)/28}\\
+  \fromSlide{11}{\sin(x)^4 + \cos(x)^4} &
+   \fromSlide{11}{= 3/4 + \cos(4x)/4} \\
+  \fromSlide{12}{\tint \sin(x)^4 + \cos(x)^4\,dx} &
+   \fromSlide{12}{= 3x/4 + \sin(4x)/16} \\
+ \end{align*}
+\end{slide}
+}
+
+\overlays{5}{%
+\begin{slide}{Exponential oscillations}
+\begin{itemize}
+ \fromSlide{2}{
+  \item An \DEFN{exponential oscillation} is a function of the form 
+   \[ f(x) = e^{\lm x}(a\cos(\om x)+b\sin(\om x)), \] 
+   where $a$, $b$, $\lm$ and $\om$ are constants.
+ }
+ \fromSlide{3}{
+  \item The \DEFN{growth rate} is $\lm$, and the \DEFN{frequency} is
+   $\om$. 
+ }
+ \fromSlide{4}{
+  \psset{xunit=1.6cm,yunit=1.2cm}
+  \begin{center}\begin{pspicture}[1](-0.2,-1.2)(3.3,1.2)
+   \SpecialCoor
+   \psset{linewidth=0.1pt}
+   \psaxes[labels=none,ticksize=0pt]{->}(0,0)(-0.2,-1.0)( 3.3, 1.1)
+   \psplot[linecolor=red,plotpoints=300]{0}{3.3}{2.72 x neg exp x 3600 mul sin mul}
+   \rput[r](3.0,1.0){$\scriptstyle y=e^{-x}\sin(20\pi x)$}
+   \rput[r](3.3,0.5){$\scriptstyle (\lm=-1,\om=20\pi,a=0,b=1)$}
+  \end{pspicture}\end{center}
+ }
+ \fromSlide{5}{
+  \vspace{-3ex}
+  \item Special cases:
+   {\tiny \begin{align*}
+    f(x) &= e^{\lm x}\sin(\om x)        && (a=0, b=1) \\
+    f(x) &= a\cos(\om x) + b\sin(\om x) && (\lm = 0) \\
+    f(x) &= ae^{\lm x}                  && (\om = 0).
+   \end{align*}}
+ }
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{8}{%
+\begin{slide}{Integrating exponential oscillations}
+ \fromSlide{2}{
+  \[ \psframebox[framearc=.3,linecolor=magenta]{
+      \int e^{\lm x}(a\cos(\om x) + b\sin(\om x)) \, dx = e^{\lm x}(A\cos(\om x) + B\sin(\om x))}
+  \]
+ }
+ \fromSlide{3}{
+  \[ \psframebox[framearc=.3,linecolor=magenta]{
+   A = \frac{a\lm - b\om}{\lm^2+\om^2}
+   \hspace{3em}
+   B = \frac{a\om + b\lm}{\lm^2+\om^2}. 
+  } \]
+ }
+ \begin{itemize}
+ \fromSlide{4}{
+  \item Example: find 
+   \onlySlide*{4}{$\int e^{-2x}(5\cos(4x) - 3\sin(4x))\,dx$}%
+   \fromSlide*{5}{$\int e^{\RED{-2}x}(\OLIVEGREEN{5}\cos(\BLUE{4}x) \MAGENTA{-} \MAGENTA{3}\sin(\BLUE{4}x))\,dx$}%
+   \begin{itemize}
+    \fromSlide{5}{\item $\RED{\lm=-2}$, $\BLUE{\om=4}$,
+     $\OLIVEGREEN{a=5}$, $\MAGENTA{b=-3}$}
+    \fromSlide{6}{\item
+     $A=\frac{\OLIVEGREEN{a}\RED{\lm}-\MAGENTA{b}\BLUE{\om}}{
+              \RED{\lm}^2+\BLUE{\om}^2}
+       =\frac{\OLIVEGREEN{5}.\RED{(-2)}-\MAGENTA{(-3)}.\BLUE{4}}{
+              \RED{(-2)}^2+\BLUE{4}^2}=1/10$}
+    \fromSlide{7}{\item
+     $B=\frac{\OLIVEGREEN{a}\BLUE{\om}+\MAGENTA{b}\RED{\lm}}{
+              \RED{\lm}^2+\BLUE{\om}^2}
+       =\frac{\OLIVEGREEN{5}.\BLUE{4}+\MAGENTA{(-3)}\RED{(-2)}}{
+              \RED{(-2)}^2+\BLUE{4}^2}=13/10$}
+   \end{itemize}
+   \[ \fromSlide{8}{\int e^{-2x}(5\cos(4x) - 3\sin(4x))\,dx = 
+       e^{-2x}(\cos(4x)+13\sin(4x))/10}
+   \]
+ }
+ \end{itemize}
+\end{slide}
+}
+
+\overlays{5}{%
+\begin{slide}{Polynomial exponential oscillations}
+\begin{itemize}
+ \fromSlide{2}{
+  \item A \DEFN{polynomial exponential oscillation} is a function of
+   the form 
+   \[ f(x) = e^{\lm x}(a(x)\cos(\om x) + b(x)\sin(\om x)), \]
+   where $a(x)$ and $b(x)$ are polynomials. 
+ }
+ \fromSlide{3}{
+  \item $\lm$ is the \DEFN{growth rate} and $\om$ is the
+   \DEFN{frequency}.  The \DEFN{degree} is the highest power of $x$
+   that occurs in $a(x)$ or in $b(x)$.
+ }
+ \fromSlide{4}{
+  \item The function
+   \[ f(x) = e^{\RED{-2}x}((1+x^{\OLIVEGREEN{5}})\cos(\BLUE{4}x) +
+                           x^3\sin(\BLUE{4}x)) 
+   \]
+   is a polynomial exponential oscillation of growth rate $\RED{-2}$,
+   frequency $\BLUE{4}$ and degree $\OLIVEGREEN{5}$.
+ }
+ \fromSlide{5}{
+  \item \textbf{Fact:} The integral of any PEO is another PEO with the
+   same growth rate, frequency and degree.   
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Integrating PEO's --- I}
+\begin{itemize}
+ \fromSlide{2}{
+  \item $\int xe^{-x}\sin(x)$ is a PEO of degree $1$, growth $-1$,
+   frequency $1$.
+ }
+ \fromSlide{3}{
+  \item
+   $\int xe^{-x}\sin(x)=(Ax+B)e^{-x}\cos(x) + (Cx+D)e^{-x}\sin(x)$ \\
+   for some $A$, $B$, $C$, $D$.
+ }
+ \fromSlide{4}{
+  \item \ghost\vspace{-5ex}
+   \begin{eqnarray*}
+    \fromSlide{4}{xe^{-x}\sin(x)} & \fromSlide{4}{=} &
+     \fromSlide{4}{\tfrac{d}{dx}\left((Ax+B)e^{-x}\cos(x) +
+                                      (Cx+D)e^{-x}\sin(x)\right)} \\
+    & \fromSlide{5}{=} &
+    \fromSlide{5}{Ae^{-x}\cos(x)-(Ax+B)e^{-x}\cos(x)-(Ax+B)e^{-x}\sin(x) +} \\
+    && \fromSlide{5}{Ce^{-x}\sin(x)-(Cx+D)e^{-x}\sin(x)+(Cx+D)e^{-x}\cos(x)}\\
+    & \fromSlide{6}{=} & 
+    \fromSlide{6}{(\RED{-A+C})xe^{-x}\cos(x) +
+                  (\OLIVEGREEN{A-B+D})e^{-x}\cos(x) +} \\
+    && \fromSlide{6}{(\BLUE{-A-C})xe^{-x}\sin(x) +
+                  (\MAGENTA{-B+C-D})e^{-x}\sin(x).}
+   \end{eqnarray*}
+ }
+ \fromSlide{7}{
+  \item $\RED{-A+C}=0$, $\OLIVEGREEN{A-B+D}=0$, $\BLUE{-A-C}=1$, $\MAGENTA{-B+C-D}=0$.
+ }
+ \fromSlide{8}{
+  \item So $A=-1/2$, $B=-1/2$, $C=-1/2$, $D=0$ 
+ }
+ \fromSlide{9}{
+  \item $\int xe^{-x}\sin(x)=-((x+1)e^{-x}\cos(x) + xe^{-x}\sin(x))/2$.
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Integrating PEO's --- II}
+\begin{itemize}
+ \fromSlide{2}{
+  \item $\int x^3e^x\,dx$ is a PEO of degree $3$, growth $1$ and
+   frequency $0$.
+ }
+ \fromSlide{3}{
+  \item $\int x^3e^x\,dx = (Ax^3+Bx^2+Cx+D)e^x$ for some $A$, $B$,
+   $C$, $D$.
+ }
+ \fromSlide{4}{
+  \item \ghost\vspace{-4ex}
+   \begin{align*}
+    x^3e^x &= \tfrac{d}{dx}\left((Ax^3+Bx^2+Cx+D)e^x\right) \\
+           &\fromSlide{5}{= (3Ax^2+2Bx+C)e^x + (Ax^3+Bx^2+Cx+D)e^x} \\
+           &\fromSlide{6}{= (\RED{A}x^3 + (\OLIVEGREEN{3A+B})x^2 + 
+                            (\BLUE{2B+C})x + (\MAGENTA{C+D}))e^x.} 
+   \end{align*}
+ }
+ \fromSlide{7}{
+  \item $\RED{A}=1$, $\OLIVEGREEN{3A+B}=0$,
+        $\BLUE{2B+C}=0$, $\MAGENTA{C+D}=0$.
+ }
+ \fromSlide{8}{
+  \item so $A=1$, $B=-3$, $C=6$, $D=-6$
+ }
+ \fromSlide{9}{
+  \item so $\int x^3 e^x\, dx = (x^3-3x^2+6x-6)e^x$.
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{Integration by parts}
+\begin{itemize}
+ \fromSlide{2}{
+  \item If $\int h(x)\, dx=H(x)$, then 
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       \int g(x)h(x)\,dx = g(x)H(x) - \int g'(x)H(x)\, dx}
+   \]
+ }
+ \fromSlide{3}{
+  \item Most useful when (a)~$g'(x)$ is simpler than $g(x)$ (eg $g(x)$
+   polynomial) and~(b)~$H(x)$ is no more complicated than $h(x)$.
+ }
+ \fromSlide{4}{
+  \item Consider $\int xe^{x/a}\,dx$.
+   \begin{itemize}
+    \fromSlide{5}{\item $g(x)=x$, $g'(x)=1$ \hfill
+                        $h(x)=e^{x/a}$, $H(x)=ae^{x/a}$}
+    \fromSlide{6}{\item $\int g'(x)H(x)\,dx=\int ae^{x/a}\,dx=a^2e^{x/a}$}
+    \fromSlide{7}{\item
+     $\int xe^{x/a}\,dx=g(x)H(x)-\int g'(x)H(x)\,dx
+      =axe^{x/a}-a^2e^{x/a}$.}
+   \end{itemize}
+ }
+ \fromSlide{8}{
+  \item Consider $\int (1-\log(x))/x^2\,dx$
+   \begin{itemize}
+    \fromSlide{9}{\item $g(x)=1-\log(x)$, $g'(x)=-1/x$ \hfill
+                        $h(x)=x^{-2}$, $H(x)=-x^{-1}$}
+    \fromSlide{10}{\item $\int g'(x)H(x)\,dx=\int x^{-2}\,dx=-x^{-1}$}
+    \fromSlide{11}{\item
+     $\int (1-\log(x))/x^2\,dx=g(x)H(x)-\int g'(x)H(x)\,dx
+      =-(1-\log(x))/x-(-x^{-1})=\log(x)/x$.}
+   \end{itemize}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{12}{%
+\begin{slide}{Integration by parts}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Alternate notation:
+   \vspace{-1ex}
+   \[ \psframebox[framearc=.3,linecolor=magenta]{
+       \int u\frac{dv}{dx}\,dx = uv - \int \frac{du}{dx}v\, dx}
+   \]
+   \vspace{-1ex}
+ }
+ \fromSlide{3}{
+  \item Consider $\int x\sin(\om x)\,dx$.
+   \begin{itemize}
+    \fromSlide{4}{\item $u=x$, $\tfrac{du}{dx}=1$}
+    \fromSlide{5}{\item $\tfrac{dv}{dx}=\sin(\om x)$, $v=-\cos(\om x)/\om$}
+    \fromSlide{6}{\item $\int\tfrac{du}{dx}v\,dx=-\int\cos(\om x)\,dx/\om=
+                         -\sin(\om x)/\om^2$}
+    \fromSlide{7}{\item
+     $\int x\sin(\om x)\,dx=-x\cos(\om x)/\om-\sin(\om x)/\om^2$}
+   \end{itemize}
+ }
+ \fromSlide{8}{
+  \item Consider $\int \arcsin(x)\,dx$.
+   \begin{itemize}
+    \fromSlide{9}{\item $u=\arcsin(x)$, $\tfrac{du}{dx}=(1-x^2)^{-1/2}$}
+    \fromSlide{10}{\item $\tfrac{dv}{dx}=1$, $v=x$}
+    \fromSlide{11}{\item $\int\tfrac{du}{dx}v\,dx=\int x(1-x^2)^{-1/2}\,dx=
+                         -(1-x^2)^{1/2}$}
+    \fromSlide{12}{\item
+     $\int \arcsin(x)\,dx=x\arcsin(x)+(1-x^2)^{1/2}$.}
+   \end{itemize}
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{9}{%
+\begin{slide}{Integration by substitution --- I}
+\begin{itemize}
+ \onlySlide*{2}{
+  \item Consider $\displaystyle \int\frac{\sin(x)}{\cos(x)^n}\,dx$.
+ }
+ \fromSlide*{3}{
+  \item Consider $\displaystyle \int\frac{\sin(x)}{\RED{\cos(x)}^n}\,dx$.
+ }
+ \fromSlide{3}{
+  \item Put $u=\RED{\cos(x)}$\fromSlide{4}{, so $du/dx=-\sin(x)$}\fromSlide{5}{, so $dx=-du/\sin(x)$}
+ }
+ \fromSlide{6}{
+  \item \ghost\vspace{-4ex}
+   \begin{align*}
+    \int\frac{\sin(x)}{\cos(x)^n}\,dx &= 
+     \int \frac{\sin(x)}{u^n}\frac{-du}{\sin(x)} 
+     \fromSlide{7}{= -\int u^{-n}\,du} \\ &
+    \fromSlide{8}{=u^{1-n}/(n-1)} 
+    \fromSlide{9}{=\frac{\cos(x)^{1-n}}{n-1}}
+   \end{align*}
+ }
+ \fromSlide{3}{
+ \hrule
+  \item To find $\int f(x)\,dx$, pick out some part of $f(x)$ and call it $u$. 
+ }
+ \fromSlide{4}{
+  \item Find $du/dx$\fromSlide{5}{, and rearrange to express $dx$ in terms of $x$ and $du$.}
+ } 
+ \fromSlide{6}{
+  \item Rewrite the integral in terms of $u$ and $du$.
+ } 
+ \fromSlide{8}{
+  \item Evaluate the integral\fromSlide{9}{, then rewrite the result in terms of $x$.}
+ } 
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Integration by substitution --- II}
+\begin{itemize}
+ \onlySlide*{2}{
+  \item Consider $\displaystyle \int x e^{-4x^2}\,dx$.
+ }
+ \fromSlide*{3}{
+  \item Consider $\displaystyle \int x e^{\RED{-4x^2}}\,dx$.
+ }
+ \fromSlide{3}{
+  \item Put $u=\RED{-4x^2}$\fromSlide{4}{, so $du/dx=-8x$}\fromSlide{5}{, so $dx=-du/(8x)$}
+ }
+ \fromSlide{6}{
+  \item \ghost\vspace{-4ex}
+   \begin{align*}
+    \int xe^{-4x^2}\,dx &= 
+     \int -xe^u\frac{du}{8x}
+     \fromSlide{7}{= -\frac{1}{8}\int e^u\,du} \\ &
+    \fromSlide{8}{=-e^u/8} 
+    \fromSlide{9}{=-e^{-4x^2}/8}
+   \end{align*}
+ }
+ \fromSlide{3}{
+ \hrule
+  \item To find $\int f(x)\,dx$, pick out some part of $f(x)$ and call it $u$. 
+ }
+ \fromSlide{4}{
+  \item Find $du/dx$\fromSlide{5}{, and rearrange to express $dx$ in terms of $x$ and $du$.}
+ } 
+ \fromSlide{6}{
+  \item Rewrite the integral in terms of $u$ and $du$.
+ } 
+ \fromSlide{8}{
+  \item Evaluate the integral\fromSlide{9}{, then rewrite the result in terms of $x$.}
+ } 
+\end{itemize}
+\end{slide}
+}
+
+
+\overlays{8}{%
+\begin{slide}{Integration by substitution --- III}
+\begin{itemize}
+ \onlySlide*{2}{
+  \item Consider $\displaystyle \int \frac{dx}{4x^2+4x+2}$.
+ }
+ \fromSlide*{3}{
+  \item Consider $\displaystyle \int \frac{dx}{4x^2+4x+2}=
+                  \int\frac{dx}{(\RED{2x+1})^2+1}$.
+ }
+ \fromSlide{3}{
+  \item Put $u=\RED{2x+1}$\fromSlide{4}{, so $du/dx=2$}\fromSlide{5}{, so $dx=du/2$}
+ }
+ \fromSlide{6}{
+  \item \ghost\vspace{-4ex}
+   \begin{align*}
+    \int \frac{dx}{4x^2+4x+2} &= 
+     \int \frac{du/2}{u^2+1} \\ &
+    \fromSlide{7}{=\arctan(u)/2} 
+    \fromSlide{8}{=\arctan(2x+1)/2}
+   \end{align*}
+ }
+ \fromSlide{3}{
+ \hrule
+  \item To find $\int f(x)\,dx$, pick out some part of $f(x)$ and call it $u$. 
+ }
+ \fromSlide{4}{
+  \item Find $du/dx$\fromSlide{5}{, and rearrange to express $dx$ in terms of $x$ and $du$.}
+ } 
+ \fromSlide{6}{
+  \item Rewrite the integral in terms of $u$ and $du$.
+ } 
+ \fromSlide{7}{
+  \item Evaluate the integral\fromSlide{8}{, then rewrite the result in terms of $x$.}
+ } 
+\end{itemize}
+\end{slide}
+}
+
+\overlays{10}{%
+\begin{slide}{Integration by substitution --- IV}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $\displaystyle \int \frac{dx}{\sqrt{x-x^2}}$.
+ }
+ \fromSlide{3}{
+  \item Put $x=t^2$\fromSlide{4}{, so $dx/dt=2t$}\fromSlide{5}{, so $dx=2t\,dt$}
+   \begin{align*}
+    \fromSlide{6}{\sqrt{x-x^2}} & 
+    \fromSlide{6}{= \sqrt{t^2-t^4} = t\sqrt{1-t^2}} \\
+    \fromSlide{7}{\int\frac{dx}{\sqrt{x-x^2}}} &
+    \fromSlide{7}{= \int\frac{2t\,dt}{t\sqrt{1-t^2}}}
+    \fromSlide{8}{= 2\int\frac{dt}{\sqrt{1-t^2}}} \\ &
+    \fromSlide{9}{= 2\arcsin(t)} 
+    \fromSlide{10}{=2\arcsin(\sqrt{x})}
+   \end{align*}
+ }
+ \fromSlide{3}{
+ \hrule
+  \item To find $\int f(x)\,dx$, put $x$ equal to some function of $t$. 
+ }
+ \fromSlide{4}{
+  \item Find $dx/dt$\fromSlide{5}{, and rearrange to express $dx$ in terms of $t$ and $dt$.}
+ } 
+ \fromSlide{6}{
+  \item Rewrite the integral in terms of $t$ and $dt$.
+ } 
+ \fromSlide{9}{
+  \item Evaluate the integral\fromSlide{10}{, then rewrite the result in terms of $x$.}
+ } 
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Integration by substitution --- V}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $\displaystyle\int\log(x)^2\,dx$.
+ }
+ \fromSlide{3}{
+  \item Put $x=e^t$\fromSlide{4}{, so $dx/dt=e^t$}\fromSlide{5}{, so $dx=e^t\,dt$}
+   \begin{align*}
+    \fromSlide{6}{\int\log(x)^2\,dx} &
+    \fromSlide{6}{= \int\log(e^t)^2 e^t\,dt}
+    \fromSlide{7}{= \int t^2e^t\,dt} \\ &
+    \fromSlide{8}{= (t^2-2t+2)e^t} 
+    \fromSlide{9}{= (\log(x)^2-2\log(x)+2)x}
+   \end{align*}
+ }
+ \fromSlide{3}{
+ \hrule
+  \item To find $\int f(x)\,dx$, put $x$ equal to some function of $t$. 
+ }
+ \fromSlide{4}{
+  \item Find $dx/dt$\fromSlide{5}{, and rearrange to express $dx$ in terms of $t$ and $dt$.}
+ } 
+ \fromSlide{6}{
+  \item Rewrite the integral in terms of $t$ and $dt$.
+ } 
+ \fromSlide{8}{
+  \item Evaluate the integral\fromSlide{9}{, then rewrite the result in terms of $x$.}
+ } 
+\end{itemize}
+\end{slide}
+}
+
+\overlays{17}{%
+\begin{slide}{Examples I}
+\begin{itemize}
+ \fromSlide{2}{
+  \item $\displaystyle \int\tan(x)\,dx
+   \fromSlide{3}{=\int\frac{\sin(x)}{\cos(x)}\,dx}
+   \fromSlide{4}{=-\int\frac{\cos'(x)}{\cos(x)}\,dx}
+   \fromSlide{5}{=-\log(\cos(x)).}$
+ }
+ \fromSlide{6}{
+  \item Consider $\int x^2\tan(x^3)\,dx$.
+   \fromSlide{7}{Put $u=x^3$, so $du=3x^2\,dx$, so $dx=du/(3x^2)$.}
+   \begin{align*}
+    \fromSlide{8}{\int x^2\tan(x^3)\,dx} &
+    \fromSlide{8}{=\int x^2\tan(u)\frac{du}{3x^2}} 
+    \fromSlide{9}{=\frac{1}{3}\int\tan(u)\,du} 
+    \fromSlide{10}{=-\log(\cos(u))/3} \\ &
+    \fromSlide{11}{=-\log(\cos(x^3))/3}
+   \end{align*}
+ }
+ \fromSlide{12}{ 
+  \item Consider $\int x e^{\sqrt{x}}\,dx$.
+   \fromSlide{13}{Put $t=\sqrt{x}$, so $x=t^2$, so $dx=2t\,dt$.}
+   \begin{align*}
+    \fromSlide{14}{\int x e^{\sqrt{x}}\,dx} &
+    \fromSlide{14}{=\int t^2 e^t.2t\,dt} 
+    \fromSlide{15}{=2\int t^3 e^t\,dt} 
+    \fromSlide{16}{=2(t^3-3t^2+6t-6)e^t} \\ &
+    \fromSlide{17}{=(2x^{3/2}-6x+12x^{1/2}-12)e^{\sqrt{x}}}
+   \end{align*}
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\overlays{9}{%
+\begin{slide}{Examples II}
+\begin{itemize}
+ \fromSlide{2}{
+  \item Consider $\displaystyle\int\frac{16\,dx}{(x+2)(x^2-4)}$.
+   \begin{align*}
+    \fromSlide{3}{(x+2)(x^2-4)} &
+     \fromSlide{3}{= (x+2)(x+2)(x-2) = (x+2)^2(x-2)} \\
+    \fromSlide{4}{\frac{16}{(x+2)(x^2-4)}} &
+     \fromSlide{4}{= \frac{A}{x+2} + \frac{B}{(x+2)^2} + \frac{C}{x-2}} \\ 
+    \fromSlide{5}{16} &
+     \fromSlide{5}{= A(x+2)(x-2) + B(x-2) + C(x+2)^2} \\ &
+     \fromSlide{6}{= (A+C)x^2 + (B+4C)x + (-4A-2B+4C)} \\ & 
+     \fromSlide{7}{A=-1,\qquad B=-4,\qquad C=1} \\
+    \fromSlide{8}{\int\frac{16\,dx}{(x+2)(x^2-4)}} &
+     \fromSlide{8}{= \int \frac{1}{x-2} - \frac{1}{x+2} - \frac{4}{(x+2)^2} \,dx} \\ &
+     \fromSlide{9}{= \log(x-2) - \log(x+2) + 4/(x+2).}
+   \end{align*}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{8}{%
+\begin{slide}{Examples III}
+\begin{itemize}
+ \fromSlide{2}{
+  \item To show that $\displaystyle\int\frac{dx}{\cos(x)}=\log\left(\frac{1+\sin(x)}{\cos(x)}\right)$:
+   \begin{align*}
+    \fromSlide{3}{\frac{d}{dx}\left(\frac{1+\sin(x)}{\cos(x)}\right)} & 
+     \fromSlide{3}{=\frac{\cos(x).\cos(x) - (1+\sin(x))(-\sin(x))}{\cos(x)^2}} \\ &
+     \fromSlide{4}{=\frac{\cos(x)^2+\sin(x)^2+\sin(x)}{\cos(x)^2}}
+     \fromSlide{5}{= \frac{1+\sin(x)}{\cos(x)^2}} \\
+    \fromSlide{6}{\frac{d}{dx}\log\left(\frac{1+\sin(x)}{\cos(x)}\right)} &
+     \fromSlide{6}{=\left(\frac{1+\sin(x)}{\cos(x)}\right)^{-1}
+                    \frac{d}{dx}\left(\frac{1+\sin(x)}{\cos(x)}\right)} \\ &
+     \fromSlide{7}{= \frac{\cos(x)}{1+\sin(x)} \frac{1+\sin(x)}{\cos(x)^2}}
+     \fromSlide{8}{= \frac{1}{\cos(x)}}
+   \end{align*}
+ }
+\end{itemize}
+\end{slide}
+}
+
+\overlays{11}{%
+\begin{slide}{Examples IV}
+\begin{itemize}
+ \fromSlide{2}{
+  \item \ghost\vspace{-5ex}
+   \begin{align*}
+    \int 8x\sin(x)\cos(x)\,dx &
+     \fromSlide{3}{= \int 4x\sin(2x)\,dx} \\ &
+     \fromSlide{4}{= -2x\cos(2x) + \int 2\cos(2x)\, dx} \\ &
+     \fromSlide{5}{= -2x\cos(2x) + \sin(2x).}
+   \end{align*}
+ }
+ \fromSlide{6}{
+  \item Consider $\displaystyle\int 10 e^{-x}\sin(x)^2\,dx
+   \fromSlide{7}{=\int 5e^{-x}(1-\cos(2x))\,dx.}$
+   \begin{align*}
+    \fromSlide{8}{\int 5e^{-x}\cos(2x)\,dx} &
+     \fromSlide{8}{= e^{-x}(A\cos(2x)+B\sin(2x))} \\
+    \fromSlide{9}{5e^{-x}\cos(2x)} &
+     \fromSlide{9}{= e^{-x}((2B-A)\cos(2x) - (2A+B)\sin(2x))} \\
+    & \fromSlide{10}{\qquad A=-1,\qquad B=2} \\
+    \fromSlide{11}{\int 10 e^{-x}\sin(x)^2\,dx} &
+     \fromSlide{11}{= -5e^{-x}-e^{-x}\cos(2x)+2e^{-x}\sin(2x).}
+   \end{align*}
+ }
+
+\end{itemize}
+\end{slide}
+}
+
+\end{document}

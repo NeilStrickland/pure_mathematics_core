@@ -1,0 +1,65 @@
+\contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Algebraic manipulation}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Expansion}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Powers}{17}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Manipulation of algebraic fractions}{19}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Partial fractions}{23}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Sets}{29}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Basic definitions}{29}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Describing sets}{31}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Sets of solutions}{33}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Boolean operations}{34}{section.3.4}%
+\contentsline {section}{\numberline {3.5}De Morgan's laws}{38}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Inequalities}{39}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Proving relations between sets}{43}{section.3.7}%
+\contentsline {chapter}{\numberline {4}General theory of functions}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Definitions}{45}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The range}{49}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Composition}{53}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Inverse functions}{56}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Special functions}{61}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The exponential and the logarithm}{61}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Hyperbolic functions}{63}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Inverse hyperbolic functions}{65}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Trigonometric functions}{66}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Trigonometric identities}{68}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.5}Special values of trigonometric functions}{70}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Inverse trigonometric functions}{71}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Trigonometric equations}{72}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Advanced special functions}{74}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Differentiation}{75}{chapter.6}%
+\contentsline {section}{\numberline {6.1}The meaning of differentiation}{75}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Differentiation from first principles}{76}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Derivatives of special functions}{77}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Rules for differentiation}{77}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}The product rule}{77}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}The quotient rule}{78}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}The power rule}{79}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}The chain rule}{79}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}The logarithmic rule}{80}{subsection.6.4.5}%
+\contentsline {subsection}{\numberline {6.4.6}The inverse function rule}{80}{subsection.6.4.6}%
+\contentsline {section}{\numberline {6.5}Examples of differentiation}{81}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Integration}{89}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The meaning of integration}{89}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Guessing and checking of integrals}{91}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Integrals of standard functions}{96}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Rational functions:}{97}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Trigonometric polynomials}{99}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Exponential oscillations}{100}{subsection.7.3.3}%
+\contentsline {section}{\numberline {7.4}Integration by parts}{103}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Integration by substitution}{105}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Vectors and matrices}{109}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Vectors and dot products}{109}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Matrices}{111}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Linear equations}{113}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Matrices for linear equations}{115}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Row operations and echelon form}{117}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Gaussian elimination}{120}{subsection.8.3.3}%
+\contentsline {section}{\numberline {8.4}Matrix multiplication}{124}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Determinants and inverses}{127}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Determinants}{128}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}The transpose}{133}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Inverses}{135}{subsection.8.5.3}%
+\contentsline {chapter}{\numberline {A}Complex numbers}{141}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Maple}{143}{appendix.B}%
+\contentsline {chapter}{\numberline {C}The Greek alphabet}{145}{appendix.C}%
