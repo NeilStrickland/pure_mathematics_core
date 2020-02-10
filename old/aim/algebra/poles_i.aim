@@ -1,0 +1,11 @@
+description>
+ Find poles and orders for a random rational function
+shift> 01453662
+h> ff := Over(Plus(1,x,x^2),
+              Times(x^4,(x^2-4)^5));
+t> What are the poles and their orders for the following function?
+   \[ f(x) = @ff@ \]
+   In the table below, enter the poles in the top row, with
+   the corresponding orders underneath them in the second row.
+   Any boxes that you do not need can be left blank.
+c> MATRIX(2,4)
